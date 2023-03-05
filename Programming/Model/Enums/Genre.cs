@@ -5,5 +5,5 @@
     Triller,
     SoupOpera,
     Romantic,
-    Si_fi
+    SiFi
 }

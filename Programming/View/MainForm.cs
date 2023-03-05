@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -7,104 +10,100 @@ namespace Programming
 {
     public partial class MainForm : Form
     {
-        Type currentCategory;
+        public Type _currentCategory;
         public MainForm()
         {
             InitializeComponent();
-            listBoxEnums.SetSelected(0, true);
+            EnumsListBox.SetSelected(0, true);
+            
         }
 
-        private void listBoxEnums_SelectedIndexChanged(object sender, EventArgs e)
+        private void EnumsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string selectedCategory = listBoxEnums.SelectedItem.ToString();
-            listBoxValue.Items.Clear();
-            switch (selectedCategory)
+            var category = new Dictionary<string, Type>
             {
-                case "Colors":
-                    currentCategory = typeof(Colors);
-                    foreach (int i in Enum.GetValues(currentCategory))
-                        listBoxValue.Items.Add(Enum.GetName(currentCategory, i));
-                    break;
-                case "EducationForm":
-                    currentCategory = typeof(EducationForm);
-                    foreach (int i in Enum.GetValues(currentCategory))
-                        listBoxValue.Items.Add(Enum.GetName(currentCategory, i));
-                    break;
-                case "Genre":
-                    currentCategory = typeof(Genre);
-                    foreach (int i in Enum.GetValues(currentCategory))
-                        listBoxValue.Items.Add(Enum.GetName(currentCategory, i));
-                    break;
-                case "Manufactures":
-                    currentCategory = typeof(Manufactures);
-                    foreach (int i in Enum.GetValues(currentCategory))
-                        listBoxValue.Items.Add(Enum.GetName(currentCategory, i));
-                    break;
-                case "Season":
-                    currentCategory = typeof(Season);
-                    foreach (int i in Enum.GetValues(currentCategory))
-                        listBoxValue.Items.Add(Enum.GetName(currentCategory, i));
-                    break;
-                case "Weekday":
-                    currentCategory = typeof(Weekday);
-                    foreach (int i in Enum.GetValues(currentCategory))
-                        listBoxValue.Items.Add(Enum.GetName(currentCategory, i));
-                    break;
+                ["Colors"] = typeof(Colors),
+                ["EducationForm"] = typeof(EducationForm),
+                ["Genre"] = typeof(Genre),
+                ["Manufactures"] = typeof(Manufactures),
+                ["Season"] = typeof(Season),
+                ["Weekday"] = typeof(Weekday),
+            };
+            string selectedCategory = EnumsListBox.SelectedItem.ToString();
+            ValueListBox.Items.Clear();
+           
+            _currentCategory = category[selectedCategory];
+            foreach (int i in Enum.GetValues(_currentCategory))
+            { 
+                ValueListBox.Items.Add(Enum.GetName(_currentCategory, i));
             }
         }
 
-        private void listBoxValue_SelectedIndexChanged(object sender, EventArgs e)
+        private void ValueListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int value = listBoxValue.SelectedIndex;
-            textBoxValue.Text = value.ToString();
+            int value = ValueListBox.SelectedIndex;
+            int j = 0;
+            foreach (int i in Enum.GetValues(_currentCategory))
+            {
+                if (j == value) 
+                { 
+                    ValueTextBox.Text = i.ToString();
+                    break;
+                }
+                j++;
+            }
+
         }
 
-        private void buttonParse_Click(object sender, EventArgs e)
+        private void ParseButton_Click(object sender, EventArgs e)
         {
-            if (textBoxWeekday.Text == "") return;
+            if (WeekdayTextBox.Text == "") return;
             bool flag = false;
             string message;
-            string parsedWeekday = textBoxWeekday.Text;
-            currentCategory = typeof(Weekday);
-            foreach (string weekdayName in Enum.GetNames(currentCategory))
+            string parsedWeekday = WeekdayTextBox.Text;
+            _currentCategory = typeof(Weekday);
+            foreach (string weekdayName in Enum.GetNames(_currentCategory))
+            {
                 if (parsedWeekday == weekdayName)
                 {
                     message = "Ёто день недели (";
                     string partMess = weekdayName.ToString();
-                    int v = (int)Enum.Parse(currentCategory, weekdayName);
+                    int v = (int)Enum.Parse(_currentCategory, weekdayName);
                     string valueWeekday = v.ToString();
                     message = message + partMess + " = " + valueWeekday + ")";
-                    textBoxWeekdayMessage.Text = message.ToString();
+                    WeekdayMessageTextBox.Text = message.ToString();
                     flag = true;
                 }
+            }
+
             if(flag==false)
             {
                 message = "Ќет такого дн€ недели";
-                textBoxWeekdayMessage.Text = message.ToString();
+                WeekdayMessageTextBox.Text = message.ToString();
             }
 
         }
 
-        private void buttonGoSeason_Click(object sender, EventArgs e)
+        private void GoSeasonButton_Click(object sender, EventArgs e)
         {
-            string selectedSeason = comboBoxSeason.SelectedItem.ToString();
-            groupBoxSeason.BackColor = Color.White;
-            buttonGoSeason.BackColor = Color.LightGray;
+            string selectedSeason = SeasonComboBox.SelectedItem.ToString();
+            SeasonGroupBox.BackColor = Color.White;
+            GoSeasonButton.BackColor = Color.LightGray;
             switch (selectedSeason)
             {
                 case "Winter":
                     MessageBox.Show("„увствуетс€ похолодание");
                     break;
                 case "Spring":
-                    groupBoxSeason.BackColor = Color.GreenYellow;
+                    SeasonGroupBox.BackColor = Color.GreenYellow;
                     break;
                 case "Summer":
                     MessageBox.Show("я тоже люблю лето");
-                    buttonGoSeason.BackColor = Color.Green;
+                    GoSeasonButton.BackColor = Color.Green;
                     break;
                 case "Fall":
                     MessageBox.Show("We fell in love in October");
-                    groupBoxSeason.BackColor = Color.MediumVioletRed;
+                    SeasonGroupBox.BackColor = Color.MediumVioletRed;
                     break;
             }
         }
