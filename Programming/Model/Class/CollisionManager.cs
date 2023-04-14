@@ -1,16 +1,16 @@
-﻿ class CollisionManager
+﻿static class CollisionManager
 {
-    public bool IsCollision(Rectangle rectangle1, Rectangle rectangle2)
+    public static bool IsCollision(Rectangle rectangle1, Rectangle rectangle2)
     { 
         double sumWidth = Math.Abs(rectangle1.Width + rectangle2.Width)/2;
         double sumLeght = Math.Abs(rectangle1.Length + rectangle2.Length)/2;
         int dx = Math.Abs(rectangle1.Centre.X - rectangle2.Centre.X);
         int dy = Math.Abs(rectangle1.Centre.Y - rectangle2.Centre.Y);
 
-        return dx< sumWidth && dy< sumLeght;
+        return dx < sumWidth && dy < sumLeght;
     }
 
-    public bool IsCollision(Ring ring1, Ring ring2)
+    public static bool IsCollision(Ring ring1, Ring ring2)
     {
         int forx = Math.Abs(ring1.Centre.X - ring2.Centre.X);
         int fory = Math.Abs(ring1.Centre.Y - ring2.Centre.Y);

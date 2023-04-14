@@ -76,12 +76,12 @@
             this.LengthClassesLabel = new System.Windows.Forms.Label();
             this.RectanglesClassesListBox = new System.Windows.Forms.ListBox();
             this.RectanglesTabPage = new System.Windows.Forms.TabPage();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.LenghtLabel = new System.Windows.Forms.Label();
+            this.RectanglePanel = new System.Windows.Forms.Panel();
+            this.HeightLabel = new System.Windows.Forms.Label();
             this.WidthLable = new System.Windows.Forms.Label();
             this.YLabel = new System.Windows.Forms.Label();
             this.XLabel = new System.Windows.Forms.Label();
-            this.LenghtTextBox = new System.Windows.Forms.TextBox();
+            this.HeightTextBox = new System.Windows.Forms.TextBox();
             this.WidthTextBox = new System.Windows.Forms.TextBox();
             this.YTextBox = new System.Windows.Forms.TextBox();
             this.XTextBox = new System.Windows.Forms.TextBox();
@@ -618,12 +618,12 @@
             // RectanglesTabPage
             // 
             this.RectanglesTabPage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.RectanglesTabPage.Controls.Add(this.panel1);
-            this.RectanglesTabPage.Controls.Add(this.LenghtLabel);
+            this.RectanglesTabPage.Controls.Add(this.RectanglePanel);
+            this.RectanglesTabPage.Controls.Add(this.HeightLabel);
             this.RectanglesTabPage.Controls.Add(this.WidthLable);
             this.RectanglesTabPage.Controls.Add(this.YLabel);
             this.RectanglesTabPage.Controls.Add(this.XLabel);
-            this.RectanglesTabPage.Controls.Add(this.LenghtTextBox);
+            this.RectanglesTabPage.Controls.Add(this.HeightTextBox);
             this.RectanglesTabPage.Controls.Add(this.WidthTextBox);
             this.RectanglesTabPage.Controls.Add(this.YTextBox);
             this.RectanglesTabPage.Controls.Add(this.XTextBox);
@@ -643,27 +643,27 @@
             this.RectanglesTabPage.Text = "Rectangles";
             this.RectanglesTabPage.UseVisualStyleBackColor = true;
             // 
-            // panel1
+            // RectanglePanel
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.RectanglePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.AutoSize = true;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Location = new System.Drawing.Point(299, 35);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(599, 518);
-            this.panel1.TabIndex = 15;
+            this.RectanglePanel.AutoSize = true;
+            this.RectanglePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.RectanglePanel.Location = new System.Drawing.Point(299, 35);
+            this.RectanglePanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.RectanglePanel.Name = "RectanglePanel";
+            this.RectanglePanel.Size = new System.Drawing.Size(599, 518);
+            this.RectanglePanel.TabIndex = 15;
             // 
-            // LenghtLabel
+            // HeightLabel
             // 
-            this.LenghtLabel.AutoSize = true;
-            this.LenghtLabel.Location = new System.Drawing.Point(5, 520);
-            this.LenghtLabel.Name = "LenghtLabel";
-            this.LenghtLabel.Size = new System.Drawing.Size(57, 20);
-            this.LenghtLabel.TabIndex = 14;
-            this.LenghtLabel.Text = "Lenght:";
+            this.HeightLabel.AutoSize = true;
+            this.HeightLabel.Location = new System.Drawing.Point(5, 520);
+            this.HeightLabel.Name = "HeightLabel";
+            this.HeightLabel.Size = new System.Drawing.Size(57, 20);
+            this.HeightLabel.TabIndex = 14;
+            this.HeightLabel.Text = "Height:";
             // 
             // WidthLable
             // 
@@ -692,14 +692,14 @@
             this.XLabel.TabIndex = 11;
             this.XLabel.Text = "X:";
             // 
-            // LenghtTextBox
+            // HeightTextBox
             // 
-            this.LenghtTextBox.Location = new System.Drawing.Point(65, 516);
-            this.LenghtTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.LenghtTextBox.Name = "LenghtTextBox";
-            this.LenghtTextBox.Size = new System.Drawing.Size(114, 27);
-            this.LenghtTextBox.TabIndex = 10;
-            this.LenghtTextBox.TextChanged += new System.EventHandler(this.LenghtTextBox_TextChanged);
+            this.HeightTextBox.Location = new System.Drawing.Point(65, 516);
+            this.HeightTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.HeightTextBox.Name = "HeightTextBox";
+            this.HeightTextBox.Size = new System.Drawing.Size(114, 27);
+            this.HeightTextBox.TabIndex = 10;
+            this.HeightTextBox.TextChanged += new System.EventHandler(this.HeightTextBox_TextChanged);
             // 
             // WidthTextBox
             // 
@@ -875,11 +875,11 @@
         private TextBox IdClassesTextBox;
         private Label IdClassesLabel;
         private TabPage RectanglesTabPage;
-        private Label LenghtLabel;
+        private Label HeightLabel;
         private Label WidthLable;
         private Label YLabel;
         private Label XLabel;
-        private TextBox LenghtTextBox;
+        private TextBox HeightTextBox;
         private TextBox WidthTextBox;
         private TextBox YTextBox;
         private TextBox XTextBox;
@@ -890,6 +890,6 @@
         private Label SelectedRectangleLabel;
         private ListBox RectanglesListBox;
         private Label RectanglesLabel;
-        private Panel panel1;
+        private Panel RectanglePanel;
     }
 }
