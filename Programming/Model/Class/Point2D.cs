@@ -1,14 +1,14 @@
 ﻿class Point2D
 {
-    readonly int _x;
-    readonly int _y;
-
-    public int X
+    private int _x; 
+    private int _y;
+    public int X 
     { 
         get => _x;
-        set
+        set 
         { 
-
+            Validator.AssertOnPositiveValue(value, "X.Point2D"); 
+            _x = value;
         }
     }
 
@@ -17,7 +17,8 @@
         get => _y;
         set
         {
-          
+            Validator.AssertOnPositiveValue(value, "Y.Point2D");
+            _y = value;
         }
     }
 
@@ -28,9 +29,7 @@
 
     public Point2D(int x, int y)
     {
-        Validator.AssertOnPositiveValue(x, "X.Point2D");
-        _x = x;
-        Validator.AssertOnPositiveValue(y, "Y.Point2D");
-        _y = y;
+        X = x;
+        Y = y;
     }
 }

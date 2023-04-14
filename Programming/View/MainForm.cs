@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Reflection;
 using System.Windows.Forms;
@@ -16,6 +17,9 @@ namespace Programming
         private Random _random = new Random();
         private Movie[] _movies = new Movie[5];
         private Movie _currentMovie = new Movie();
+        private List<Rectangle> _rectanglesList = new List<Rectangle>();
+        private Rectangle _currentRectangleList = new Rectangle();
+
         public MainForm()
         {
             Rectangle exampleRectangle = new Rectangle();
@@ -26,20 +30,13 @@ namespace Programming
 
             for (int i = 0; i < _rectangles.Length; i++)
             {
-                _rectangles[i] = new Rectangle(RandDoubleValue(), RandDoubleValue(), Enum.GetName(typeof(Colors), _random.Next(1, 7)), _random.Next(0, 100), _random.Next(0, 100));
+                _rectangles[i] = new Rectangle(_random.Next(1, 100), _random.Next(1, 100), Enum.GetName(typeof(Colors), _random.Next(1, 7)), _random.Next(1, 100), _random.Next(1, 100));
             }
 
             for (int i = 0; i < _movies.Length; i++)
             {
                 _movies[i] = new Movie(titlesMovie[i], _random.Next(1, 7200), _random.Next(1990, DateTime.Now.Year), Enum.GetName(typeof(Genre), _random.Next(1, 6)), RandRate());
             }
-        }
-
-        private double RandDoubleValue()
-        {
-            double value = _random.Next(100, 10000);
-            value = value / 100;
-            return value;
         }
 
         private double RandRate()
@@ -119,7 +116,16 @@ namespace Programming
 
         private void GoSeasonButton_Click(object sender, EventArgs e)
         {
-            string selectedSeason = SeasonComboBox.SelectedItem.ToString();
+            string selectedSeason = "";
+            if (SeasonComboBox.SelectedItem.ToString() == null)
+            {
+                SeasonComboBox.BackColor = Color.LightPink;
+            }
+            else
+            {
+                selectedSeason = SeasonComboBox.SelectedItem.ToString();
+            }
+            
             SeasonGroupBox.BackColor = Color.White;
             GoSeasonButton.BackColor = Color.LightGray;
             switch (selectedSeason)
@@ -145,14 +151,14 @@ namespace Programming
 
         private void RectanglesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int value = RectanglesListBox.SelectedIndex;
+            int value = RectanglesClassesListBox.SelectedIndex;
             _currentRectangle = _rectangles[value];
-            LengthTextBox.Text = _currentRectangle.Length.ToString();
-            WidthTextBox.Text = _currentRectangle.Width.ToString();
+            LengthClassesTextBox.Text = _currentRectangle.Length.ToString();
+            WidthClassesTextBox.Text = _currentRectangle.Width.ToString();
             ColorTextBox.Text = _currentRectangle.Color.ToString();
             CoordinateXTextBox.Text = _currentRectangle.Centre.X.ToString();
             CoordinateYTextBox.Text = _currentRectangle.Centre.Y.ToString();
-            IdTextBox.Text = _currentRectangle.Id.ToString();
+            IdClassesTextBox.Text = _currentRectangle.Id.ToString();
             if (_currentRectangle != _rectangles[value]) 
             {
                 _rectangles[value] = _currentRectangle; 
@@ -163,13 +169,13 @@ namespace Programming
         {
             try
             {
-                double newLength = Convert.ToDouble(LengthTextBox.Text);
+                int newLength = (int)Convert.ToInt64(LengthClassesTextBox.Text);
                 _currentRectangle.Length = newLength;
-                LengthTextBox.BackColor = Color.White;
+                LengthClassesTextBox.BackColor = Color.White;
             }
             catch
             {
-                LengthTextBox.BackColor = Color.LightPink;
+                LengthClassesTextBox.BackColor = Color.LightPink;
             }
         }
 
@@ -177,13 +183,13 @@ namespace Programming
         {
             try
             {
-                double newWidth = Convert.ToDouble(WidthTextBox.Text);
+                int newWidth = (int)Convert.ToInt64(WidthClassesTextBox.Text);
                 _currentRectangle.Width = newWidth;
-                WidthTextBox.BackColor = Color.White;
+                WidthClassesTextBox.BackColor = Color.White;
             }
             catch
             {
-                WidthTextBox.BackColor = Color.LightPink;
+                WidthClassesTextBox.BackColor = Color.LightPink;
             }
         }
 
@@ -195,7 +201,7 @@ namespace Programming
 
         private int FindRectangleWithMaxWidth(Rectangle[] rectangles)
         {
-            double maxWidth = 0;
+            int maxWidth = 0;
             int indexMaxWidth = -1;
             for (int i = 0; i < rectangles.Length; i++)
             {
@@ -210,7 +216,7 @@ namespace Programming
 
         private void FindRectangelButton_Click(object sender, EventArgs e)
         {
-            RectanglesListBox.SelectedIndex = FindRectangleWithMaxWidth(_rectangles);
+            RectanglesClassesListBox.SelectedIndex = FindRectangleWithMaxWidth(_rectangles);
         }
 
         private void MovieListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -297,6 +303,175 @@ namespace Programming
         private void FindMovieButton_Click(object sender, EventArgs e)
         {
             MovieListBox.SelectedIndex = FindMovieWithMaxRate(_movies);
+        }
+
+        //¬кладка Rectangles
+
+        private void AddRectangleButton_Click(object sender, EventArgs e)
+        {
+            var rectangle = new Rectangle(_random.Next(1, 100), _random.Next(1, 100), Enum.GetName(typeof(Colors), _random.Next(1, 7)), _random.Next(10, 100), _random.Next(10, 100));
+            _rectanglesList.Add(rectangle);
+            RectanglesListBox.Items.Add(LineToOutput(rectangle));
+        }
+
+        private void DeleteRectangleButton_Click(object sender, EventArgs e)
+        {
+            int value = RectanglesListBox.SelectedIndex;
+            if (value != -1)
+            { 
+                RectanglesListBox.Items.RemoveAt(value);
+                _rectanglesList.RemoveAt(value);
+            }
+        }
+        
+        private void RectanglesListBox_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            int value = RectanglesListBox.SelectedIndex;
+            if (value != -1)
+            { 
+                _currentRectangleList =(Rectangle)_rectanglesList[value].Clone();
+                if (IdTextBox.Text=="" || _currentRectangleList.Id != Convert.ToInt64(IdTextBox.Text))
+                {
+                    LenghtTextBox.Text = _currentRectangleList.Length.ToString();
+                    WidthTextBox.Text = _currentRectangleList.Width.ToString();
+                    XTextBox.Text = _currentRectangleList.Centre.X.ToString();
+                    YTextBox.Text = _currentRectangleList.Centre.Y.ToString();
+                    IdTextBox.Text = _currentRectangleList.Id.ToString();
+                }
+            }
+
+            else 
+            {
+                LenghtTextBox.Clear();
+                WidthTextBox.Clear();
+                XTextBox.Clear();
+                YTextBox.Clear();
+                IdTextBox.Clear();
+            }
+        }
+
+        private void XTextBox_TextChanged(object sender, EventArgs e)
+        {
+            int value = RectanglesListBox.SelectedIndex;
+            if (value == -1)
+            {
+                XTextBox.BackColor = Color.White;
+            }
+            else
+            {
+                try
+                {
+                    int newX = (int)Convert.ToInt64(XTextBox.Text);
+                    if (newX != _currentRectangleList.Centre.X)
+                    {
+                        _currentRectangleList.Centre.X = newX;
+                        XTextBox.BackColor = Color.White;
+                        RectanglesListBox.Items[value] = LineToOutput(_currentRectangleList);
+                        XTextBox.Focus();
+                        XTextBox.SelectionStart = XTextBox.Text.Length;
+                    }
+                }
+                catch
+                {
+                    XTextBox.BackColor = Color.LightPink;
+                }
+            }
+        }
+        private void YTextBox_TextChanged(object sender, EventArgs e)
+        {
+            int value = RectanglesListBox.SelectedIndex;
+            if (value == -1)
+            {
+                YTextBox.BackColor = Color.White;
+            }
+            else
+            {
+                try
+                {
+                    int newY = (int)Convert.ToInt64(YTextBox.Text);
+                    if (newY != _currentRectangleList.Centre.Y)
+                    {
+                        _currentRectangleList.Centre.Y = newY;
+                        YTextBox.BackColor = Color.White;
+                        RectanglesListBox.Items[value] = LineToOutput(_currentRectangleList);
+                        YTextBox.Focus();
+                        YTextBox.SelectionStart = YTextBox.Text.Length;
+                    }
+                }
+                catch
+                {
+                    YTextBox.BackColor = Color.LightPink;
+                }
+            }
+        }
+
+        private void WidthTextBox_TextChanged_1(object sender, EventArgs e)
+        {
+            int value = RectanglesListBox.SelectedIndex;
+            if (value == -1)
+            {
+                WidthTextBox.BackColor = Color.White;
+            }
+            else
+            {
+                try
+                
+                {
+                    int newW = (int)Convert.ToInt64(WidthTextBox.Text);
+                    if (newW != _currentRectangleList.Width)
+                    {
+                        _currentRectangleList.Width = newW;
+                        WidthTextBox.BackColor = Color.White;
+                        RectanglesListBox.Items[value] = LineToOutput(_currentRectangleList);
+                        _currentRectangleList.Width = newW;
+                        WidthTextBox.Text = newW.ToString();
+                        WidthTextBox.Focus();
+                        WidthTextBox.SelectionStart = WidthTextBox.Text.Length;
+                    }
+                }
+                catch
+                {
+                    WidthTextBox.BackColor = Color.LightPink;
+                }
+            }
+        }
+
+        private void LenghtTextBox_TextChanged(object sender, EventArgs e)
+        {
+            int value = RectanglesListBox.SelectedIndex;
+            if (value == -1)
+            {
+                LenghtTextBox.BackColor = Color.White;
+            }
+            else
+            {
+                try
+                {
+                    int newL = (int)Convert.ToInt64(LenghtTextBox.Text);
+                    if (newL != _currentRectangleList.Length)
+                    {
+                        _currentRectangleList.Length = newL;
+                        LenghtTextBox.BackColor = Color.White;
+                        RectanglesListBox.Items[value] = LineToOutput(_currentRectangleList);
+                        LenghtTextBox.Focus();
+                        LenghtTextBox.SelectionStart = LenghtTextBox.Text.Length;
+                    }
+                }
+                catch
+                {
+                    LenghtTextBox.BackColor = Color.LightPink;
+                }
+            }
+        }
+        private string LineToOutput(Rectangle rectangle)
+        {
+            string id = Convert.ToString(rectangle.Id);
+            string x = Convert.ToString(rectangle.Centre.X);
+            string y = Convert.ToString(rectangle.Centre.Y);
+            string w = Convert.ToString(rectangle.Width);
+            string l = Convert.ToString(rectangle.Length);
+            string line = id + ":(X=" + x + ";Y=" + y + ";W=" + w + ";L=" + l + ")";
+            return line;
         }
     }
 }

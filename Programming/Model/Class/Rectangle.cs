@@ -1,12 +1,9 @@
-﻿class Rectangle
+﻿class Rectangle: ICloneable
 {
-    private double _length;
-    private double _width;
-    private Point2D _centre;
-    private static int _allRectanglesCount;
-    private readonly int _id;
+    private int _length;
+    private int _width;
 
-    public double Length
+    public int Length
     {
         get => _length;
         set
@@ -16,7 +13,7 @@
         }
     }
 
-    public double Width
+    public int Width
     {
         get => _width; 
         set
@@ -28,45 +25,29 @@
 
     public string Color { get; set; }
 
-    public Point2D Centre
-    {
-        get => _centre;
-        set
-        {
-            _centre = value;
-        }
-    }
+    public Point2D Centre { get; set; }
 
-    public static int AllRectanglesCount
-    {
-        get => _allRectanglesCount;
-        set 
-        {
-            _allRectanglesCount = value;
-        }
-    }
+    public static int AllRectanglesCount { get; set; }
 
-    public int Id
-    {
-        get => _id;
-        set
-        {
-            
-        }
-    }
+    public int Id { get; }
 
-    public Rectangle(double length, double width, string color, int x, int y)
+    public Rectangle(int length, int width, string color, int x, int y)
     {
         Length = length;
         Width = width;
         Color = color;
         Centre = new Point2D (x, y);
         AllRectanglesCount++;
-        _id = AllRectanglesCount;
+        Id = AllRectanglesCount;
     }
 
     public Rectangle()
     { 
 
+    }
+
+    public object Clone()
+    {
+        return MemberwiseClone();
     }
 }

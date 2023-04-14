@@ -57,4 +57,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="AddRectangleButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DAAACwwBP0AiyAAAAFRJREFUaEPtzzEKgEAQBMH7/6c10cxETs8WqmDSZXsAAGtsx35PSI2QGiE1QmqE
+        1AipEfKG85mv9pir4yuXkHpmhpAaITVCaoTUCKkRUiMEALhljB12CHuFEcoy0AAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="DeleteRectangleButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DAAACwwBP0AiyAAAADJJREFUSEvtzaEBADAMw7D8/2Nu6U4wWYsMhJW2s8kAGSADdBck+eo+2GKADJAB
+        Wg46D/gjqlKjltr5AAAAAElFTkSuQmCC
+</value>
+  </data>
 </root>

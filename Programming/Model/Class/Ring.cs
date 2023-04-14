@@ -3,11 +3,8 @@ using System.Security.Cryptography;
 
 class Ring
 {
-    private Point2D _centre;
     private int _outerRadius;
     private int _innerRadius;
-    private static int _allRingsCount;
-    private readonly int _id;
 
     public int OuterRadius
     {
@@ -29,37 +26,16 @@ class Ring
         }
     }
 
-    public Point2D Centre
-    {
-        get => _centre;
-        set
-        {
-            _centre = value;
-        }
-    }
+    public Point2D Centre { get; set; }
 
     private static double Area(Ring ring)
     {
         double area = 3.14 * (ring.OuterRadius ^ 2) - 3.14 * (ring.InnerRadius ^ 2);
         return area;
     }
-    public static int AllRingsCount
-    {
-        get => _allRingsCount;
-        set
-        {
-            _allRingsCount = value;
-        }
-    }
+    public static int AllRingsCount { get; set; }
 
-    public int Id
-    {
-        get => _id;
-        set
-        {
-
-        }
-    }
+    public int Id { get; }
 
     public Ring()
     {
@@ -72,6 +48,6 @@ class Ring
         InnerRadius = innerRadius;
         Centre = new Point2D(x, y);
         AllRingsCount++;
-        _id = AllRingsCount;
+        Id = AllRingsCount;
     }
 }

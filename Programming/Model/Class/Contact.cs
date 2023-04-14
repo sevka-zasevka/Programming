@@ -30,21 +30,12 @@ class Contact
 
     private void AssertStringContainsOnlyLetters(string value, string mass)
     {
-        string pattern = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz";
-        char[] patternChar = pattern.ToCharArray();
         char[] valueChar = value.ToCharArray();
         for (int i = 0; i< valueChar.Length; i++)
         {
-            for (int j = 0; j<patternChar.Length; j++)
+            if (valueChar[i] <= 65 || valueChar[i] >= 90 || valueChar[i] <= 97 || valueChar[i] >= 122)
             {
-                if (valueChar[i] == patternChar[j])
-                {
-                    break;
-                } 
-                else
-                {
-                    throw new ArgumentException(mass);
-                }
+                throw new ArgumentException(mass);
             }
         }
     }
@@ -58,6 +49,5 @@ class Contact
         Name = name;
         Surname = surname;
         TelefonNamber = telefonNamber;
-        
     }
 }
