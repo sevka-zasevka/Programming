@@ -19,6 +19,7 @@ namespace Programming
         private Movie _currentMovie = new Movie();
         private List<Rectangle> _rectanglesList = new List<Rectangle>();
         private Rectangle _currentRectangleList = new Rectangle();
+        private List<Panel> _rectanglePanels = new List<Panel>();
 
         public MainForm()
         {
@@ -312,6 +313,7 @@ namespace Programming
             var rectangle = new Rectangle(_random.Next(1, 100), _random.Next(1, 100), Enum.GetName(typeof(Colors), _random.Next(1, 7)), _random.Next(10, 100), _random.Next(10, 100));
             _rectanglesList.Add(rectangle);
             RectanglesListBox.Items.Add(LineToOutput(rectangle));
+            var panel = new Panel();
         }
 
         private void DeleteRectangleButton_Click(object sender, EventArgs e)
@@ -453,6 +455,8 @@ namespace Programming
                         _currentRectangleList.Length = newL;
                         LenghtTextBox.BackColor = Color.White;
                         RectanglesListBox.Items[value] = LineToOutput(_currentRectangleList);
+                        _currentRectangleList.Length = newL;
+                        LenghtTextBox.Text = newL.ToString();
                         LenghtTextBox.Focus();
                         LenghtTextBox.SelectionStart = LenghtTextBox.Text.Length;
                     }
