@@ -1,5 +1,6 @@
 ﻿class Rectangle: ICloneable
 {
+    private static int _allRectanglesCount;
     private int _length;
     private int _width;
 
@@ -27,7 +28,7 @@
 
     public Point2D Centre { get; set; }
 
-    public static int AllRectanglesCount { get; set; }
+    public static int AllRectanglesCount => _allRectanglesCount;
 
     public int Id { get; }
 
@@ -37,7 +38,7 @@
         Width = width;
         Color = color;
         Centre = new Point2D (x, y);
-        AllRectanglesCount++;
+        _allRectanglesCount ++;
         Id = AllRectanglesCount;
     }
 

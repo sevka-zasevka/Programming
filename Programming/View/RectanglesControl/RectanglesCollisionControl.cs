@@ -1,0 +1,245 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Programming.View.RectanglesCollisionControl
+{
+    public partial class RectanglesCollisionControl : UserControl
+    {
+        private List<Rectangle> _rectanglesList = new List<Rectangle>();
+        private Rectangle _currentRectangleList = new Rectangle();
+        private List<Panel> _rectanglePanels = new List<Panel>();
+        private Random _random = new Random();
+
+        public RectanglesCollisionControl()
+        {
+            InitializeComponent();
+        }
+
+        private void AddRectangleButton_Click(object sender, EventArgs e)
+        {
+            int panelWidth = Convert.ToInt32(RectanglePanel.Size.Width);
+            int panelHeight = Convert.ToInt32(RectanglePanel.Size.Height);
+            var rectangle = new Rectangle(_random.Next(1, 100), _random.Next(1, 100), Enum.GetName(typeof(Colors), _random.Next(1, 7)), _random.Next(5, panelWidth - 5), _random.Next(5, panelHeight - 5));
+            _rectanglesList.Add(rectangle);
+            RectanglesPanelListBox.Items.Add(LineToOutput(rectangle));
+            var panel = new Panel();
+            int x = rectangle.Centre.X - rectangle.Width / 2;
+            int y = rectangle.Centre.Y - rectangle.Length / 2;
+            panel.Location = new Point(x, y);
+            panel.Width = rectangle.Width;
+            panel.Height = rectangle.Length;
+            panel.BackColor = Color.LightBlue;
+            _rectanglePanels.Add(panel);
+            IsPanelCollision(_rectanglesList);
+            RectanglePanel.Controls.Add(panel);
+        }
+
+        private void DeleteRectangleButton_Click(object sender, EventArgs e)
+        {
+            int value = RectanglesPanelListBox.SelectedIndex;
+            if (value != -1)
+            {
+                RectanglesPanelListBox.Items.RemoveAt(value);
+                _rectanglesList.RemoveAt(value);
+                _rectanglePanels.RemoveAt(value);
+                RectanglePanel.Controls.RemoveAt(value);
+            }
+        }
+
+        private void RectanglesPanelListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int value = RectanglesPanelListBox.SelectedIndex;
+            if (value != -1)
+            {
+                _currentRectangleList = _rectanglesList[value];
+                if (IdTextBox.Text == "" || _currentRectangleList.Id != Convert.ToInt64(IdTextBox.Text))
+                {
+                    HeightTextBox.Text = _currentRectangleList.Length.ToString();
+                    WidthTextBox.Text = _currentRectangleList.Width.ToString();
+                    XTextBox.Text = _currentRectangleList.Centre.X.ToString();
+                    YTextBox.Text = _currentRectangleList.Centre.Y.ToString();
+                    IdTextBox.Text = _currentRectangleList.Id.ToString();
+                }
+            }
+            else
+            {
+                HeightTextBox.Clear();
+                WidthTextBox.Clear();
+                XTextBox.Clear();
+                YTextBox.Clear();
+                IdTextBox.Clear();
+            }
+        }
+
+        private void XTextBox_TextChanged(object sender, EventArgs e)
+        {
+            int value = RectanglesPanelListBox.SelectedIndex;
+            if (value == -1)
+            {
+                XTextBox.BackColor = Color.White;
+            }
+            else
+            {
+                try
+                {
+                    int newX = (int)Convert.ToInt64(XTextBox.Text);
+                    if (newX != _currentRectangleList.Centre.X)
+                    {
+                        _currentRectangleList.Centre.X = newX;
+                        XTextBox.BackColor = Color.White;
+                        int currentSelection = XTextBox.SelectionStart;
+                        RectanglesPanelListBox.Items[value] = LineToOutput(_currentRectangleList);
+                        XTextBox.Focus();
+                        XTextBox.SelectionStart = currentSelection;
+                        int x = _currentRectangleList.Centre.X - _currentRectangleList.Width / 2;
+                        int y = _currentRectangleList.Centre.Y - _currentRectangleList.Length / 2;
+                        _rectanglePanels[value].Location = new Point(x, y);
+                        IsPanelCollision(_rectanglesList);
+                    }
+                }
+                catch
+                {
+                    XTextBox.BackColor = Color.LightPink;
+                }
+            }
+        }
+
+        private void YTextBox_TextChanged(object sender, EventArgs e)
+        {
+            int value = RectanglesPanelListBox.SelectedIndex;
+            if (value == -1)
+            {
+                YTextBox.BackColor = Color.White;
+            }
+            else
+            {
+                try
+                {
+                    int newY = (int)Convert.ToInt64(YTextBox.Text);
+                    if (newY != _currentRectangleList.Centre.Y)
+                    {
+                        _currentRectangleList.Centre.Y = newY;
+                        YTextBox.BackColor = Color.White;
+                        int currentSelection = YTextBox.SelectionStart;
+                        RectanglesPanelListBox.Items[value] = LineToOutput(_currentRectangleList);
+                        YTextBox.Focus();
+                        YTextBox.SelectionStart = currentSelection;
+                        int x = _currentRectangleList.Centre.X - _currentRectangleList.Width / 2;
+                        int y = _currentRectangleList.Centre.Y - _currentRectangleList.Length / 2;
+                        _rectanglePanels[value].Location = new Point(x, y);
+                        IsPanelCollision(_rectanglesList);
+                    }
+                }
+                catch
+                {
+                    YTextBox.BackColor = Color.LightPink;
+                }
+            }
+        }
+
+        private void WidthTextBox_TextChanged(object sender, EventArgs e)
+        {
+            int value = RectanglesPanelListBox.SelectedIndex;
+            if (value == -1)
+            {
+                WidthTextBox.BackColor = Color.White;
+            }
+            else
+            {
+                try
+                {
+                    int newW = (int)Convert.ToInt64(WidthTextBox.Text);
+                    if (newW != _currentRectangleList.Width)
+                    {
+                        _currentRectangleList.Width = newW;
+                        WidthTextBox.BackColor = Color.White;
+                        int currentSelection = WidthTextBox.SelectionStart;
+                        RectanglesPanelListBox.Items[value] = LineToOutput(_currentRectangleList);
+                        WidthTextBox.Focus();
+                        WidthTextBox.SelectionStart = currentSelection;
+                        _rectanglePanels[value].Width = _currentRectangleList.Width;
+                        IsPanelCollision(_rectanglesList);
+                    }
+                }
+                catch
+                {
+                    WidthTextBox.BackColor = Color.LightPink;
+                }
+            }
+        }
+
+        private void HeightTextBox_TextChanged(object sender, EventArgs e)
+        {
+            int value = RectanglesPanelListBox.SelectedIndex;
+            if (value == -1)
+            {
+                HeightTextBox.BackColor = Color.White;
+            }
+            else
+            {
+                try
+                {
+                    int newH = (int)Convert.ToInt64(HeightTextBox.Text);
+                    if (newH != _currentRectangleList.Length)
+                    {
+                        _currentRectangleList.Length = newH;
+                        HeightTextBox.BackColor = Color.White;
+                        int currentSelection = HeightTextBox.SelectionStart;
+                        RectanglesPanelListBox.Items[value] = LineToOutput(_currentRectangleList);
+                        HeightTextBox.Focus();
+                        HeightTextBox.SelectionStart = currentSelection;
+                        _rectanglePanels[value].Height = _currentRectangleList.Length;
+                        IsPanelCollision(_rectanglesList);
+                    }
+                }
+                catch
+                {
+                    HeightTextBox.BackColor = Color.LightPink;
+                }
+            }
+        }
+
+        private string LineToOutput(Rectangle rectangle)
+        {
+            string id = Convert.ToString(rectangle.Id);
+            string x = Convert.ToString(rectangle.Centre.X);
+            string y = Convert.ToString(rectangle.Centre.Y);
+            string w = Convert.ToString(rectangle.Width);
+            string l = Convert.ToString(rectangle.Length);
+            string line = id + ":(X=" + x + ";Y=" + y + ";W=" + w + ";L=" + l + ")";
+            return line;
+        }
+
+        private void IsPanelCollision(List<Rectangle> rectangleList)
+        {
+            int value = rectangleList.Count;
+            for (int i = 0; i < value; i++)
+            {
+                _rectanglePanels[i].BackColor = Color.LightBlue;
+            }
+
+            for (int i = 0; i < value; i++)
+            {
+                for (int j = i; j < value; j++)
+                {
+                    if (i != j)
+                    {
+                        if (CollisionManager.IsCollision(rectangleList[j], rectangleList[i]))
+                        {
+                            _rectanglePanels[j].BackColor = Color.LightPink;
+                            _rectanglePanels[i].BackColor = Color.LightPink;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}

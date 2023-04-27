@@ -16,3 +16,9 @@ C:\Users\evsev\source\repos\Programming\Programming\obj\Debug\net6.0-windows\Pro
 C:\Users\evsev\source\repos\Programming\Programming\obj\Debug\net6.0-windows\Programming.genruntimeconfig.cache
 C:\Users\evsev\source\repos\Programming\Programming\obj\Debug\net6.0-windows\ref\Programming.dll
 C:\Users\evsev\source\repos\Programming\Programming\obj\Debug\net6.0-windows\Programming.Properties.Resources.resources
+C:\Users\evsev\source\repos\Programming\Programming\obj\Debug\net6.0-windows\Programming.View.RectanglesCollisionControl.RectanglesCollisionControl.resources
+C:\Users\evsev\source\repos\Programming\Programming\obj\Debug\net6.0-windows\Programming.View.ClassesControl.RectanglesListboxControl.resources
+C:\Users\evsev\source\repos\Programming\Programming\obj\Debug\net6.0-windows\Programming.View.ClassesControl.MovieListboxControl.resources
+C:\Users\evsev\source\repos\Programming\Programming\obj\Debug\net6.0-windows\Programming.View.EnumsControl.EnumirationsGrupBoxControl.resources
+C:\Users\evsev\source\repos\Programming\Programming\obj\Debug\net6.0-windows\Programming.View.EnumsControl.WeekdayParsingGrupBoxControl.resources
+C:\Users\evsev\source\repos\Programming\Programming\obj\Debug\net6.0-windows\Programming.View.EnumsControl.SeasonHandleGrupBoxControl.resources
