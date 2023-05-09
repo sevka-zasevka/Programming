@@ -22,30 +22,30 @@ namespace Programming.View.EnumsControl
             string selectedSeason = "";
             if (SeasonComboBox.SelectedItem.ToString() == null)
             {
-                SeasonComboBox.BackColor = Color.LightPink;
+                SeasonComboBox.BackColor = AppColors.Lightpink;
             }
             else
             {
                 selectedSeason = SeasonComboBox.SelectedItem.ToString();
             }
 
-            SeasonGroupBox.BackColor = Color.White;
-            GoSeasonButton.BackColor = Color.LightGray;
+            SeasonGroupBox.BackColor = AppColors.White;
+            GoSeasonButton.BackColor = AppColors.Gray;
             switch (selectedSeason)
             {
                 case "Winter":
                     MessageBox.Show("Чувствуется похолодание");
                     break;
                 case "Spring":
-                    SeasonGroupBox.BackColor = Color.GreenYellow;
+                    SeasonGroupBox.BackColor = AppColors.Green;
                     break;
                 case "Summer":
                     MessageBox.Show("Я тоже люблю лето");
-                    GoSeasonButton.BackColor = Color.Green;
+                    GoSeasonButton.BackColor = AppColors.Green;
                     break;
                 case "Fall":
                     MessageBox.Show("We fell in love in October");
-                    SeasonGroupBox.BackColor = Color.MediumVioletRed;
+                    SeasonGroupBox.BackColor = AppColors.Pink;
                     break;
             }
         }

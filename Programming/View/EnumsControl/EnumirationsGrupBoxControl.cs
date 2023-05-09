@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace Programming.View.EnumsControl
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class EnumirationsGrupBoxControl : UserControl
     {
         public Type _currentCategory;

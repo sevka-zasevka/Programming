@@ -57,7 +57,7 @@
             this.RectanglePanel.Location = new System.Drawing.Point(314, 42);
             this.RectanglePanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.RectanglePanel.Name = "RectanglePanel";
-            this.RectanglePanel.Size = new System.Drawing.Size(553, 501);
+            this.RectanglePanel.Size = new System.Drawing.Size(566, 515);
             this.RectanglePanel.TabIndex = 31;
             // 
             // HeightLabel
@@ -225,7 +225,7 @@
             this.Controls.Add(this.RectanglesPanelListBox);
             this.Controls.Add(this.RectanglesLabel);
             this.Name = "RectanglesCollisionControl";
-            this.Size = new System.Drawing.Size(888, 571);
+            this.Size = new System.Drawing.Size(901, 585);
             this.ResumeLayout(false);
             this.PerformLayout();
 

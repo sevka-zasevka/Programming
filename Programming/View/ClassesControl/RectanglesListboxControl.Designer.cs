@@ -48,8 +48,9 @@
             // 
             // RectangelGroupBox
             // 
-            this.RectangelGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.RectangelGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.RectangelGroupBox.Controls.Add(this.IdClassesLabel);
             this.RectangelGroupBox.Controls.Add(this.IdClassesTextBox);
             this.RectangelGroupBox.Controls.Add(this.CoordinateYLabel);
@@ -68,7 +69,7 @@
             this.RectangelGroupBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.RectangelGroupBox.Name = "RectangelGroupBox";
             this.RectangelGroupBox.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.RectangelGroupBox.Size = new System.Drawing.Size(333, 449);
+            this.RectangelGroupBox.Size = new System.Drawing.Size(336, 446);
             this.RectangelGroupBox.TabIndex = 1;
             this.RectangelGroupBox.TabStop = false;
             this.RectangelGroupBox.Text = "Rectangles";
@@ -214,7 +215,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.RectangelGroupBox);
             this.Name = "RectanglesListboxControl";
-            this.Size = new System.Drawing.Size(354, 457);
+            this.Size = new System.Drawing.Size(342, 454);
             this.RectangelGroupBox.ResumeLayout(false);
             this.RectangelGroupBox.PerformLayout();
             this.ResumeLayout(false);

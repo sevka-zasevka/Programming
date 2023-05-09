@@ -10,22 +10,33 @@ using System.Windows.Forms;
 
 namespace Programming.View.ClassesControl
 {
+    /// <summary>
+    /// Предоставляет методы для заполнения ListBox и TextBox.
+    /// </summary>
     public partial class RectanglesListboxControl : UserControl
     {
-
+        /// <summary>
+        /// Массив из пяти элементов класса <see cref="Rectangle">.
+        /// </summary>
         private Rectangle[] _rectangles = new Rectangle[5];
+        /// <summary>
+        /// Объект класса <see cref="Rectangle">.
+        /// </summary>
         private Rectangle _currentRectangle = new Rectangle();
         private Random _random = new Random();
-        Rectangle exampleRectangle = new Rectangle();
-
-
 
         public RectanglesListboxControl()
         {
             InitializeComponent();
 
+            /// <summary>
+            /// Экземпляр класса <see cref="Rectangle">.
+            /// </summary>
             Rectangle exampleRectangle = new Rectangle();
 
+            /// <summary>
+            /// Цикл для заполнения массива объектями класса <see cref="Rectangle">.
+            /// </summary>
             for (int i = 0; i < _rectangles.Length; i++)
             {
                 _rectangles[i] = new Rectangle(_random.Next(1, 100), _random.Next(1, 100), Enum.GetName(typeof(Colors), _random.Next(1, 7)), _random.Next(1, 100), _random.Next(1, 100));
@@ -54,11 +65,11 @@ namespace Programming.View.ClassesControl
             {
                 int newLength = (int)Convert.ToInt64(LengthClassesTextBox.Text);
                 _currentRectangle.Length = newLength;
-                LengthClassesTextBox.BackColor = Color.White;
+                LengthClassesTextBox.BackColor = AppColors.White;
             }
             catch
             {
-                LengthClassesTextBox.BackColor = Color.LightPink;
+                LengthClassesTextBox.BackColor = AppColors.Lightpink;
             }
         }
 
@@ -68,11 +79,11 @@ namespace Programming.View.ClassesControl
             {
                 int newWidth = (int)Convert.ToInt64(WidthClassesTextBox.Text);
                 _currentRectangle.Width = newWidth;
-                WidthClassesTextBox.BackColor = Color.White;
+                WidthClassesTextBox.BackColor = AppColors.White;
             }
             catch
             {
-                WidthClassesTextBox.BackColor = Color.LightPink;
+                WidthClassesTextBox.BackColor = AppColors.Lightpink;
             }
         }
 
@@ -82,6 +93,11 @@ namespace Programming.View.ClassesControl
             _currentRectangle.Color = newColor;
         }
 
+        /// <summary>
+        /// Метод для отыскания прямоугольника с максимальной шириной из массива.
+        /// </summary>
+        /// <param name="rectangles">Массив прямоугольников.</param>
+        /// <returns>Возращает индекс прямоугольника с максимальной шириной.</returns>
         private int FindRectangleWithMaxWidth(Rectangle[] rectangles)
         {
             int maxWidth = 0;

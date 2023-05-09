@@ -44,7 +44,7 @@
             this.SeasonGroupBox.Controls.Add(this.GoSeasonButton);
             this.SeasonGroupBox.Location = new System.Drawing.Point(3, 3);
             this.SeasonGroupBox.Name = "SeasonGroupBox";
-            this.SeasonGroupBox.Size = new System.Drawing.Size(308, 123);
+            this.SeasonGroupBox.Size = new System.Drawing.Size(367, 134);
             this.SeasonGroupBox.TabIndex = 3;
             this.SeasonGroupBox.TabStop = false;
             this.SeasonGroupBox.Text = "Season Handle";
@@ -52,6 +52,8 @@
             // SeasonComboBox
             // 
             this.SeasonComboBox.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            this.SeasonComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.SeasonComboBox.FormattingEnabled = true;
             this.SeasonComboBox.Items.AddRange(new object[] {
             "Winter",
@@ -60,15 +62,16 @@
             "Fall"});
             this.SeasonComboBox.Location = new System.Drawing.Point(6, 71);
             this.SeasonComboBox.Name = "SeasonComboBox";
-            this.SeasonComboBox.Size = new System.Drawing.Size(181, 28);
+            this.SeasonComboBox.Size = new System.Drawing.Size(196, 28);
             this.SeasonComboBox.TabIndex = 2;
             // 
             // GoSeasonButton
             // 
+            this.GoSeasonButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.GoSeasonButton.BackColor = System.Drawing.Color.LightGray;
-            this.GoSeasonButton.Location = new System.Drawing.Point(193, 69);
+            this.GoSeasonButton.Location = new System.Drawing.Point(208, 69);
             this.GoSeasonButton.Name = "GoSeasonButton";
-            this.GoSeasonButton.Size = new System.Drawing.Size(93, 29);
+            this.GoSeasonButton.Size = new System.Drawing.Size(97, 30);
             this.GoSeasonButton.TabIndex = 1;
             this.GoSeasonButton.Text = "Go!";
             this.GoSeasonButton.UseVisualStyleBackColor = false;
@@ -80,7 +83,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.SeasonGroupBox);
             this.Name = "SeasonHandleGrupBoxControl";
-            this.Size = new System.Drawing.Size(314, 129);
+            this.Size = new System.Drawing.Size(373, 140);
             this.SeasonGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
 

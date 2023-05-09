@@ -65,7 +65,7 @@
             this.MovieGroupBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MovieGroupBox.Name = "MovieGroupBox";
             this.MovieGroupBox.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.MovieGroupBox.Size = new System.Drawing.Size(328, 447);
+            this.MovieGroupBox.Size = new System.Drawing.Size(345, 462);
             this.MovieGroupBox.TabIndex = 2;
             this.MovieGroupBox.TabStop = false;
             this.MovieGroupBox.Text = "Movies";

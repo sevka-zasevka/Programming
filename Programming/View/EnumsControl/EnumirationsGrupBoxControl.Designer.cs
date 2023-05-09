@@ -50,7 +50,7 @@
             this.EnumirationGroupBox.Controls.Add(this.EnumsListBox);
             this.EnumirationGroupBox.Location = new System.Drawing.Point(0, 3);
             this.EnumirationGroupBox.Name = "EnumirationGroupBox";
-            this.EnumirationGroupBox.Size = new System.Drawing.Size(639, 312);
+            this.EnumirationGroupBox.Size = new System.Drawing.Size(674, 312);
             this.EnumirationGroupBox.TabIndex = 1;
             this.EnumirationGroupBox.TabStop = false;
             this.EnumirationGroupBox.Text = "Enumirations";
@@ -122,7 +122,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.EnumirationGroupBox);
             this.Name = "EnumirationsGrupBoxControl";
-            this.Size = new System.Drawing.Size(642, 318);
+            this.Size = new System.Drawing.Size(677, 318);
             this.EnumirationGroupBox.ResumeLayout(false);
             this.EnumirationGroupBox.PerformLayout();
             this.ResumeLayout(false);

@@ -1,7 +1,22 @@
-﻿public enum EducationForm
+﻿/// <summary>
+/// Перечесление форм образования.
+/// </summary>
+public enum EducationForm
 {
-    FullTime = 6,
+    /// <summary>
+    /// Очная.
+    /// </summary>
+    FullTime,
+    /// <summary>
+    /// Заочная.
+    /// </summary>
     PartTime,
+    /// <summary>
+    /// Вечерняя.
+    /// </summary>
     Evening,
+    /// <summary>
+    /// Удаленная.
+    /// </summary>
     Remote
 }

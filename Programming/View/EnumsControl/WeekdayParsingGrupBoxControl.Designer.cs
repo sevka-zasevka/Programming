@@ -47,7 +47,7 @@
             this.WeekdayGroupBox.Controls.Add(this.TypeWeekdayLabel);
             this.WeekdayGroupBox.Location = new System.Drawing.Point(3, 3);
             this.WeekdayGroupBox.Name = "WeekdayGroupBox";
-            this.WeekdayGroupBox.Size = new System.Drawing.Size(310, 188);
+            this.WeekdayGroupBox.Size = new System.Drawing.Size(316, 182);
             this.WeekdayGroupBox.TabIndex = 2;
             this.WeekdayGroupBox.TabStop = false;
             this.WeekdayGroupBox.Text = "Weekday Parsing";
@@ -72,6 +72,7 @@
             // WeekdayTextBox
             // 
             this.WeekdayTextBox.Location = new System.Drawing.Point(9, 71);
+            this.WeekdayTextBox.MaxLength = 0;
             this.WeekdayTextBox.Name = "WeekdayTextBox";
             this.WeekdayTextBox.Size = new System.Drawing.Size(186, 27);
             this.WeekdayTextBox.TabIndex = 1;
@@ -91,7 +92,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.WeekdayGroupBox);
             this.Name = "WeekdayParsingGrupBoxControl";
-            this.Size = new System.Drawing.Size(316, 194);
+            this.Size = new System.Drawing.Size(322, 188);
             this.WeekdayGroupBox.ResumeLayout(false);
             this.WeekdayGroupBox.PerformLayout();
             this.ResumeLayout(false);

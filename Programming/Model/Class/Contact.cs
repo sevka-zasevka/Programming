@@ -1,11 +1,20 @@
-﻿using System.Text.RegularExpressions;
-using System.Windows.Forms;
-
+﻿/// <summary>
+/// Класс хранящий имя, фамилию и телефонный номер человека.
+/// </summary>
 class Contact
 {
+    /// <summary>
+    /// Имя человека, только буквы.
+    /// </summary>
     private string _name;
+    /// <summary>
+    /// Фамилия человека, только буквы.
+    /// </summary>
     private string _surname;
 
+    /// <summary>
+    /// Возвращает и задает имя человека.
+    /// </summary>
     public string Name 
     { 
         get => _name; 
@@ -16,6 +25,9 @@ class Contact
         }
     }
 
+    /// <summary>
+    /// Возвращает и задает фамилию человека.
+    /// </summary>
     public string Surname 
     {
         get => _surname;
@@ -26,8 +38,17 @@ class Contact
         }
     }
 
+    /// <summary>
+    /// Возвращает и задает номер телефона человека.
+    /// </summary>
     public string TelefonNamber { get; set; }
 
+    /// <summary>
+    /// Проверяет, что строка состоит только из букв.
+    /// </summary>
+    /// <param name="value">Проверяемая строка. </param>
+    /// <param name="mass">Возвращаемый текст ошибки.</param>
+    /// <exception cref="ArgumentException"></exception>
     private void AssertStringContainsOnlyLetters(string value, string mass)
     {
         char[] valueChar = value.ToCharArray();
@@ -39,11 +60,21 @@ class Contact
             }
         }
     }
+
+    /// <summary>
+    /// Создает пустой экземпляр класса <see cref="Contact">
+    /// </summary>
     public Contact()
     {
 
     }
 
+    /// <summary>
+    /// Создает экземпляр класса <see cref="Contact">
+    /// </summary>
+    /// <param name="name">Имя, только буквы.</param>
+    /// <param name="surname">Фамилияб только буквы.</param>
+    /// <param name="telefonNamber">Номер телефона.</param>
     public Contact(string name, string surname, string telefonNamber)
     {
         Name = name;

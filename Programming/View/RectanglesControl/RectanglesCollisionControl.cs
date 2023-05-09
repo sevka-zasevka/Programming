@@ -35,7 +35,7 @@ namespace Programming.View.RectanglesCollisionControl
             panel.Location = new Point(x, y);
             panel.Width = rectangle.Width;
             panel.Height = rectangle.Length;
-            panel.BackColor = Color.LightBlue;
+            panel.BackColor = AppColors.Blue;
             _rectanglePanels.Add(panel);
             IsPanelCollision(_rectanglesList);
             RectanglePanel.Controls.Add(panel);
@@ -83,7 +83,7 @@ namespace Programming.View.RectanglesCollisionControl
             int value = RectanglesPanelListBox.SelectedIndex;
             if (value == -1)
             {
-                XTextBox.BackColor = Color.White;
+                XTextBox.BackColor = AppColors.White;
             }
             else
             {
@@ -93,7 +93,7 @@ namespace Programming.View.RectanglesCollisionControl
                     if (newX != _currentRectangleList.Centre.X)
                     {
                         _currentRectangleList.Centre.X = newX;
-                        XTextBox.BackColor = Color.White;
+                        XTextBox.BackColor = AppColors.White;
                         int currentSelection = XTextBox.SelectionStart;
                         RectanglesPanelListBox.Items[value] = LineToOutput(_currentRectangleList);
                         XTextBox.Focus();
@@ -106,7 +106,7 @@ namespace Programming.View.RectanglesCollisionControl
                 }
                 catch
                 {
-                    XTextBox.BackColor = Color.LightPink;
+                    XTextBox.BackColor = AppColors.Lightpink;
                 }
             }
         }
@@ -116,7 +116,7 @@ namespace Programming.View.RectanglesCollisionControl
             int value = RectanglesPanelListBox.SelectedIndex;
             if (value == -1)
             {
-                YTextBox.BackColor = Color.White;
+                YTextBox.BackColor = AppColors.White;
             }
             else
             {
@@ -126,7 +126,7 @@ namespace Programming.View.RectanglesCollisionControl
                     if (newY != _currentRectangleList.Centre.Y)
                     {
                         _currentRectangleList.Centre.Y = newY;
-                        YTextBox.BackColor = Color.White;
+                        YTextBox.BackColor = AppColors.White;
                         int currentSelection = YTextBox.SelectionStart;
                         RectanglesPanelListBox.Items[value] = LineToOutput(_currentRectangleList);
                         YTextBox.Focus();
@@ -139,7 +139,7 @@ namespace Programming.View.RectanglesCollisionControl
                 }
                 catch
                 {
-                    YTextBox.BackColor = Color.LightPink;
+                    YTextBox.BackColor = AppColors.Lightpink;
                 }
             }
         }
@@ -149,7 +149,7 @@ namespace Programming.View.RectanglesCollisionControl
             int value = RectanglesPanelListBox.SelectedIndex;
             if (value == -1)
             {
-                WidthTextBox.BackColor = Color.White;
+                WidthTextBox.BackColor = AppColors.White;
             }
             else
             {
@@ -159,7 +159,7 @@ namespace Programming.View.RectanglesCollisionControl
                     if (newW != _currentRectangleList.Width)
                     {
                         _currentRectangleList.Width = newW;
-                        WidthTextBox.BackColor = Color.White;
+                        WidthTextBox.BackColor = AppColors.White;
                         int currentSelection = WidthTextBox.SelectionStart;
                         RectanglesPanelListBox.Items[value] = LineToOutput(_currentRectangleList);
                         WidthTextBox.Focus();
@@ -170,7 +170,7 @@ namespace Programming.View.RectanglesCollisionControl
                 }
                 catch
                 {
-                    WidthTextBox.BackColor = Color.LightPink;
+                    WidthTextBox.BackColor = AppColors.Lightpink;
                 }
             }
         }
@@ -180,7 +180,7 @@ namespace Programming.View.RectanglesCollisionControl
             int value = RectanglesPanelListBox.SelectedIndex;
             if (value == -1)
             {
-                HeightTextBox.BackColor = Color.White;
+                HeightTextBox.BackColor = AppColors.White;
             }
             else
             {
@@ -190,7 +190,7 @@ namespace Programming.View.RectanglesCollisionControl
                     if (newH != _currentRectangleList.Length)
                     {
                         _currentRectangleList.Length = newH;
-                        HeightTextBox.BackColor = Color.White;
+                        HeightTextBox.BackColor = AppColors.White;
                         int currentSelection = HeightTextBox.SelectionStart;
                         RectanglesPanelListBox.Items[value] = LineToOutput(_currentRectangleList);
                         HeightTextBox.Focus();
@@ -201,7 +201,7 @@ namespace Programming.View.RectanglesCollisionControl
                 }
                 catch
                 {
-                    HeightTextBox.BackColor = Color.LightPink;
+                    HeightTextBox.BackColor = AppColors.Lightpink;
                 }
             }
         }
@@ -222,7 +222,7 @@ namespace Programming.View.RectanglesCollisionControl
             int value = rectangleList.Count;
             for (int i = 0; i < value; i++)
             {
-                _rectanglePanels[i].BackColor = Color.LightBlue;
+                _rectanglePanels[i].BackColor = AppColors.Blue;
             }
 
             for (int i = 0; i < value; i++)
@@ -233,8 +233,8 @@ namespace Programming.View.RectanglesCollisionControl
                     {
                         if (CollisionManager.IsCollision(rectangleList[j], rectangleList[i]))
                         {
-                            _rectanglePanels[j].BackColor = Color.LightPink;
-                            _rectanglePanels[i].BackColor = Color.LightPink;
+                            _rectanglePanels[j].BackColor = AppColors.Lightpink;
+                            _rectanglePanels[i].BackColor = AppColors.Lightpink;
                         }
                     }
                 }

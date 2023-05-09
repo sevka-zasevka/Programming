@@ -1,9 +1,26 @@
-﻿public enum Genre
+﻿/// <summary>
+/// Перечесление жанров фильмов.
+/// </summary>
+public enum Genre
 {
+    /// <summary>
+    /// Комедия.
+    /// </summary>
     Comedy,
+    /// <summary>
+    /// Драмма.
+    /// </summary>
     Drama,
+    /// <summary>
+    /// Триллер.
+    /// </summary>
     Triller,
+    /// <summary>
+    /// Мыльная опера.
+    /// </summary>
     SoupOpera,
-    Romantic,
-    SiFi
+    /// <summary>
+    /// Романтика.
+    /// </summary>
+    Romantic
 }

@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace Programming.View.EnumsControl
 {
+    /// <summary>
+    /// Для проверки дня недели.
+    /// </summary>
     public partial class WeekdayParsingGrupBoxControl : UserControl
     {
 
