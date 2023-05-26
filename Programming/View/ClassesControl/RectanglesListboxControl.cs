@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Programming.Model.Class;
+using Rectangle = Programming.Model.Class.Rectangle;
 
 namespace Programming.View.ClassesControl
 {
@@ -23,20 +16,16 @@ namespace Programming.View.ClassesControl
         /// Объект класса <see cref="Rectangle">.
         /// </summary>
         private Rectangle _currentRectangle = new Rectangle();
+        /// <summary>
+        /// Экземпляр класса <see cref="Random"/>.
+        /// </summary>
         private Random _random = new Random();
 
         public RectanglesListboxControl()
         {
             InitializeComponent();
 
-            /// <summary>
-            /// Экземпляр класса <see cref="Rectangle">.
-            /// </summary>
             Rectangle exampleRectangle = new Rectangle();
-
-            /// <summary>
-            /// Цикл для заполнения массива объектями класса <see cref="Rectangle">.
-            /// </summary>
             for (int i = 0; i < _rectangles.Length; i++)
             {
                 _rectangles[i] = new Rectangle(_random.Next(1, 100), _random.Next(1, 100), Enum.GetName(typeof(Colors), _random.Next(1, 7)), _random.Next(1, 100), _random.Next(1, 100));
@@ -94,7 +83,7 @@ namespace Programming.View.ClassesControl
         }
 
         /// <summary>
-        /// Метод для отыскания прямоугольника с максимальной шириной из массива.
+        /// Метод для поиска прямоугольника с максимальной шириной из массива.
         /// </summary>
         /// <param name="rectangles">Массив прямоугольников.</param>
         /// <returns>Возращает индекс прямоугольника с максимальной шириной.</returns>

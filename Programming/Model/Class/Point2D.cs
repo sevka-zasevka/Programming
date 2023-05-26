@@ -1,59 +1,63 @@
-﻿/// <summary>
-/// Класс, хранящий координаты x и y точки.
-/// </summary>
-class Point2D
+﻿namespace Programming.Model.Class
 {
     /// <summary>
-    /// Координата точки по x, только положительное значение.
+    /// Класс, хранящий координаты x и y точки.
     /// </summary>
-    private int _x; 
-    /// <summary>
-    /// Координата точки по y, только пооложительное значение.
-    /// </summary>
-    private int _y;
-
-    /// <summary>
-    /// Возращает и задает координату точки по x, только положительное значение.
-    /// </summary>
-    public int X 
-    { 
-        get => _x;
-        set 
-        { 
-            Validator.AssertOnPositiveValue(value, "X.Point2D"); 
-            _x = value;
-        }
-    }
-
-    /// <summary>
-    /// Возвращает и задает координату точки по y, только положительное значение. 
-    /// </summary>
-    public int Y
+    public class Point2D
     {
-        get => _y;
-        set
+        /// <summary>
+        /// Координата точки по x, только положительное значение.
+        /// </summary>
+        private int _x;
+
+        /// <summary>
+        /// Координата точки по y, только пооложительное значение.
+        /// </summary>
+        private int _y;
+
+        /// <summary>
+        /// Возращает и задает координату точки по x, только положительное значение.
+        /// </summary>
+        public int X
         {
-            Validator.AssertOnPositiveValue(value, "Y.Point2D");
-            _y = value;
+            get => _x;
+            set
+            {
+                Validator.AssertOnPositiveValue(value, "X.Point2D");
+                _x = value;
+            }
         }
-    }
 
-    /// <summary>
-    /// Создает пустой экземпляр класса <see cref="Point2D">
-    /// </summary>
-    public Point2D()
-    {
+        /// <summary>
+        /// Возвращает и задает координату точки по y, только положительное значение. 
+        /// </summary>
+        public int Y
+        {
+            get => _y;
+            set
+            {
+                Validator.AssertOnPositiveValue(value, "Y.Point2D");
+                _y = value;
+            }
+        }
 
-    }
+        /// <summary>
+        /// Создает пустой экземпляр класса <see cref="Point2D">
+        /// </summary>
+        public Point2D()
+        {
 
-    /// <summary>
-    /// Создает экземпляр класса <see cref="Point2D">
-    /// </summary>
-    /// <param name="x">Координата точки по x, только положительное значение.</param>
-    /// <param name="y">Координата точки по y, тольео положительные значение.</param>
-    public Point2D(int x, int y)
-    {
-        X = x;
-        Y = y;
+        }
+
+        /// <summary>
+        /// Создает экземпляр класса <see cref="Point2D">
+        /// </summary>
+        /// <param name="x">Координата точки по x, только положительное значение.</param>
+        /// <param name="y">Координата точки по y, тольео положительные значение.</param>
+        public Point2D(int x, int y)
+        {
+            X = x;
+            Y = y;
+        }
     }
 }

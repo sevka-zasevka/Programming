@@ -1,20 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Programming.Model.Class;
+using Rectangle = Programming.Model.Class.Rectangle;
 
 namespace Programming.View.RectanglesCollisionControl
 {
+    /// <summary>
+    /// Предоставляет методы для создания объектов и вывода их на панель.
+    /// </summary>
     public partial class RectanglesCollisionControl : UserControl
     {
+        /// <summary>
+        /// Список объектов класса <see cref="Rectangle">.
+        /// </summary>
         private List<Rectangle> _rectanglesList = new List<Rectangle>();
+        /// <summary>
+        /// Экземпляр объекта класса <see cref="Rectangle">.
+        /// </summary>
         private Rectangle _currentRectangleList = new Rectangle();
+        /// <summary>
+        /// Список панелей.
+        /// </summary>
         private List<Panel> _rectanglePanels = new List<Panel>();
+
+        /// <summary>
+        /// Экземпляр класса <see cref="Random"/>.
+        /// </summary>
         private Random _random = new Random();
 
         public RectanglesCollisionControl()
@@ -206,6 +215,11 @@ namespace Programming.View.RectanglesCollisionControl
             }
         }
 
+        /// <summary>
+        /// Метод для создания строки со значениями прямоугольника.
+        /// </summary>
+        /// <param name="rectangle">Объект класса <see cref="Rectangle">, по значениям полей которого надо сохдать строку.</param>
+        /// <returns>Строка со значениями прямоугольника.</returns>
         private string LineToOutput(Rectangle rectangle)
         {
             string id = Convert.ToString(rectangle.Id);
@@ -217,6 +231,10 @@ namespace Programming.View.RectanglesCollisionControl
             return line;
         }
 
+        /// <summary>
+        /// Метод для поиска и перекрашивания панелей пересекающихся прямоугольников.
+        /// </summary>
+        /// <param name="rectangleList">Список прямоугольников.</param>
         private void IsPanelCollision(List<Rectangle> rectangleList)
         {
             int value = rectangleList.Count;

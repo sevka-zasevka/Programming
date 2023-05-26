@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Programming.Model.Class;
 
 namespace Programming.View.ClassesControl
 {
@@ -15,11 +7,16 @@ namespace Programming.View.ClassesControl
     /// </summary>
     public partial class MovieListboxControl : UserControl
     {
+        /// <summary>
+        /// Экземпляр класса <see cref="Random"/>.
+        /// </summary>
         private Random _random = new Random();
+
         /// <summary>
         /// Массив из 5 элементов класса <see cref="Movie">.
         /// </summary>
         private Movie[] _movies = new Movie[5];
+
         /// <summary>
         /// Элемент класса <see cref="Movie">.
         /// </summary>
@@ -28,21 +25,12 @@ namespace Programming.View.ClassesControl
         public MovieListboxControl()
         {
             InitializeComponent();
-            /// <summary>
-            /// Экземпляр класса <see cref="Movie">.
-            /// </summary>
             Movie exampleMovie = new Movie();
-            /// <summary>
-            /// Массив с выдуманными названиями фильмов для заполнения полей объектов класса <see cref="Movie">.
-            /// </summary>
             string[] titlesMovie = { "The End", "A new beginning", "Adventure 2", "End:Last part 2", "Middle: End of story" };
 
-            /// <summary>
-            /// Цикл для заполнения массива объектами класса <see cref="Movie">.
-            /// </summary>>
             for (int i = 0; i < _movies.Length; i++)
             {
-                _movies[i] = new Movie(titlesMovie[i], _random.Next(1, 7200), _random.Next(1990, DateTime.Now.Year), Enum.GetName(typeof(Genre), _random.Next(1, 6)), RandRate());
+                _movies[i] = new Movie(titlesMovie[i], _random.Next(1, 7200), _random.Next(1990, DateTime.Now.Year), Enum.GetName(typeof(Genre), _random.Next(0, 4)), RandRate());
             }
 
         }
@@ -125,7 +113,7 @@ namespace Programming.View.ClassesControl
         }
 
         /// <summary>
-        /// Метод для отыскания фильма с максимальным рейтингом из массива.
+        /// Метод для поиска фильма с максимальным рейтингом из массива.
         /// </summary>
         /// <param name="movies">Массив фильмов.</param>
         /// <returns>Возвращает индекс фильма с максимальным рейтингом.</returns>

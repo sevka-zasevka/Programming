@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Programming.Model.Class;
 
 namespace Programming.View.EnumsControl
 {
     /// <summary>
-    /// 
+    /// Предоставляет методы для обозревания списка перечислений и доступа к информации в перечислениях.
     /// </summary>
     public partial class EnumirationsGrupBoxControl : UserControl
     {
+        /// <summary>
+        /// Переменная для хранения выбранной категории.
+        /// </summary>
         public Type _currentCategory;
 
         public EnumirationsGrupBoxControl()
@@ -36,14 +31,15 @@ namespace Programming.View.EnumsControl
                 ["Season"] = typeof(Season),
                 ["Weekday"] = typeof(Weekday),
             };
+
             string selectedCategory = EnumsListBox.SelectedItem.ToString();
             ValueListBox.Items.Clear();
-
             _currentCategory = category[selectedCategory];
             foreach (int i in Enum.GetValues(_currentCategory))
             {
                 ValueListBox.Items.Add(Enum.GetName(_currentCategory, i));
             }
+
             ValueTextBox.Text = "1";
         }
 
@@ -51,6 +47,7 @@ namespace Programming.View.EnumsControl
         {
             int value = ValueListBox.SelectedIndex;
             int j = 0;
+
             foreach (int i in Enum.GetValues(_currentCategory))
             {
                 if (j == value)
@@ -58,6 +55,7 @@ namespace Programming.View.EnumsControl
                     ValueTextBox.Text = i.ToString();
                     break;
                 }
+
                 j++;
             }
 

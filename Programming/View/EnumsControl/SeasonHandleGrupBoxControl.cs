@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Programming.Model.Class;
 
 namespace Programming.View.EnumsControl
 {
+    /// <summary>
+    /// Предоставляет методы для выбора из выпадающего списка один из элементов
+    /// и, при нажатии на кнопку, измения внешнего вида окна.
+    /// </summary>
     public partial class SeasonHandleGrupBoxControl : UserControl
     {
         public SeasonHandleGrupBoxControl()
@@ -20,12 +16,13 @@ namespace Programming.View.EnumsControl
         private void GoSeasonButton_Click(object sender, EventArgs e)
         {
             string selectedSeason = "";
-            if (SeasonComboBox.SelectedItem.ToString() == null)
+            if (SeasonComboBox.SelectedItem == null)
             {
                 SeasonComboBox.BackColor = AppColors.Lightpink;
             }
             else
             {
+                SeasonComboBox.BackColor = AppColors.White;
                 selectedSeason = SeasonComboBox.SelectedItem.ToString();
             }
 
