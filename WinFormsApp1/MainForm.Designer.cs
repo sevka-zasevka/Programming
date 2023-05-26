@@ -54,7 +54,7 @@
             this.MoviesListBox.ItemHeight = 20;
             this.MoviesListBox.Location = new System.Drawing.Point(12, 12);
             this.MoviesListBox.Name = "MoviesListBox";
-            this.MoviesListBox.Size = new System.Drawing.Size(382, 424);
+            this.MoviesListBox.Size = new System.Drawing.Size(350, 264);
             this.MoviesListBox.TabIndex = 0;
             this.MoviesListBox.SelectedIndexChanged += new System.EventHandler(this.MoviesListBox_SelectedIndexChanged);
             // 
@@ -72,9 +72,9 @@
             this.DescriptionGroupBox.Controls.Add(this.GenreLabel);
             this.DescriptionGroupBox.Controls.Add(this.YearLabel);
             this.DescriptionGroupBox.Controls.Add(this.TitleLabel);
-            this.DescriptionGroupBox.Location = new System.Drawing.Point(400, 12);
+            this.DescriptionGroupBox.Location = new System.Drawing.Point(368, 3);
             this.DescriptionGroupBox.Name = "DescriptionGroupBox";
-            this.DescriptionGroupBox.Size = new System.Drawing.Size(483, 193);
+            this.DescriptionGroupBox.Size = new System.Drawing.Size(356, 193);
             this.DescriptionGroupBox.TabIndex = 1;
             this.DescriptionGroupBox.TabStop = false;
             this.DescriptionGroupBox.Text = "Description";
@@ -118,7 +118,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TitleTextBox.Location = new System.Drawing.Point(80, 20);
             this.TitleTextBox.Name = "TitleTextBox";
-            this.TitleTextBox.Size = new System.Drawing.Size(397, 27);
+            this.TitleTextBox.Size = new System.Drawing.Size(270, 27);
             this.TitleTextBox.TabIndex = 5;
             this.TitleTextBox.TextChanged += new System.EventHandler(this.TitleTextBox_TextChanged);
             // 
@@ -169,11 +169,12 @@
             // 
             // AddButton
             // 
+            this.AddButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.AddButton.BackColor = System.Drawing.SystemColors.Control;
             this.AddButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("AddButton.BackgroundImage")));
             this.AddButton.FlatAppearance.BorderSize = 0;
             this.AddButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddButton.Location = new System.Drawing.Point(12, 442);
+            this.AddButton.Location = new System.Drawing.Point(12, 287);
             this.AddButton.Name = "AddButton";
             this.AddButton.Size = new System.Drawing.Size(61, 64);
             this.AddButton.TabIndex = 2;
@@ -182,10 +183,11 @@
             // 
             // DeleteButton
             // 
+            this.DeleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.DeleteButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("DeleteButton.BackgroundImage")));
             this.DeleteButton.FlatAppearance.BorderSize = 0;
             this.DeleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DeleteButton.Location = new System.Drawing.Point(79, 442);
+            this.DeleteButton.Location = new System.Drawing.Point(79, 286);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(63, 65);
             this.DeleteButton.TabIndex = 3;
@@ -196,14 +198,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(895, 537);
+            this.ClientSize = new System.Drawing.Size(736, 363);
             this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.AddButton);
             this.Controls.Add(this.DescriptionGroupBox);
             this.Controls.Add(this.MoviesListBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(636, 326);
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "MovieApp";
             this.DescriptionGroupBox.ResumeLayout(false);
             this.DescriptionGroupBox.PerformLayout();
             this.ResumeLayout(false);

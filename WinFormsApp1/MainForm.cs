@@ -53,10 +53,13 @@ namespace WinFormsApp1
         private void DeleteButton_Click(object sender, EventArgs e)
         {
             int selectMovie = MoviesListBox.SelectedIndex;
-            MoviesListBox.SelectedIndex = -1;
-            Movies.RemoveAt(selectMovie);
-            MoviesListBox.Items.RemoveAt(selectMovie);
-            UpdateFile(Movies);
+            if (selectMovie != -1)
+            {
+                MoviesListBox.SelectedIndex = -1;
+                Movies.RemoveAt(selectMovie);
+                MoviesListBox.Items.RemoveAt(selectMovie);
+                UpdateFile(Movies);
+            }
         }
 
         private void MoviesListBox_SelectedIndexChanged(object sender, EventArgs e)
