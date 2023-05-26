@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.MoviesListBox = new System.Windows.Forms.ListBox();
             this.DescriptionGroupBox = new System.Windows.Forms.GroupBox();
             this.GenreComboBox = new System.Windows.Forms.ComboBox();
@@ -42,7 +43,6 @@
             this.TitleLabel = new System.Windows.Forms.Label();
             this.AddButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
-            this.ChangeButton = new System.Windows.Forms.Button();
             this.DescriptionGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,7 +54,7 @@
             this.MoviesListBox.ItemHeight = 20;
             this.MoviesListBox.Location = new System.Drawing.Point(12, 12);
             this.MoviesListBox.Name = "MoviesListBox";
-            this.MoviesListBox.Size = new System.Drawing.Size(382, 484);
+            this.MoviesListBox.Size = new System.Drawing.Size(382, 424);
             this.MoviesListBox.TabIndex = 0;
             this.MoviesListBox.SelectedIndexChanged += new System.EventHandler(this.MoviesListBox_SelectedIndexChanged);
             // 
@@ -169,37 +169,35 @@
             // 
             // AddButton
             // 
-            this.AddButton.Location = new System.Drawing.Point(12, 502);
+            this.AddButton.BackColor = System.Drawing.SystemColors.Control;
+            this.AddButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("AddButton.BackgroundImage")));
+            this.AddButton.FlatAppearance.BorderSize = 0;
+            this.AddButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AddButton.Location = new System.Drawing.Point(12, 442);
             this.AddButton.Name = "AddButton";
-            this.AddButton.Size = new System.Drawing.Size(94, 29);
+            this.AddButton.Size = new System.Drawing.Size(61, 64);
             this.AddButton.TabIndex = 2;
-            this.AddButton.UseVisualStyleBackColor = true;
+            this.AddButton.UseVisualStyleBackColor = false;
             this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // DeleteButton
             // 
-            this.DeleteButton.Location = new System.Drawing.Point(212, 502);
+            this.DeleteButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("DeleteButton.BackgroundImage")));
+            this.DeleteButton.FlatAppearance.BorderSize = 0;
+            this.DeleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DeleteButton.Location = new System.Drawing.Point(79, 442);
             this.DeleteButton.Name = "DeleteButton";
-            this.DeleteButton.Size = new System.Drawing.Size(94, 29);
+            this.DeleteButton.Size = new System.Drawing.Size(63, 65);
             this.DeleteButton.TabIndex = 3;
             this.DeleteButton.UseVisualStyleBackColor = true;
             this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
-            // 
-            // ChangeButton
-            // 
-            this.ChangeButton.Location = new System.Drawing.Point(112, 502);
-            this.ChangeButton.Name = "ChangeButton";
-            this.ChangeButton.Size = new System.Drawing.Size(94, 29);
-            this.ChangeButton.TabIndex = 4;
-            this.ChangeButton.UseVisualStyleBackColor = true;
-            this.ChangeButton.Click += new System.EventHandler(this.ChangeButton_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(895, 537);
-            this.Controls.Add(this.ChangeButton);
             this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.AddButton);
             this.Controls.Add(this.DescriptionGroupBox);
@@ -228,6 +226,5 @@
         private Label TitleLabel;
         private Button AddButton;
         private Button DeleteButton;
-        private Button ChangeButton;
     }
 }

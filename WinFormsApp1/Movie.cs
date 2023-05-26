@@ -1,4 +1,5 @@
-﻿namespace Programming.Model.Class
+﻿using MoviesApp;
+namespace Programming.Model.Class
 {
     /// <summary>
     /// Класс, хранящий название, жанр, рейтинг, год выпуска и продолжительность в минутах.
@@ -24,6 +25,11 @@
         /// Продолжительность в минутах, только положительное значение.
         /// </summary>
         private int _duration;
+
+        /// <summary>
+        /// Жанр фильма, не больше количества указанного в перечислении <see cref="Genre"/>.
+        /// </summary>
+        private int _genre;
 
         /// <summary>
         /// Возвращает и задает название фильма.
@@ -64,7 +70,15 @@
         /// <summary>
         /// Возвращает и задает жанр фильма.
         /// </summary>
-        public string Genre { get; set; }
+        public int Genre 
+        { 
+            get => _genre; 
+            set
+            {
+                Validator(value, 0, 25, "Жанр не может не входить в перечисление Genres");
+                _genre = value;
+            }
+        }
 
         /// <summary>
         /// Возвращает и задает продолжительности в минутах, только положотельное значение.
@@ -75,6 +89,7 @@
             set
             {
                 Validator(value, 1, 300, "Подолжительность фильма от 1 до 300.");
+                _duration = value;
             }
         }
 
@@ -94,7 +109,7 @@
         /// <param name="yearOfIssue">Год выпуска фильма, с 1990г. до настоящего года.</param>
         /// <param name="genre">Жанр фильма.</param>
         /// <param name="rate">Рейтинг фильма, от 0 до 10.</param>
-        public Movie(string title, int durationInMinutes, int yearOfIssue, string genre, double rate)
+        public Movie(string title, int durationInMinutes, int yearOfIssue, int genre, double rate)
         {
             Title = title;
             Duration = durationInMinutes;

@@ -3,8 +3,13 @@
     /// <summary>
     /// Перечесление жанров фильмов.
     /// </summary>
-    public enum Genre
+    public enum Genres
     {
+        /// <summary>
+        /// Без жанра.
+        /// </summary>
+        NonGenre,
+
         /// <summary>
         /// Боевик.
         /// </summary>
