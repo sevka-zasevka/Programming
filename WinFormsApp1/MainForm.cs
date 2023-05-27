@@ -23,22 +23,24 @@ namespace WinFormsApp1
                 GenreComboBox.Items.Add(Enum.GetName(typeof(Genres), i));
             }
 
-            StreamReader Movie = File.OpenText(FilePath);
-            foreach(string line in Movie.ReadToEnd().Split("\n"))
+            if (File.Exists(FilePath))
             {
-                Movie movie = new Movie();
-                string[] description;
-                description = line.Split(" ");
-                movie.Title= description[0];
-                movie.YearOfIssue = Convert.ToInt32(description[1]);
-                movie.Genre = Convert.ToInt32(description[2]);
-                movie.Rate = Convert.ToDouble(description[3]);
-                movie.Duration = Convert.ToInt32(description[4]);
-                Movies.Add(movie);
-                MoviesListBox.Items.Add(LineToListBox(movie));
-            }
-            Movie.Close();
-            
+                StreamReader Movie = File.OpenText(FilePath);
+                foreach (string line in Movie.ReadToEnd().Split("\n"))
+                {
+                    Movie movie = new Movie();
+                    string[] description;
+                    description = line.Split("@");
+                    movie.Title = description[0];
+                    movie.YearOfIssue = Convert.ToInt32(description[1]);
+                    movie.Genre = Convert.ToInt32(description[2]);
+                    movie.Rate = Convert.ToDouble(description[3]);
+                    movie.Duration = Convert.ToInt32(description[4]);
+                    Movies.Add(movie);
+                    MoviesListBox.Items.Add(LineToListBox(movie));
+                }
+                Movie.Close();
+            }   
         }
 
         private void AddButton_Click(object sender, EventArgs e)
@@ -243,7 +245,7 @@ namespace WinFormsApp1
 
         public string FileLine(Movie movie)
         {
-            return movie.Title+" "+movie.YearOfIssue.ToString()+" "+movie.Genre.ToString()+" "+movie.Rate.ToString()+" "+movie.Duration.ToString()+" ";
+            return movie.Title+"@"+movie.YearOfIssue.ToString()+"@" +movie.Genre.ToString()+"@" +movie.Rate.ToString()+"@" +movie.Duration.ToString()+"@";
         }
 
         public void UpdateFile(List<Movie> movies)
@@ -266,6 +268,54 @@ namespace WinFormsApp1
             StreamWriter ChangeFile = File.CreateText(FilePath);
             ChangeFile.Write(text);
             ChangeFile.Close();
+        }
+
+        public void Sort(List<Movie> movies)
+        {
+            movies.Sort((left, right) => left.Title.CompareTo(right.Title));
+            MoviesListBox.Items.Clear();
+            foreach (Movie movie in movies) 
+            {
+                MoviesListBox.Items.Add(LineToListBox(movie));
+            }
+            UpdateFile(movies);
+        }
+
+        private void ChangeButton_Click(object sender, EventArgs e)
+        {
+            if (TitleTextBox.ReadOnly == true)
+            {
+                TitleTextBox.ReadOnly= false;
+                TitleTextBox.BackColor = Color.White;
+                ReleaseTextBox.ReadOnly = false;
+                ReleaseTextBox.BackColor = Color.White;
+                RateTextBox.ReadOnly = false;
+                RateTextBox.BackColor = Color.White;
+                DurationTextBox.ReadOnly = false;
+                DurationTextBox.BackColor = Color.White;
+                GenreComboBox.BackColor = Color.White;
+            }
+            else
+            {
+                int selected = MoviesListBox.SelectedIndex;
+                TitleTextBox.ReadOnly= true;
+                TitleTextBox.BackColor = Color.LightGray;
+                ReleaseTextBox.ReadOnly= true;
+                ReleaseTextBox.BackColor = Color.LightGray;
+                RateTextBox.ReadOnly= true;
+                RateTextBox.BackColor = Color.LightGray;
+                DurationTextBox.ReadOnly = true;
+                DurationTextBox.BackColor = Color.LightGray;
+                GenreComboBox.BackColor = Color.LightGray;
+                Sort(Movies);
+                for (int i = 0; i < Movies.Count; i++)
+                {
+                    if (Movies[i] == CurrentMovie)
+                    {
+                        MoviesListBox.SelectedIndex = i;
+                    }
+                }
+            }
         }
     }
 }

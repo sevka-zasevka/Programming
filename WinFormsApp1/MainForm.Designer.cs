@@ -43,6 +43,7 @@
             this.TitleLabel = new System.Windows.Forms.Label();
             this.AddButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
+            this.ChangeButton = new System.Windows.Forms.Button();
             this.DescriptionGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,6 +82,7 @@
             // 
             // GenreComboBox
             // 
+            this.GenreComboBox.BackColor = System.Drawing.SystemColors.ControlLight;
             this.GenreComboBox.FormattingEnabled = true;
             this.GenreComboBox.Location = new System.Drawing.Point(80, 86);
             this.GenreComboBox.Name = "GenreComboBox";
@@ -90,24 +92,30 @@
             // 
             // DurationTextBox
             // 
+            this.DurationTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
             this.DurationTextBox.Location = new System.Drawing.Point(80, 153);
             this.DurationTextBox.Name = "DurationTextBox";
+            this.DurationTextBox.ReadOnly = true;
             this.DurationTextBox.Size = new System.Drawing.Size(151, 27);
             this.DurationTextBox.TabIndex = 8;
             this.DurationTextBox.TextChanged += new System.EventHandler(this.DurationTextBox_TextChanged);
             // 
             // RateTextBox
             // 
+            this.RateTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
             this.RateTextBox.Location = new System.Drawing.Point(80, 120);
             this.RateTextBox.Name = "RateTextBox";
+            this.RateTextBox.ReadOnly = true;
             this.RateTextBox.Size = new System.Drawing.Size(151, 27);
             this.RateTextBox.TabIndex = 7;
             this.RateTextBox.TextChanged += new System.EventHandler(this.RateTextBox_TextChanged);
             // 
             // ReleaseTextBox
             // 
+            this.ReleaseTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ReleaseTextBox.Location = new System.Drawing.Point(80, 53);
             this.ReleaseTextBox.Name = "ReleaseTextBox";
+            this.ReleaseTextBox.ReadOnly = true;
             this.ReleaseTextBox.Size = new System.Drawing.Size(151, 27);
             this.ReleaseTextBox.TabIndex = 6;
             this.ReleaseTextBox.TextChanged += new System.EventHandler(this.ReleaseTextBox_TextChanged);
@@ -116,8 +124,10 @@
             // 
             this.TitleTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.TitleTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
             this.TitleTextBox.Location = new System.Drawing.Point(80, 20);
             this.TitleTextBox.Name = "TitleTextBox";
+            this.TitleTextBox.ReadOnly = true;
             this.TitleTextBox.Size = new System.Drawing.Size(270, 27);
             this.TitleTextBox.TabIndex = 5;
             this.TitleTextBox.TextChanged += new System.EventHandler(this.TitleTextBox_TextChanged);
@@ -187,18 +197,32 @@
             this.DeleteButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("DeleteButton.BackgroundImage")));
             this.DeleteButton.FlatAppearance.BorderSize = 0;
             this.DeleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DeleteButton.Location = new System.Drawing.Point(79, 286);
+            this.DeleteButton.Location = new System.Drawing.Point(148, 287);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(63, 65);
             this.DeleteButton.TabIndex = 3;
             this.DeleteButton.UseVisualStyleBackColor = true;
             this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
+            // ChangeButton
+            // 
+            this.ChangeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ChangeButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ChangeButton.BackgroundImage")));
+            this.ChangeButton.FlatAppearance.BorderSize = 0;
+            this.ChangeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ChangeButton.Location = new System.Drawing.Point(79, 287);
+            this.ChangeButton.Name = "ChangeButton";
+            this.ChangeButton.Size = new System.Drawing.Size(63, 65);
+            this.ChangeButton.TabIndex = 4;
+            this.ChangeButton.UseVisualStyleBackColor = true;
+            this.ChangeButton.Click += new System.EventHandler(this.ChangeButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(736, 363);
+            this.Controls.Add(this.ChangeButton);
             this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.AddButton);
             this.Controls.Add(this.DescriptionGroupBox);
@@ -229,5 +253,6 @@
         private Label TitleLabel;
         private Button AddButton;
         private Button DeleteButton;
+        private Button ChangeButton;
     }
 }
