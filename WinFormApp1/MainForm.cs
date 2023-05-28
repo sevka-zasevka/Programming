@@ -22,12 +22,16 @@ namespace WinFormsApp1
                 GenreComboBox.Items.Add(Enum.GetName(typeof(Genres), i));
             }
             Movies = ProjectSerializer.LoadFromFile();
+            foreach(Movie movies in Movies)
+            {
+                MoviesListBox.Items.Add(LineToListBox(movies));
+            }
             ApplyButton.Visible = false;
         }
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            Movie movie = new Movie("Фильм" + Count.ToString(), 1, 0, 0, 0);
+            Movie movie = new Movie("Movie" + Count.ToString(), 1, 0, 0, 0);
             Count++;
             Movies.Add(movie);
             ChangeTextBoxColor(false);

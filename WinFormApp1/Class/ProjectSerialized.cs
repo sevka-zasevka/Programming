@@ -35,6 +35,8 @@ namespace MoviApp.Class
                 return new List<Movie>();
             }
 
+            return JsonConvert.DeserializeObject<List<Movie>>(File.ReadAllText(_file));
+
             var movie = new List<Movie>();
             JsonSerializer serializer = new JsonSerializer();
             using (StreamReader sr = new StreamReader(_file))
