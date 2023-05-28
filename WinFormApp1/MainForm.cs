@@ -283,6 +283,7 @@ namespace WinFormsApp1
         /// <summary>
         /// Метод для сортировки коллекции эллементов класса <see cref="Movie"/> 
         /// в алфавитном порядке и пересериализации в файл.
+        /// Решение взято с сайта <see href="https://shorturl.at/wEHK3"/>
         /// </summary>
         /// <param name="movies">Сортируемая коллекция элементов класса <see cref="Movie"/>.</param>
         public void Sort(List<Movie> movies)
