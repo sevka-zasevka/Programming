@@ -49,6 +49,7 @@
             this.DeleteButton = new System.Windows.Forms.Button();
             this.ChangeButton = new System.Windows.Forms.Button();
             this.ApplyButton = new System.Windows.Forms.Button();
+            this.CancelButton = new System.Windows.Forms.Button();
             this.DescriptionGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -283,7 +284,7 @@
             this.ApplyButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ApplyButton.BackgroundImage")));
             this.ApplyButton.FlatAppearance.BorderSize = 0;
             this.ApplyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ApplyButton.Location = new System.Drawing.Point(322, 233);
+            this.ApplyButton.Location = new System.Drawing.Point(322, 231);
             this.ApplyButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ApplyButton.Name = "ApplyButton";
             this.ApplyButton.Size = new System.Drawing.Size(58, 67);
@@ -291,11 +292,25 @@
             this.ApplyButton.UseVisualStyleBackColor = true;
             this.ApplyButton.Click += new System.EventHandler(this.ApplyButton_Click);
             // 
+            // CancelButton
+            // 
+            this.CancelButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("CancelButton.BackgroundImage")));
+            this.CancelButton.FlatAppearance.BorderSize = 0;
+            this.CancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CancelButton.Location = new System.Drawing.Point(386, 230);
+            this.CancelButton.Name = "CancelButton";
+            this.CancelButton.Size = new System.Drawing.Size(55, 66);
+            this.CancelButton.TabIndex = 6;
+            this.CancelButton.UseVisualStyleBackColor = true;
+            this.CancelButton.Visible = false;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(620, 306);
+            this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.ApplyButton);
             this.Controls.Add(this.ChangeButton);
             this.Controls.Add(this.DeleteButton);
@@ -335,5 +350,6 @@
         private Label ValidationRateLabel;
         private Label ValidationYearLabel;
         private Label ValidationTitleLable;
+        private Button CancelButton;
     }
 }

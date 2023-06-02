@@ -36,11 +36,12 @@ namespace WinFormsApp1
             Movies.Add(movie);
             ChangeTextBoxColor(false);
             WriteInTextBox(movie);
+            MoviesListBox.Items.Add(LineToListBox(movie));
+            Visible(false);
             if (ApplyButton.Visible == false)
             {
-                MoviesListBox.Items.Add(LineToListBox(movie));
-                UpdateFile(Movies);
                 ChangeTextBoxColor(true);
+                Visible(true);
             }
         }
 
@@ -103,6 +104,7 @@ namespace WinFormsApp1
                 {
                     TitleTextBox.BackColor = Color.LightPink;
                     ValidationTitleLable.Visible = true;
+                    ApplyButton.Visible = false;
                 }
             }
             UpdateFile(Movies);
@@ -138,6 +140,7 @@ namespace WinFormsApp1
                 {
                     ReleaseTextBox.BackColor = Color.LightPink;
                     ValidationYearLabel.Visible = true;
+                    ApplyButton.Visible = false;
                 }
             }
             UpdateFile(Movies);
@@ -189,6 +192,7 @@ namespace WinFormsApp1
                 {
                     RateTextBox.BackColor = Color.LightPink;
                     ValidationRateLabel.Visible = true;
+                    ApplyButton.Visible = false;
                 }
             }
             UpdateFile(Movies);
@@ -223,6 +227,7 @@ namespace WinFormsApp1
                 {
                     DurationTextBox.BackColor = Color.LightPink;
                     ValidationDurationLabel.Visible = true;
+                    ApplyButton.Visible = false;
                 }
             }
             UpdateFile(Movies);
@@ -342,6 +347,22 @@ namespace WinFormsApp1
             RateTextBox.Text = movie.Rate.ToString();
             DurationTextBox.Text = movie.Duration.ToString();
             GenreComboBox.SelectedIndex = movie.Genre;
+        }
+
+        public void Visible(bool flag)
+        {
+            AddButton.Visible = flag;
+            ChangeButton.Visible = flag;
+            DeleteButton.Visible = flag;
+        }
+
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            int selected = MoviesListBox.SelectedIndex;
+            MoviesListBox.Items.RemoveAt(selected);
+            Movies.RemoveAt(selected);
+            ChangeTextBoxColor(true);
+
         }
     }
 }
