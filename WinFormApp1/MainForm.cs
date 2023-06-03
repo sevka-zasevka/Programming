@@ -11,9 +11,14 @@ namespace WinFormsApp1
 {
     public partial class MainForm : Form
     {
+        // TODO: XML
+        // TODO: private
         public Movie CurrentMovie = new Movie();
-        public List<Movie> Movies = new List<Movie> { };
+        public List<Movie> Movies = new List<Movie>();
         public int Count = 1;
+        public Movie CloneMovie;
+        public bool ChangeFlag = false;
+        public bool AddFlag = false;
         public MainForm()
         {
             InitializeComponent();
@@ -21,11 +26,13 @@ namespace WinFormsApp1
             {
                 GenreComboBox.Items.Add(Enum.GetName(typeof(Genres), i));
             }
+
             Movies = ProjectSerializer.LoadFromFile();
             foreach(Movie movies in Movies)
             {
                 MoviesListBox.Items.Add(LineToListBox(movies));
             }
+
             ApplyButton.Visible = false;
         }
 
@@ -34,15 +41,11 @@ namespace WinFormsApp1
             Movie movie = new Movie("Movie" + Count.ToString(), 1, 0, 0, 0);
             Count++;
             Movies.Add(movie);
-            ChangeTextBoxColor(false);
-            WriteInTextBox(movie);
             MoviesListBox.Items.Add(LineToListBox(movie));
+            MoviesListBox.SelectedIndex = (MoviesListBox.Items.Count) - 1;
+            ChangeTextBoxColor(false);
             Visible(false);
-            if (ApplyButton.Visible == false)
-            {
-                ChangeTextBoxColor(true);
-                Visible(true);
-            }
+            AddFlag = true;
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
@@ -59,11 +62,15 @@ namespace WinFormsApp1
 
         private void MoviesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // TODO: selectMovieIndex
             int selectMovie = MoviesListBox.SelectedIndex;
             if (selectMovie != -1)
             {
-                CurrentMovie = Movies[selectMovie];
-                WriteInTextBox(CurrentMovie);
+                if (!ChangeFlag && !AddFlag)
+                {
+                    CurrentMovie = Movies[selectMovie];
+                    WriteInTextBox(CurrentMovie);
+                }
             }
             else
             {
@@ -72,170 +79,264 @@ namespace WinFormsApp1
                 RateTextBox.Clear();
                 DurationTextBox.Clear();
                 GenreComboBox.SelectedIndex = -1;
+                ChangeTextBoxColor(true);
             }
         }
 
         private void TitleTextBox_TextChanged(object sender, EventArgs e)
         {
             int selectMovie = MoviesListBox.SelectedIndex;
-            if (selectMovie == -1)
+            if (selectMovie != -1)
             {
-                TitleTextBox.BackColor = Color.White;
-            }
-            else
-            {
-                CurrentMovie = Movies[selectMovie];
-                try
+                // TODO: дубль
+                if (ChangeFlag)
                 {
-                    string newTitle = TitleTextBox.Text.ToString();
-                    if (newTitle != CurrentMovie.Title)
+                    try
                     {
-                        CurrentMovie.Title = newTitle;
-                        TitleTextBox.BackColor = Color.White;
-                        ValidationTitleLable.Visible = false;
-                        int currentSelection = TitleTextBox.SelectionStart;
-                        MoviesListBox.Items[selectMovie] = LineToListBox(CurrentMovie);
-                        TitleTextBox.Focus();
-                        TitleTextBox.SelectionStart = currentSelection;
-                        Movies[selectMovie] = CurrentMovie;
+                        string newTitle = TitleTextBox.Text.ToString();
+                        if (newTitle != CurrentMovie.Title)
+                        {
+                            CurrentMovie.Title = newTitle;
+                            TitleTextBox.BackColor = Color.White;
+                            ValidationTitleLable.Visible = false;
+                            int currentSelection = TitleTextBox.SelectionStart;
+                            TitleTextBox.Focus();
+                            TitleTextBox.SelectionStart = currentSelection;
+                            if (!ChangeFlag)
+                            {
+                                Movies[selectMovie] = CurrentMovie;
+                            }
+                        }
+                    }
+                    catch
+                    {
+                        TitleTextBox.BackColor = Color.LightPink;
+                        ValidationTitleLable.Visible = true;
+                        ApplyButton.Visible = false;
                     }
                 }
-                catch
+                if (AddFlag)
                 {
-                    TitleTextBox.BackColor = Color.LightPink;
-                    ValidationTitleLable.Visible = true;
-                    ApplyButton.Visible = false;
+                    try
+                    {
+                        string newTitle = TitleTextBox.Text.ToString();
+                        if (newTitle != CurrentMovie.Title)
+                        {
+                            CurrentMovie.Title = newTitle;
+                            TitleTextBox.BackColor = Color.White;
+                            ValidationTitleLable.Visible = false;
+                            int currentSelection = TitleTextBox.SelectionStart;
+                            TitleTextBox.Focus();
+                            TitleTextBox.SelectionStart = currentSelection;
+                        }
+                    }
+                    catch
+                    {
+                        TitleTextBox.BackColor = Color.LightPink;
+                        ValidationTitleLable.Visible = true;
+                        ApplyButton.Visible = false;
+                    }
                 }
             }
-            UpdateFile(Movies);
         }
 
 
         private void ReleaseTextBox_TextChanged(object sender, EventArgs e)
         {
             int selectMovie = MoviesListBox.SelectedIndex;
-            if (selectMovie == -1)
+            if (selectMovie != -1)
             {
-                ReleaseTextBox.BackColor = Color.White;
-            }
-            else
-            {
-                CurrentMovie = Movies[selectMovie];
-                try
+                if (ChangeFlag)
                 {
-                    int newYear = Convert.ToInt32(ReleaseTextBox.Text);
-                    if (newYear != CurrentMovie.YearOfIssue)
+                    // TODO: дубль
+                    try
                     {
-                        CurrentMovie.YearOfIssue = newYear;
-                        ReleaseTextBox.BackColor = Color.White;
-                        ValidationYearLabel.Visible = false;
-                        int currentSelection = ReleaseTextBox.SelectionStart;
-                        MoviesListBox.Items[selectMovie] = LineToListBox(CurrentMovie);
-                        ReleaseTextBox.Focus();
-                        ReleaseTextBox.SelectionStart = currentSelection;
-                        Movies[selectMovie] = CurrentMovie;
+                        int newYear = Convert.ToInt32(ReleaseTextBox.Text);
+                        if (newYear != CloneMovie.YearOfIssue)
+                        {
+                            CloneMovie.YearOfIssue = newYear;
+                            ReleaseTextBox.BackColor = Color.White;
+                            ValidationYearLabel.Visible = false;
+                            int currentSelection = ReleaseTextBox.SelectionStart;
+                            ReleaseTextBox.Focus();
+                            ReleaseTextBox.SelectionStart = currentSelection;
+                        }
+                    }
+                    catch
+                    {
+                        ReleaseTextBox.BackColor = Color.LightPink;
+                        ValidationYearLabel.Visible = true;
+                        ApplyButton.Visible = false;
                     }
                 }
-                catch
+                if (AddFlag)
                 {
-                    ReleaseTextBox.BackColor = Color.LightPink;
-                    ValidationYearLabel.Visible = true;
-                    ApplyButton.Visible = false;
+                    try
+                    {
+                        int newYear = Convert.ToInt32(ReleaseTextBox.Text);
+                        if (newYear != CloneMovie.YearOfIssue)
+                        {
+                            CloneMovie.YearOfIssue = newYear;
+                            ReleaseTextBox.BackColor = Color.White;
+                            ValidationYearLabel.Visible = false;
+                            int currentSelection = ReleaseTextBox.SelectionStart;
+                            ReleaseTextBox.Focus();
+                            ReleaseTextBox.SelectionStart = currentSelection;
+                        }
+                    }
+                    catch
+                    {
+                        ReleaseTextBox.BackColor = Color.LightPink;
+                        ValidationYearLabel.Visible = true;
+                        ApplyButton.Visible = false;
+                    }
                 }
+
             }
-            UpdateFile(Movies);
         }
 
         private void GenreComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             int selectMovie = MoviesListBox.SelectedIndex;
-            if (selectMovie != -1) 
+            if (selectMovie != -1)
             {
-                CurrentMovie = Movies[selectMovie];
-                int selectGanre = GenreComboBox.SelectedIndex;
-                if (selectGanre != -1 && selectGanre != CurrentMovie.Genre)
+                // TODO: дубль
+                if (ChangeFlag)
                 {
-                    CurrentMovie.Genre = selectGanre;
-                    MoviesListBox.Items[selectMovie] = LineToListBox(CurrentMovie);
-                    Movies[selectMovie] = CurrentMovie;
+                    int selectGanre = GenreComboBox.SelectedIndex;
+                    if (selectGanre != -1 && selectGanre != CurrentMovie.Genre)
+                    {
+                        CurrentMovie.Genre = selectGanre;
+                    }
+                }
+                if (AddFlag)
+                {
+
+                    int selectGanre = GenreComboBox.SelectedIndex;
+                    if (selectGanre != -1 && selectGanre != CurrentMovie.Genre)
+                    {
+                        CurrentMovie.Genre = selectGanre;
+                    }
                 }
             }
-            UpdateFile(Movies);
         }
 
         private void RateTextBox_TextChanged(object sender, EventArgs e)
         {
             int selectMovie = MoviesListBox.SelectedIndex;
-            if (selectMovie == -1)
+            if (selectMovie != -1)
             {
-                RateTextBox.BackColor = Color.White;
-            }
-            else
-            {
-                CurrentMovie = Movies[selectMovie];
-                try
+                // TODO: дубль
+                if (ChangeFlag)
                 {
-                    double newRate = Convert.ToDouble(RateTextBox.Text);
-                    if (newRate != CurrentMovie.Rate)
+                    try
                     {
-                        CurrentMovie.Rate = newRate;
-                        RateTextBox.BackColor = Color.White;
-                        ValidationRateLabel.Visible = false;
-                        int currentSelection = RateTextBox.SelectionStart;
-                        MoviesListBox.Items[selectMovie] = LineToListBox(CurrentMovie);
-                        RateTextBox.Focus();
-                        RateTextBox.SelectionStart = currentSelection;
-                        Movies[selectMovie] = CurrentMovie;
+                        double newRate = Convert.ToDouble(RateTextBox.Text);
+                        if (newRate != CurrentMovie.Rate)
+                        {
+                            CurrentMovie.Rate = newRate;
+                            RateTextBox.BackColor = Color.White;
+                            ValidationRateLabel.Visible = false;
+                            int currentSelection = RateTextBox.SelectionStart;
+                            RateTextBox.Focus();
+                            RateTextBox.SelectionStart = currentSelection;
+                        }
+                    }
+                    catch
+                    {
+                        RateTextBox.BackColor = Color.LightPink;
+                        ValidationRateLabel.Visible = true;
+                        ApplyButton.Visible = false;
                     }
                 }
-                catch
+                if(AddFlag)
                 {
-                    RateTextBox.BackColor = Color.LightPink;
-                    ValidationRateLabel.Visible = true;
-                    ApplyButton.Visible = false;
+                    try
+                    {
+                        double newRate = Convert.ToDouble(RateTextBox.Text);
+                        if (newRate != CurrentMovie.Rate)
+                        {
+                            CurrentMovie.Rate = newRate;
+                            RateTextBox.BackColor = Color.White;
+                            ValidationRateLabel.Visible = false;
+                            int currentSelection = RateTextBox.SelectionStart;
+                            RateTextBox.Focus();
+                            RateTextBox.SelectionStart = currentSelection;
+                        }
+                    }
+                    catch
+                    {
+                        RateTextBox.BackColor = Color.LightPink;
+                        ValidationRateLabel.Visible = true;
+                        ApplyButton.Visible = false;
+                    }
                 }
             }
-            UpdateFile(Movies);
         }
 
         private void DurationTextBox_TextChanged(object sender, EventArgs e)
         {
             int selectMovie = MoviesListBox.SelectedIndex;
-            if (selectMovie == -1)
+            if (selectMovie != -1)
             {
-                DurationTextBox.BackColor = Color.White;
-            }
-            else
-            {
-                CurrentMovie = Movies[selectMovie];
-                try
+                if (ChangeFlag)
                 {
-                    int newDur = Convert.ToInt32(DurationTextBox.Text);
-                    if (newDur != CurrentMovie.Duration)
+                    try
                     {
-                        CurrentMovie.Duration = newDur;
-                        DurationTextBox.BackColor = Color.White;
-                        ValidationDurationLabel.Visible = false;
-                        int currentSelection = DurationTextBox.SelectionStart;
-                        MoviesListBox.Items[selectMovie] = LineToListBox(CurrentMovie);
-                        DurationTextBox.Focus();
-                        DurationTextBox.SelectionStart = currentSelection;
-                        Movies[selectMovie] = CurrentMovie;
+                        int newDur = Convert.ToInt32(DurationTextBox.Text);
+                        if (newDur != CurrentMovie.Duration)
+                        {
+                            CurrentMovie.Duration = newDur;
+                            DurationTextBox.BackColor = Color.White;
+                            ValidationDurationLabel.Visible = false;
+                            int currentSelection = DurationTextBox.SelectionStart;
+                            DurationTextBox.Focus();
+                            DurationTextBox.SelectionStart = currentSelection;
+                        }
+                    }
+                    catch
+                    {
+                        DurationTextBox.BackColor = Color.LightPink;
+                        ValidationDurationLabel.Visible = true;
+                        ApplyButton.Visible = false;
                     }
                 }
-                catch
+                if (AddFlag)
                 {
-                    DurationTextBox.BackColor = Color.LightPink;
-                    ValidationDurationLabel.Visible = true;
-                    ApplyButton.Visible = false;
+                    try
+                    {
+                        int newDur = Convert.ToInt32(DurationTextBox.Text);
+                        if (newDur != CurrentMovie.Duration)
+                        {
+                            CurrentMovie.Duration = newDur;
+                            DurationTextBox.BackColor = Color.White;
+                            ValidationDurationLabel.Visible = false;
+                            int currentSelection = DurationTextBox.SelectionStart;
+                            DurationTextBox.Focus();
+                            DurationTextBox.SelectionStart = currentSelection;
+                        }
+                    }
+                    catch
+                    {
+                        DurationTextBox.BackColor = Color.LightPink;
+                        ValidationDurationLabel.Visible = true;
+                        ApplyButton.Visible = false;
+                    }
                 }
+
             }
-            UpdateFile(Movies);
         }
         private void ChangeButton_Click(object sender, EventArgs e)
         {
-            if (TitleTextBox.ReadOnly == true)
+            int selected = MoviesListBox.SelectedIndex;
+            if (selected != -1)
             {
+                // TODO: дубль
+                ChangeFlag = true;
+                Visible(false);
+                ApplyButton.Visible = true;
+                CancelButton.Visible = true;
+                CloneMovie = Movie.Clone(Movies[selected]);
                 ChangeTextBoxColor(false);
             }
         }
@@ -243,18 +344,46 @@ namespace WinFormsApp1
         private void ApplyButton_Click(object sender, EventArgs e)
         {
             int selected = MoviesListBox.SelectedIndex;
-            ChangeTextBoxColor(true);
-            Sort(Movies);
-            for (int i = 0; i < Movies.Count; i++)
+            if (ChangeFlag)
             {
-                if (Movies[i] == CurrentMovie)
+                Movies[selected] = CloneMovie;
+                MoviesListBox.Items.Add(LineToListBox(Movies[selected]));
+                ChangeTextBoxColor(true);
+                Sort(Movies);
+                for (int i = 0; i < Movies.Count; i++)
                 {
-                    MoviesListBox.SelectedIndex = i;
+                    if (Movies[i] == CurrentMovie)
+                    {
+                        MoviesListBox.SelectedIndex = i;
+                    }
                 }
+                // TODO: дубль
+                ApplyButton.Visible = false;
+                CancelButton.Visible = false;
+                Visible(true);
+                ChangeFlag = false;
             }
-            ApplyButton.Visible = false;
+            if (AddFlag)
+            {
+                Movies[selected] = CloneMovie;
+                MoviesListBox.Items.Add(LineToListBox(Movies[selected]));
+                ChangeTextBoxColor(true);
+                Sort(Movies);
+                for (int i = 0; i < Movies.Count; i++)
+                {
+                    if (Movies[i] == CurrentMovie)
+                    {
+                        MoviesListBox.SelectedIndex = i;
+                    }
+                }
+                ApplyButton.Visible = false;
+                CancelButton.Visible = false;
+                Visible(true);
+                AddFlag = false;
+            }
         }
 
+        // TODO: private methods
         /// <summary>
         /// Метод для создания строки в MoviesListBox.
         /// </summary>
@@ -310,6 +439,8 @@ namespace WinFormsApp1
         {
             if (flag)
             {
+                // TODO: дубль
+                var backColor = flag ? Color.LightGray : Color.White;
                 TitleTextBox.ReadOnly = true;
                 TitleTextBox.BackColor = Color.LightGray;
                 ReleaseTextBox.ReadOnly = true;
@@ -332,6 +463,7 @@ namespace WinFormsApp1
                 DurationTextBox.BackColor = Color.White;
                 GenreComboBox.BackColor = Color.White;
                 ApplyButton.Visible = true;
+                CancelButton.Visible = true;
             }
         }
 
@@ -349,6 +481,8 @@ namespace WinFormsApp1
             GenreComboBox.SelectedIndex = movie.Genre;
         }
 
+        // TODO: XML
+        // TODO: flag => isVivible
         public void Visible(bool flag)
         {
             AddButton.Visible = flag;
@@ -362,7 +496,12 @@ namespace WinFormsApp1
             MoviesListBox.Items.RemoveAt(selected);
             Movies.RemoveAt(selected);
             ChangeTextBoxColor(true);
-
+            ApplyButton.Visible = false;
+            CancelButton.Visible = false;
+            Visible(true);
+            ChangeFlag = false;
+            AddFlag = false;
+            UpdateFile(Movies);
         }
     }
 }

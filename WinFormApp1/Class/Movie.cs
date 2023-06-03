@@ -40,7 +40,7 @@ namespace MoviApp.Class
             get => _title;
             set
             {
-                Validator(value.Length, 0, 100, "Название Фильма меньше 100 символов.");
+                ValidationValue(value.Length, 0, 100, "Название Фильма меньше 100 символов.");
                 _title = value;
             }
         }
@@ -53,7 +53,7 @@ namespace MoviApp.Class
             get => _yearOfIssue;
             set
             {
-                Validator(value, 0, int.MaxValue, "Год создания фильма должен быть положительным.");
+                ValidationValue(value, 0, int.MaxValue, "Год создания фильма должен быть положительным.");
                 _yearOfIssue = value;
             }
         }
@@ -63,7 +63,7 @@ namespace MoviApp.Class
             get => _rate;
             set
             {
-                Validator(value, 0, 10, "Рейтинг должен быть не отрицательным и меньше 10.");
+                ValidationValue(value, 0, 10, "Рейтинг должен быть не отрицательным и меньше 10.");
                 _rate = value;
             }
         }
@@ -76,7 +76,7 @@ namespace MoviApp.Class
             get => _genre;
             set
             {
-                Validator(value, 0, 25, "Жанр не может не входить в перечисление Genres");
+                ValidationValue(value, 0, 25, "Жанр не может не входить в перечисление Genres");
                 _genre = value;
             }
         }
@@ -89,7 +89,7 @@ namespace MoviApp.Class
             get => _duration;
             set
             {
-                Validator(value, 1, 300, "Подолжительность фильма от 1 до 300.");
+                ValidationValue(value, 1, 300, "Подолжительность фильма от 1 до 300.");
                 _duration = value;
             }
         }
@@ -119,6 +119,11 @@ namespace MoviApp.Class
             Rate = rate;
         }
 
+        // TODO: XML
+        public static Movie Clone(Movie movie)
+        {
+            return new Movie(movie.Title, movie.Duration, movie.YearOfIssue, movie.Genre, movie.Rate);
+        }
         /// <summary>
         /// Методот для проверки введеных значений.
         /// </summary>
@@ -126,12 +131,15 @@ namespace MoviApp.Class
         /// <param name="min">НИжняя граница.</param>
         /// <param name="max">Верхняя граница.</param>
         /// <param name="mass">Сообщение для выпадающего исключения.</param>
-        /// <exception cref="Exception"></exception>
-        private void Validator(int value, int min, int max, string mass)
+        /// <exception cref="ArgumentException"></exception>
+        // TODO: конкретное исключение
+        // TODO: naming
+        // TODO: в отдельный класс
+        private void ValidationValue(int value, int min, int max, string mass)
         {
             if (value < min || value > max)
             {
-                throw new Exception(mass);
+                throw new ArgumentException(mass);
             }
         }
 
@@ -142,14 +150,16 @@ namespace MoviApp.Class
         /// <param name="min">НИжняя граница.</param>
         /// <param name="max">Верхняя граница.</param>
         /// <param name="mass">Сообщение для выпадающего исключения.</param>
-        /// <exception cref="Exception"></exception>
-        private void Validator(double value, int min, int max, string mass)
+        /// <exception cref="ArgumentException"></exception>
+        private void ValidationValue(double value, int min, int max, string mass)
         {
             if (value < min || value > max)
             {
-                throw new Exception(mass);
+                throw new ArgumentException(mass);
             }
         }
+
+        
 
     }
 }

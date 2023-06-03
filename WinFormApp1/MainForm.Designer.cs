@@ -274,7 +274,7 @@
             this.ChangeButton.Location = new System.Drawing.Point(69, 231);
             this.ChangeButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ChangeButton.Name = "ChangeButton";
-            this.ChangeButton.Size = new System.Drawing.Size(55, 64);
+            this.ChangeButton.Size = new System.Drawing.Size(55, 67);
             this.ChangeButton.TabIndex = 4;
             this.ChangeButton.UseVisualStyleBackColor = true;
             this.ChangeButton.Click += new System.EventHandler(this.ChangeButton_Click);

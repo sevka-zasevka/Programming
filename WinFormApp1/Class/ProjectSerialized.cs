@@ -7,7 +7,7 @@ namespace MoviApp.Class
     /// </summary>
     public static class ProjectSerializer
     {
-        // TODO: убрать абсолютные пути
+        // TODO: XML
         private static string _file = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MoviesApp/Movies.json");
         //private string _file = "C:/Users/evsev/AppData/Roaming/MovieApp/Movies.json";
         // public string File { get; set; }
