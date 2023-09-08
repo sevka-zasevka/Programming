@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\ObjectOrientedPractices"
   ],
-  "SelectedNode": "\\Programming.sln",
+  "SelectedNode": "\\src\\ObjectOrientedPractices",
   "PreviewInSolutionExplorer": false
 }
