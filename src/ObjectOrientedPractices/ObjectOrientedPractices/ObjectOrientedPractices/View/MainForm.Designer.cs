@@ -40,18 +40,20 @@
             MainTabControl.Controls.Add(ItemsTabPage);
             MainTabControl.Dock = DockStyle.Fill;
             MainTabControl.Location = new Point(0, 0);
+            MainTabControl.Margin = new Padding(3, 4, 3, 4);
             MainTabControl.Name = "MainTabControl";
             MainTabControl.SelectedIndex = 0;
-            MainTabControl.Size = new Size(708, 527);
+            MainTabControl.Size = new Size(809, 703);
             MainTabControl.TabIndex = 0;
             // 
             // ItemsTabPage
             // 
             ItemsTabPage.Controls.Add(itemsTab1);
-            ItemsTabPage.Location = new Point(4, 24);
+            ItemsTabPage.Location = new Point(4, 29);
+            ItemsTabPage.Margin = new Padding(3, 4, 3, 4);
             ItemsTabPage.Name = "ItemsTabPage";
-            ItemsTabPage.Padding = new Padding(3);
-            ItemsTabPage.Size = new Size(700, 499);
+            ItemsTabPage.Padding = new Padding(3, 4, 3, 4);
+            ItemsTabPage.Size = new Size(801, 670);
             ItemsTabPage.TabIndex = 0;
             ItemsTabPage.Text = "Items";
             ItemsTabPage.UseVisualStyleBackColor = true;
@@ -59,19 +61,21 @@
             // itemsTab1
             // 
             itemsTab1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            itemsTab1.Location = new Point(-4, 0);
-            itemsTab1.MinimumSize = new Size(712, 509);
+            itemsTab1.Location = new Point(-5, 0);
+            itemsTab1.Margin = new Padding(3, 5, 3, 5);
+            itemsTab1.MinimumSize = new Size(814, 679);
             itemsTab1.Name = "itemsTab1";
-            itemsTab1.Size = new Size(712, 509);
+            itemsTab1.Size = new Size(814, 679);
             itemsTab1.TabIndex = 0;
             // 
             // MainForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(708, 527);
+            ClientSize = new Size(809, 703);
             Controls.Add(MainTabControl);
-            MinimumSize = new Size(724, 566);
+            Margin = new Padding(3, 4, 3, 4);
+            MinimumSize = new Size(825, 739);
             Name = "MainForm";
             Text = "MainForm";
             MainTabControl.ResumeLayout(false);

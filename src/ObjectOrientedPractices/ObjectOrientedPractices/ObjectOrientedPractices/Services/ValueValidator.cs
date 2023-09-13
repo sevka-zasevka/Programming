@@ -21,7 +21,7 @@ namespace ObjectOrientedPractices.Services
         /// <exception cref="ArgumentException"></exception>
         public static void CheckIntValue(int minValue, int maxValue, int value, string propertyName)
         {
-            if (value < minValue || value > maxValue)
+            if (value < minValue || value > maxValue || value == 0)
             {
                 throw new ArgumentException(propertyName+" ожидается стоимость от 0 до "+maxValue+".");
             }
@@ -37,7 +37,7 @@ namespace ObjectOrientedPractices.Services
         /// <exception cref="ArgumentException"></exception>
         public static void CheckDoubleValue(int minValue, int maxValue, double value, string propertyName)
         {
-            if (value < minValue || value > maxValue)
+            if (value < minValue || value > maxValue || value == 0)
             {
                 throw new ArgumentException(propertyName + " ожидается стоимость от 0 до " + maxValue + ".");
             }
@@ -52,9 +52,9 @@ namespace ObjectOrientedPractices.Services
         /// <exception cref="ArgumentException"></exception>
         public static void AssertStringOnLength(string value, int maxLenght, string propertyName)
         {
-            if (value.Length > maxLenght)
+            if (value.Length > maxLenght || value.Length == 0)
             {
-                throw new ArgumentException(propertyName + " ожидается значение до " + maxLenght + " символов.");
+                throw new ArgumentException(propertyName + " ожидается значение больше 0 и до " + maxLenght + " символов.");
             }
         }
     }
