@@ -31,29 +31,32 @@
             MainTabControl = new TabControl();
             ItemsTabPage = new TabPage();
             itemsTab1 = new Tabs.ItemsTab();
+            CustomersTabPage = new TabPage();
+            customersTab1 = new Tabs.CustomersTab();
             MainTabControl.SuspendLayout();
             ItemsTabPage.SuspendLayout();
+            CustomersTabPage.SuspendLayout();
             SuspendLayout();
             // 
             // MainTabControl
             // 
             MainTabControl.Controls.Add(ItemsTabPage);
+            MainTabControl.Controls.Add(CustomersTabPage);
             MainTabControl.Dock = DockStyle.Fill;
             MainTabControl.Location = new Point(0, 0);
-            MainTabControl.Margin = new Padding(3, 4, 3, 4);
             MainTabControl.Name = "MainTabControl";
             MainTabControl.SelectedIndex = 0;
-            MainTabControl.Size = new Size(809, 703);
+            MainTabControl.Size = new Size(708, 527);
             MainTabControl.TabIndex = 0;
+            MainTabControl.Tag = "";
             // 
             // ItemsTabPage
             // 
             ItemsTabPage.Controls.Add(itemsTab1);
-            ItemsTabPage.Location = new Point(4, 29);
-            ItemsTabPage.Margin = new Padding(3, 4, 3, 4);
+            ItemsTabPage.Location = new Point(4, 24);
             ItemsTabPage.Name = "ItemsTabPage";
-            ItemsTabPage.Padding = new Padding(3, 4, 3, 4);
-            ItemsTabPage.Size = new Size(801, 670);
+            ItemsTabPage.Padding = new Padding(3, 3, 3, 3);
+            ItemsTabPage.Size = new Size(700, 499);
             ItemsTabPage.TabIndex = 0;
             ItemsTabPage.Text = "Items";
             ItemsTabPage.UseVisualStyleBackColor = true;
@@ -61,25 +64,45 @@
             // itemsTab1
             // 
             itemsTab1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            itemsTab1.Location = new Point(-5, 0);
-            itemsTab1.Margin = new Padding(3, 5, 3, 5);
-            itemsTab1.MinimumSize = new Size(814, 679);
+            itemsTab1.Location = new Point(-4, 0);
+            itemsTab1.Margin = new Padding(3, 4, 3, 4);
+            itemsTab1.MinimumSize = new Size(712, 509);
             itemsTab1.Name = "itemsTab1";
-            itemsTab1.Size = new Size(814, 679);
+            itemsTab1.Size = new Size(712, 509);
             itemsTab1.TabIndex = 0;
+            // 
+            // CustomersTabPage
+            // 
+            CustomersTabPage.Controls.Add(customersTab1);
+            CustomersTabPage.Location = new Point(4, 24);
+            CustomersTabPage.Name = "CustomersTabPage";
+            CustomersTabPage.Padding = new Padding(3);
+            CustomersTabPage.Size = new Size(700, 499);
+            CustomersTabPage.TabIndex = 1;
+            CustomersTabPage.Text = "Customers";
+            CustomersTabPage.UseVisualStyleBackColor = true;
+            // 
+            // customersTab1
+            // 
+            customersTab1.Dock = DockStyle.Fill;
+            customersTab1.Location = new Point(3, 3);
+            customersTab1.MinimumSize = new Size(712, 509);
+            customersTab1.Name = "customersTab1";
+            customersTab1.Size = new Size(712, 509);
+            customersTab1.TabIndex = 0;
             // 
             // MainForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(809, 703);
+            ClientSize = new Size(708, 527);
             Controls.Add(MainTabControl);
-            Margin = new Padding(3, 4, 3, 4);
-            MinimumSize = new Size(825, 739);
+            MinimumSize = new Size(724, 564);
             Name = "MainForm";
             Text = "MainForm";
             MainTabControl.ResumeLayout(false);
             ItemsTabPage.ResumeLayout(false);
+            CustomersTabPage.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -88,5 +111,7 @@
         private TabControl MainTabControl;
         private TabPage ItemsTabPage;
         private Tabs.ItemsTab itemsTab1;
+        private TabPage CustomersTabPage;
+        private Tabs.CustomersTab customersTab1;
     }
 }
