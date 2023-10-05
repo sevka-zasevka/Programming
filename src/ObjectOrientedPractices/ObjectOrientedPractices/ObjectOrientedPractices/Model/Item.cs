@@ -28,6 +28,10 @@ namespace ObjectOrientedPractices.Model
         /// Цена товара, до 100 000.
         /// </summary>
         private double _cost;
+        /// <summary>
+        /// Категория товара.
+        /// </summary>
+        private Category _category;
 
         /// <summary>
         /// Возвращает уникальный id товара.
@@ -77,16 +81,30 @@ namespace ObjectOrientedPractices.Model
         }
 
         /// <summary>
+        /// Возвращает и задает категорию товара из перечисления.
+        /// </summary>
+        public Category Category
+        {
+            get => _category;
+            set
+            {
+                _category = value;
+            }
+        }
+
+        /// <summary>
         /// Создает экземпляр класса <see cref="Item"/>.
         /// </summary>
         /// <param name="name">Название товара, до 200 символов.</param>
         /// <param name="info">Описание товара, до 1000 символов.</param>
         /// <param name="cost">Цена товара, до 100 000.</param>
-        public Item(string name, string info, double cost)
+        /// <param name="category">Категория товара, из перечисления <see cref="Category"/></param>
+        public Item(string name, string info, double cost, Category category)
         {
             Name = name;
             Info = info;
             Cost = cost;
+            Category = category;
         }
     }
 }

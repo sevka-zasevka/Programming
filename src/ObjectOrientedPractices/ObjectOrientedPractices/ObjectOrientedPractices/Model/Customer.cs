@@ -21,9 +21,9 @@ namespace ObjectOrientedPractices.Model
         /// </summary>
         private string _fullname;
         /// <summary>
-        /// Адрес покупателя, до 500 символов.
+        /// Адрес покупателя, объект класса <see cref="Address"/>.
         /// </summary>
-        private string _adress;
+        private Address _address;
 
         /// <summary>
         /// Возвращает id покупателя, уникальный
@@ -55,17 +55,16 @@ namespace ObjectOrientedPractices.Model
         /// <summary>
         /// Возвращает и задает Адрес покупателя.
         /// </summary>
-        public string Adress
+        public Address Address
         {
             get 
             { 
-                return _adress; 
+                return _address; 
             }
 
             set 
             {
-                ValueValidator.AssertStringOnLength(value, 200, "Customer.Adress");
-                _adress = value; 
+                _address = value; 
             }
         }
 
@@ -73,11 +72,11 @@ namespace ObjectOrientedPractices.Model
         /// Создает экземпляр класса <see cref="Customer"/>.
         /// </summary>
         /// <param name="fullname">Фио покупателя, до 200 символов.</param>
-        /// <param name="adress">Адрес покупателя, до 500 символов.</param>
-        public Customer(string fullname, string adress)
+        /// <param name="address">Адрес покупателя, до 500 символов.</param>
+        public Customer(string fullname)
         {
             Fullname = fullname;
-            Adress = adress;
+            Address = new Address(606060, "Country", "City", "Street", "00", "00");
         }
     }
 }

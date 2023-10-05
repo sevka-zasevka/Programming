@@ -49,6 +49,8 @@
             CostLabel = new Label();
             IDTextBox = new TextBox();
             IDLabel = new Label();
+            CategoryComboBox = new ComboBox();
+            CategoryLabel = new Label();
             BasicTableLayoutPanel.SuspendLayout();
             ItemGroupBox.SuspendLayout();
             ButtonTableLayoutPanel.SuspendLayout();
@@ -137,7 +139,7 @@
             ItemsListBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             ItemsListBox.FormattingEnabled = true;
             ItemsListBox.ItemHeight = 15;
-            ItemsListBox.Location = new Point(6, 22);
+            ItemsListBox.Location = new Point(7, 22);
             ItemsListBox.Name = "ItemsListBox";
             ItemsListBox.Size = new Size(296, 409);
             ItemsListBox.TabIndex = 0;
@@ -145,13 +147,15 @@
             // 
             // SelectedIntemGroupBox
             // 
+            SelectedIntemGroupBox.Controls.Add(CategoryLabel);
+            SelectedIntemGroupBox.Controls.Add(CategoryComboBox);
             SelectedIntemGroupBox.Controls.Add(DescriptionValidationLabel);
             SelectedIntemGroupBox.Controls.Add(NameValidationLabel);
+            SelectedIntemGroupBox.Controls.Add(NameTextBox);
             SelectedIntemGroupBox.Controls.Add(CostValidationLabel);
             SelectedIntemGroupBox.Controls.Add(CancelButton);
             SelectedIntemGroupBox.Controls.Add(DescrirtionTextBox);
             SelectedIntemGroupBox.Controls.Add(OkButton);
-            SelectedIntemGroupBox.Controls.Add(NameTextBox);
             SelectedIntemGroupBox.Controls.Add(CostTextBox);
             SelectedIntemGroupBox.Controls.Add(DescriptionLabel);
             SelectedIntemGroupBox.Controls.Add(NameLabel);
@@ -169,7 +173,7 @@
             // DescriptionValidationLabel
             // 
             DescriptionValidationLabel.AutoSize = true;
-            DescriptionValidationLabel.Location = new Point(79, 255);
+            DescriptionValidationLabel.Location = new Point(82, 276);
             DescriptionValidationLabel.Name = "DescriptionValidationLabel";
             DescriptionValidationLabel.Size = new Size(265, 15);
             DescriptionValidationLabel.TabIndex = 11;
@@ -179,7 +183,7 @@
             // NameValidationLabel
             // 
             NameValidationLabel.AutoSize = true;
-            NameValidationLabel.Location = new Point(47, 111);
+            NameValidationLabel.Location = new Point(54, 134);
             NameValidationLabel.Name = "NameValidationLabel";
             NameValidationLabel.Size = new Size(259, 15);
             NameValidationLabel.TabIndex = 10;
@@ -189,7 +193,7 @@
             // CostValidationLabel
             // 
             CostValidationLabel.AutoSize = true;
-            CostValidationLabel.Location = new Point(7, 80);
+            CostValidationLabel.Location = new Point(6, 79);
             CostValidationLabel.Name = "CostValidationLabel";
             CostValidationLabel.Size = new Size(287, 15);
             CostValidationLabel.TabIndex = 9;
@@ -212,10 +216,10 @@
             // 
             DescrirtionTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             DescrirtionTextBox.Enabled = false;
-            DescrirtionTextBox.Location = new Point(6, 273);
+            DescrirtionTextBox.Location = new Point(7, 294);
             DescrirtionTextBox.Multiline = true;
             DescrirtionTextBox.Name = "DescrirtionTextBox";
-            DescrirtionTextBox.Size = new Size(374, 157);
+            DescrirtionTextBox.Size = new Size(374, 137);
             DescrirtionTextBox.TabIndex = 7;
             DescrirtionTextBox.TextChanged += DescrirtionTextBox_TextChanged;
             // 
@@ -235,7 +239,7 @@
             // 
             NameTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             NameTextBox.Enabled = false;
-            NameTextBox.Location = new Point(6, 129);
+            NameTextBox.Location = new Point(6, 152);
             NameTextBox.Multiline = true;
             NameTextBox.Name = "NameTextBox";
             NameTextBox.Size = new Size(374, 121);
@@ -246,16 +250,16 @@
             // 
             CostTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             CostTextBox.Enabled = false;
-            CostTextBox.Location = new Point(52, 53);
+            CostTextBox.Location = new Point(70, 53);
             CostTextBox.Name = "CostTextBox";
-            CostTextBox.Size = new Size(100, 23);
+            CostTextBox.Size = new Size(223, 23);
             CostTextBox.TabIndex = 5;
             CostTextBox.TextChanged += CostTextBox_TextChanged;
             // 
             // DescriptionLabel
             // 
             DescriptionLabel.AutoSize = true;
-            DescriptionLabel.Location = new Point(6, 255);
+            DescriptionLabel.Location = new Point(6, 276);
             DescriptionLabel.Name = "DescriptionLabel";
             DescriptionLabel.Size = new Size(70, 15);
             DescriptionLabel.TabIndex = 4;
@@ -264,7 +268,7 @@
             // NameLabel
             // 
             NameLabel.AutoSize = true;
-            NameLabel.Location = new Point(6, 111);
+            NameLabel.Location = new Point(6, 134);
             NameLabel.Name = "NameLabel";
             NameLabel.Size = new Size(42, 15);
             NameLabel.TabIndex = 3;
@@ -283,9 +287,9 @@
             // 
             IDTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             IDTextBox.Enabled = false;
-            IDTextBox.Location = new Point(52, 24);
+            IDTextBox.Location = new Point(70, 23);
             IDTextBox.Name = "IDTextBox";
-            IDTextBox.Size = new Size(100, 23);
+            IDTextBox.Size = new Size(223, 23);
             IDTextBox.TabIndex = 1;
             // 
             // IDLabel
@@ -296,6 +300,26 @@
             IDLabel.Size = new Size(21, 15);
             IDLabel.TabIndex = 0;
             IDLabel.Text = "ID:";
+            // 
+            // CategoryComboBox
+            // 
+            CategoryComboBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            CategoryComboBox.Enabled = false;
+            CategoryComboBox.FormattingEnabled = true;
+            CategoryComboBox.Location = new Point(70, 97);
+            CategoryComboBox.Name = "CategoryComboBox";
+            CategoryComboBox.Size = new Size(223, 23);
+            CategoryComboBox.TabIndex = 12;
+            CategoryComboBox.SelectedIndexChanged += CategoryComboBox_SelectedIndexChanged;
+            // 
+            // CategoryLabel
+            // 
+            CategoryLabel.AutoSize = true;
+            CategoryLabel.Location = new Point(7, 100);
+            CategoryLabel.Name = "CategoryLabel";
+            CategoryLabel.Size = new Size(58, 15);
+            CategoryLabel.TabIndex = 13;
+            CategoryLabel.Text = "Category:";
             // 
             // ItemsTab
             // 
@@ -336,5 +360,7 @@
         private Label DescriptionValidationLabel;
         private Label NameValidationLabel;
         private Button ChangeButton;
+        private Label CategoryLabel;
+        private ComboBox CategoryComboBox;
     }
 }

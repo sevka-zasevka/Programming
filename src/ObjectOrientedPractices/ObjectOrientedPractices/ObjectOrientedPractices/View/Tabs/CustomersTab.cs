@@ -10,19 +10,22 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ObjectOrientedPractices.Services;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using ObjectOrientedPractices.View;
+using ObjectOrientedPractices.View.Controls;
 
 namespace ObjectOrientedPractices.View.Tabs
 {
-    public partial class CustomersTab : UserControl
+    internal partial class CustomersTab : UserControl
     {
+
         /// <summary>
         /// Список объектов класса <see cref="Customer"/>.
         /// </summary>
-        private List<Customer> Customers = new List<Customer>();
+        private List<Customer> _customers = new List<Customer>();
         /// <summary>
         /// Объект класса <see cref="Customer"/> c полным именем Name и адрeсом Adress.
         /// </summary>
-        private Customer SelectedItem = new Customer("Name", "Adress");
+        private Customer SelectedItem = new Customer("Name");
         /// <summary>
         /// Целочисленная переменная, для запоминания индекса.
         /// </summary>
@@ -35,13 +38,23 @@ namespace ObjectOrientedPractices.View.Tabs
         /// Булевая переменная.
         /// </summary>
         private bool AddCheck;
+
+        public List<Customer> Customers
+        {
+            get
+            { 
+                return _customers; 
+            }
+            set 
+            {
+                _customers = value; 
+            }
+        }
         public CustomersTab()
         {
             InitializeComponent();
             FullNameValidationLabel.Visible = false;
-            AdressValidationLabel.Visible = false;
             FullNameTextBox.Enabled = false;
-            AdressTextBox.Enabled = false;
         }
 
         private void CustomersListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -59,17 +72,15 @@ namespace ObjectOrientedPractices.View.Tabs
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-
             VisibleItems(false);
-            Customer customer = new Customer("Fullname " + Count.ToString(), "Adress");
+            SelectedItem = new Customer("Fullname " + Count.ToString());
             Count++;
-            Customers.Add(customer);
-            CustomersListBox.Items.Add(StringToListBox(customer));
+            Customers.Add(SelectedItem);
+            CustomersListBox.Items.Add(StringToListBox(SelectedItem));
             CustomersListBox.SelectedIndex = (CustomersListBox.Items.Count) - 1;
             Index = CustomersListBox.SelectedIndex;
-            SelectedItem.Fullname = Customers[Index].Fullname;
-            SelectedItem.Adress = Customers[Index].Adress;
             AddCheck = true;
+            AddressControl.Flag = "Add";
         }
 
         private void RemoveButton_Click(object sender, EventArgs e)
@@ -80,6 +91,7 @@ namespace ObjectOrientedPractices.View.Tabs
                 Customers.RemoveAt(Index);
                 CustomersListBox.Items.RemoveAt(Index);
                 CustomersListBox.SelectedIndex = -1;
+                AddressControl.Flag = "Remove";
             }
         }
 
@@ -89,18 +101,21 @@ namespace ObjectOrientedPractices.View.Tabs
             {
                 VisibleItems(false);
                 SelectedItem.Fullname = Customers[Index].Fullname;
-                SelectedItem.Adress = Customers[Index].Adress;
+                SelectedItem.Address = Customers[Index].Address;
                 PrintToTextBox(SelectedItem);
+                AddCheck = true;
+                AddressControl.Flag = "Add";
             }
         }
 
         private void OkButton_Click(object sender, EventArgs e)
         {
             Customers[Index].Fullname = SelectedItem.Fullname;
-            Customers[Index].Adress = SelectedItem.Adress;
+            Customers[Index].Address = SelectedItem.Address;
             VisibleItems(true);
             ListBoxLineChange(Customers);
             AddCheck = false;
+            AddressControl.Flag = "Ok";
         }
 
 
@@ -108,11 +123,12 @@ namespace ObjectOrientedPractices.View.Tabs
         {
             if (AddCheck)
             {
-                CustomersListBox.SelectedIndex = -1;
+                AddCheck = false;
                 Customers.RemoveAt(Index);
                 CustomersListBox.Items.RemoveAt(Index);
                 VisibleItems(true);
-                AddCheck = false;
+                CustomersListBox.SelectedIndex = -1;
+                AddressControl.Flag = "Ok";
             }
             else
             {
@@ -123,7 +139,7 @@ namespace ObjectOrientedPractices.View.Tabs
 
         private void FullNameTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (Index != -1)
+            if (AddCheck)
             {
                 try
                 {
@@ -131,6 +147,7 @@ namespace ObjectOrientedPractices.View.Tabs
                     SelectedItem.Fullname = newFullname;
                     FullNameTextBox.BackColor = Color.White;
                     FullNameValidationLabel.Visible = false;
+                    OkButton.Visible = true;
                     int currentSelection = FullNameTextBox.SelectionStart;
                     FullNameTextBox.Focus();
                     FullNameTextBox.SelectionStart = currentSelection;
@@ -140,29 +157,7 @@ namespace ObjectOrientedPractices.View.Tabs
                 {
                     FullNameTextBox.BackColor = Color.LightPink;
                     FullNameValidationLabel.Visible = true;
-                }
-            }
-        }
-
-        private void AdressTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (Index != -1)
-            {
-                try
-                {
-                    string newAdress = AdressTextBox.Text.ToString();
-                    SelectedItem.Fullname = newAdress;
-                    AdressTextBox.BackColor = Color.White;
-                    AdressValidationLabel.Visible = false;
-                    int currentSelection = AdressTextBox.SelectionStart;
-                    AdressTextBox.Focus();
-                    AdressTextBox.SelectionStart = currentSelection;
-                }
-
-                catch
-                {
-                    AdressTextBox.BackColor = Color.LightPink;
-                    AdressValidationLabel.Visible = true;
+                    OkButton.Visible = false;
                 }
             }
         }
@@ -184,7 +179,6 @@ namespace ObjectOrientedPractices.View.Tabs
             CancelButton.Visible = !visible;
             CustomersListBox.Enabled = visible;
             FullNameTextBox.Enabled = !visible;
-            AdressTextBox.Enabled = !visible;
         }
 
         /// <summary>
@@ -199,7 +193,7 @@ namespace ObjectOrientedPractices.View.Tabs
 
         /// <summary>
         /// Метод для вывода значения полей выбранного покупателя
-        /// в текстовые поля.
+        /// в текстовые поля. Также передаёт значение поля address в AddressControl.
         /// </summary>
         /// <param name="customer">Объект класса <see cref="Customer"/>.</param>
         private void PrintToTextBox(Customer customer)
@@ -208,13 +202,13 @@ namespace ObjectOrientedPractices.View.Tabs
             {
                 IdTextBox.Text = customer.Id.ToString();
                 FullNameTextBox.Text = customer.Fullname.ToString();
-                AdressTextBox.Text = customer.Adress.ToString();
+                AddressControl.SelectedAddress = Customers[Index].Address;
             }
             else
             {
                 IdTextBox.Text = Customers[Index].Id.ToString();
                 FullNameTextBox.Text = customer.Fullname.ToString();
-                AdressTextBox.Text = customer.Adress.ToString();
+                AddressControl.SelectedAddress = Customers[Index].Address;
             }
         }
 
@@ -225,7 +219,6 @@ namespace ObjectOrientedPractices.View.Tabs
         {
             IdTextBox.Clear();
             FullNameTextBox.Clear();
-            AdressTextBox.Clear();
         }
 
         /// <summary>
