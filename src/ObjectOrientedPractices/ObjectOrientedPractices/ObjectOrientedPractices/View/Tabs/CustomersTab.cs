@@ -15,14 +15,33 @@ namespace ObjectOrientedPractices.View.Tabs
 {
     public partial class CustomersTab : UserControl
     {
+        /// <summary>
+        /// Список объектов класса <see cref="Customer"/>.
+        /// </summary>
         private List<Customer> Customers = new List<Customer>();
+        /// <summary>
+        /// Объект класса <see cref="Customer"/> c полным именем Name и адрeсом Adress.
+        /// </summary>
         private Customer SelectedItem = new Customer("Name", "Adress");
+        /// <summary>
+        /// Целочисленная переменная, для запоминания индекса.
+        /// </summary>
         private int Index;
+        /// <summary>
+        /// Целочисленная переменная, для счета.
+        /// </summary>
         private int Count = 1;
+        /// <summary>
+        /// Булевая переменная.
+        /// </summary>
         private bool AddCheck;
         public CustomersTab()
         {
             InitializeComponent();
+            FullNameValidationLabel.Visible = false;
+            AdressValidationLabel.Visible = false;
+            FullNameTextBox.Enabled = false;
+            AdressTextBox.Enabled = false;
         }
 
         private void CustomersListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -83,6 +102,7 @@ namespace ObjectOrientedPractices.View.Tabs
             ListBoxLineChange(Customers);
             AddCheck = false;
         }
+
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
@@ -147,6 +167,14 @@ namespace ObjectOrientedPractices.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Метод для появления кнопок "ok" и "cancel"
+        /// И исчезновения "Add", "Remove" и "Change".
+        /// Также блокиет доступ к "CustomerListBox",
+        /// "FullNameTextBox", "AdressTextBox". 
+        /// И наоборот.
+        /// </summary>
+        /// <param name="visible">Булевая переменная для определения нужного состояния окна.</param>
         private void VisibleItems(bool visible)
         {
             AddButton.Visible = visible;
@@ -159,11 +187,21 @@ namespace ObjectOrientedPractices.View.Tabs
             AdressTextBox.Enabled = !visible;
         }
 
+        /// <summary>
+        /// Метод для создания строки для вывод в Listbox.
+        /// </summary>
+        /// <param name="customer">Объект класса <see cref="Customer"/>.</param>
+        /// <returns></returns>
         private string StringToListBox(Customer customer)
         {
             return customer.Id + ":" + customer.Fullname;
         }
 
+        /// <summary>
+        /// Метод для вывода значения полей выбранного покупателя
+        /// в текстовые поля.
+        /// </summary>
+        /// <param name="customer">Объект класса <see cref="Customer"/>.</param>
         private void PrintToTextBox(Customer customer)
         {
             if (AddCheck)
@@ -180,6 +218,9 @@ namespace ObjectOrientedPractices.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Метод для очистки всех текстовых полей.
+        /// </summary>
         private void CleanTextBox()
         {
             IdTextBox.Clear();
@@ -187,6 +228,10 @@ namespace ObjectOrientedPractices.View.Tabs
             AdressTextBox.Clear();
         }
 
+        /// <summary>
+        /// Метод для изменения строки в CustomersListBox.
+        /// </summary>
+        /// <param name="customers">Список объектов класса <see cref="Customer"/>.</param>
         private void ListBoxLineChange(List<Customer> customers)
         {
             CustomersListBox.Items.Clear();

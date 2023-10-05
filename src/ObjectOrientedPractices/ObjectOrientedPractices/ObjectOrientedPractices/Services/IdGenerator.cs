@@ -14,7 +14,7 @@ namespace ObjectOrientedPractices.Services
         /// <summary>
         /// id.
         /// </summary>
-        private static int Id = 0;
+        private static int _id = 0;
         
         /// <summary>
         /// Метод, генерирует уникальный индетификаторы.
@@ -22,7 +22,7 @@ namespace ObjectOrientedPractices.Services
         /// <returns>Возвращает уникальный номер id.</returns>
         public static int GetNextId()
         {
-            return Id++;
+            return _id++;
         }
     }
 }

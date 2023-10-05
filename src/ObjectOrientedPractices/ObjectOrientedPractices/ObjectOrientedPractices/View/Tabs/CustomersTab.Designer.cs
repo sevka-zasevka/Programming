@@ -180,6 +180,7 @@
             CancelButton.TabIndex = 10;
             CancelButton.Text = "Cancel";
             CancelButton.UseVisualStyleBackColor = true;
+            CancelButton.Visible = false;
             CancelButton.Click += CancelButton_Click;
             // 
             // OkButton
@@ -192,6 +193,7 @@
             OkButton.TabIndex = 9;
             OkButton.Text = "Ok";
             OkButton.UseVisualStyleBackColor = true;
+            OkButton.Visible = false;
             OkButton.Click += OkButton_Click;
             // 
             // AdressValidationLabel

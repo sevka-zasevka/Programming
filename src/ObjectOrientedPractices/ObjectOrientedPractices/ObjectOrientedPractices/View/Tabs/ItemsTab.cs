@@ -16,10 +16,26 @@ namespace ObjectOrientedPractices.View.Tabs
 {
     public partial class ItemsTab : UserControl
     {
+        /// <summary>
+        /// Список объектов класса <see cref="Item"/>.
+        /// </summary>
         private List<Item> Items = new List<Item>();
+        /// <summary>
+        /// Объект класса <see cref="Item"/> со значениями полей: 
+        /// название - "Name", информация - "info" и цена - 0.1.
+        /// </summary>
         private Item SelectedItem = new Item("Name", "info", 0.1);
+        /// <summary>
+        /// Целочисленная пелеменная для запоминания индекса.
+        /// </summary>
         private int Index;
+        /// <summary>
+        /// Целочисленная переменная - счётчик.
+        /// </summary>
         private int Count = 1;
+        /// <summary>
+        /// Булевая переменная - флаг.
+        /// </summary>
         private bool AddCheck;
 
         public ItemsTab()
@@ -95,7 +111,7 @@ namespace ObjectOrientedPractices.View.Tabs
                 try
                 {
                     string newDescription = DescrirtionTextBox.Text.ToString();
-                    SelectedItem.Name = newDescription;
+                    SelectedItem.Info = newDescription;
                     DescrirtionTextBox.BackColor = Color.White;
                     DescriptionValidationLabel.Visible = false;
                     int currentSelection = DescrirtionTextBox.SelectionStart;
@@ -174,6 +190,14 @@ namespace ObjectOrientedPractices.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Метод для появления кнопок "ok" и "cancel"
+        /// И исчезновения "Add", "Remove" и "Change".
+        /// Также блокиет доступ к "ItemsListBox",
+        /// "CostTextBox", "NameTextBox" и "DescrirtionTextBox". 
+        /// И наоборот.
+        /// </summary>
+        /// <param name="visible">Булевая переменная для определения нужного состояния окна.</param>
         private void VisibleItems(bool visible)
         {
             AddButton.Visible = visible;
@@ -187,11 +211,21 @@ namespace ObjectOrientedPractices.View.Tabs
             DescrirtionTextBox.Enabled = !visible;
         }
 
+        /// <summary>
+        /// Метод для создания строки для вывод в Listbox.
+        /// </summary>
+        /// <param name="item">Объект класса <see cref="Item"/>.</param>
+        /// <returns></returns>
         private string StringToListBox(Item item)
         {
             return item.Id + ":" + item.Name;
         }
 
+        /// <summary>
+        /// Метод для вывода значения полей выбранного покупателя
+        /// в текстовые поля.
+        /// </summary>
+        /// <param name="item">Объект класса <see cref="Item"/>.</param>
         private void PrintToTextBox(Item item)
         {
             if (AddCheck)
@@ -210,6 +244,9 @@ namespace ObjectOrientedPractices.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Метод для очистки всех текстовых полей.
+        /// </summary>
         private void CleanTextBox()
         {
             IDTextBox.Clear();
@@ -218,6 +255,10 @@ namespace ObjectOrientedPractices.View.Tabs
             DescrirtionTextBox.Clear();
         }
 
+        /// <summary>
+        /// Метод для изменения строки в CustomersListBox.
+        /// </summary>
+        /// <param name="items">Cписок объектов класса <see cref="Item"/>.</param>
         private void ListBoxLineChange(List<Item> items)
         {
             ItemsListBox.Items.Clear();
