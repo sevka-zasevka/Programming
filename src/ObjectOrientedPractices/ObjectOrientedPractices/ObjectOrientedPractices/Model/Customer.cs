@@ -76,7 +76,7 @@ namespace ObjectOrientedPractices.Model
         public Customer(string fullname)
         {
             Fullname = fullname;
-            Address = new Address(606060, "Country", "City", "Street", "00", "00");
+            //Address = new Address(606060, "Country", "City", "Street", "00", "00");
         }
     }
 }

@@ -20,7 +20,7 @@
         /// <summary>
         /// Бытовая электроника.
         /// </summary>
-        consumer_electronics,
+        Consumer_electronics,
         /// <summary>
         /// Еда.
         /// </summary>

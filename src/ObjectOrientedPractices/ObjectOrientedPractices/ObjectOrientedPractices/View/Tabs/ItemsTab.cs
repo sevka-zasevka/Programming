@@ -189,11 +189,11 @@ namespace ObjectOrientedPractices.View.Tabs
         {
             if (AddCheck)
             {
-                ItemsListBox.SelectedIndex = -1;
+                AddCheck = false;
                 Items.RemoveAt(Index);
                 ItemsListBox.Items.RemoveAt(Index);
+                ItemsListBox.SelectedIndex = -1;
                 VisibleItems(true);
-                AddCheck = false;
             }
             else
             {

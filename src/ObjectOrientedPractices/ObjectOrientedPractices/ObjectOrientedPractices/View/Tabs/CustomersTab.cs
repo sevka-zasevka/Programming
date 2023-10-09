@@ -63,6 +63,7 @@ namespace ObjectOrientedPractices.View.Tabs
             if (Index != -1)
             {
                 PrintToTextBox(Customers[Index]);
+                SelectedItem = Customers[Index];
             }
             else
             {
@@ -73,10 +74,10 @@ namespace ObjectOrientedPractices.View.Tabs
         private void AddButton_Click(object sender, EventArgs e)
         {
             VisibleItems(false);
-            SelectedItem = new Customer("Fullname " + Count.ToString());
+            Customer customer = new Customer("Fullname " + Count.ToString());
             Count++;
-            Customers.Add(SelectedItem);
-            CustomersListBox.Items.Add(StringToListBox(SelectedItem));
+            Customers.Add(customer);
+            CustomersListBox.Items.Add(StringToListBox(customer));
             CustomersListBox.SelectedIndex = (CustomersListBox.Items.Count) - 1;
             Index = CustomersListBox.SelectedIndex;
             AddCheck = true;
