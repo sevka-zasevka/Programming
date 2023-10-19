@@ -24,6 +24,10 @@ namespace ObjectOrientedPractices.Model
         /// Адрес покупателя, объект класса <see cref="Address"/>.
         /// </summary>
         private Address _address;
+        /// <summary>
+        /// Корзина покупателя, объект класса <see cref="Cart"/>.
+        /// </summary>
+        private Cart _cart;
 
         /// <summary>
         /// Возвращает id покупателя, уникальный
@@ -69,14 +73,29 @@ namespace ObjectOrientedPractices.Model
         }
 
         /// <summary>
+        /// Возвращает и задаёт корзину покупателя.
+        /// </summary>
+        public Cart Cart
+        {
+            get
+            {
+                return _cart;
+            }
+            set
+            {
+                _cart = value;
+            }
+        }
+
+        /// <summary>
         /// Создает экземпляр класса <see cref="Customer"/>.
         /// </summary>
         /// <param name="fullname">Фио покупателя, до 200 символов.</param>
-        /// <param name="address">Адрес покупателя, до 500 символов.</param>
         public Customer(string fullname)
         {
             Fullname = fullname;
-            //Address = new Address(606060, "Country", "City", "Street", "00", "00");
+            Address = new Address();
+            Cart = new Cart();
         }
     }
 }

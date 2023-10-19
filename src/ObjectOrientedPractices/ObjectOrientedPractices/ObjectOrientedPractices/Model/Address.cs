@@ -137,14 +137,6 @@ namespace ObjectOrientedPractices.Model
         }
 
         /// <summary>
-        /// Создает пустой объект класса <see cref="Address"/>.
-        /// </summary>
-        public Address()
-        {
-
-        }
-
-        /// <summary>
         /// Создает объект класса <see cref="Address"/>.
         /// </summary>
         /// <param name="index">Почтовый индекс, шестизначное число.</param>
@@ -153,14 +145,14 @@ namespace ObjectOrientedPractices.Model
         /// <param name="street">Название улицы, не более 100 символов.</param>
         /// <param name="building">Номер дома, не более 10 символов.</param>
         /// <param name="apartment">Номер квартиры/помещения, не более 10 символов.</param>
-        public Address(int index, string country, string city, string street, string building, string apartment)
+        public Address()
         {
-            Index = index;
-            Country = country;
-            City = city;
-            Street = street;
-            Building = building;
-            Apartment = apartment;
+            Index = 606060;
+            Country = "Country";
+            City = "City";
+            Street = "Street";
+            Building = "00";
+            Apartment = "00";
         }
     }
 }
