@@ -1,16 +1,4 @@
 ﻿using ObjectOrientedPractices.Model;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ObjectOrientedPractices.Services;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using ObjectOrientedPractices.View;
 using ObjectOrientedPractices.View.Controls;
 
 namespace ObjectOrientedPractices.View.Tabs
@@ -25,7 +13,11 @@ namespace ObjectOrientedPractices.View.Tabs
         /// <summary>
         /// Объект класса <see cref="Customer"/> c полным именем Name и адрeсом Adress.
         /// </summary>
-        private Customer SelectedItem = new Customer("Name");
+        public Customer SelectedCustomer = new Customer("Name");
+        /// <summary>
+        /// Объект класса <see cref="Address"/>.
+        /// </summary>
+        private Address SelectedAddress = new Address();
         /// <summary>
         /// Целочисленная переменная, для запоминания индекса.
         /// </summary>
@@ -38,23 +30,22 @@ namespace ObjectOrientedPractices.View.Tabs
         /// Булевая переменная.
         /// </summary>
         private bool AddCheck;
+        private bool NoPrint;
 
         public List<Customer> Customers
         {
             get
-            { 
-                return _customers; 
-            }
-            set 
             {
-                _customers = value; 
+                return _customers;
+            }
+            set
+            {
+                _customers = value;
             }
         }
         public CustomersTab()
         {
             InitializeComponent();
-            FullNameValidationLabel.Visible = false;
-            FullNameTextBox.Enabled = false;
         }
 
         private void CustomersListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -63,7 +54,8 @@ namespace ObjectOrientedPractices.View.Tabs
             if (Index != -1)
             {
                 PrintToTextBox(Customers[Index]);
-                SelectedItem = Customers[Index];
+                SelectedCustomer.Fullname = Customers[Index].Fullname;
+                CloneAddress();
             }
             else
             {
@@ -73,15 +65,16 @@ namespace ObjectOrientedPractices.View.Tabs
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            VisibleItems(false);
+            AddCheck = true;
+            NoPrint = true;
             Customer customer = new Customer("Fullname " + Count.ToString());
             Count++;
             Customers.Add(customer);
             CustomersListBox.Items.Add(StringToListBox(customer));
             CustomersListBox.SelectedIndex = (CustomersListBox.Items.Count) - 1;
             Index = CustomersListBox.SelectedIndex;
-            AddCheck = true;
             AddressControl.Flag = "Add";
+            VisibleItems(false);
         }
 
         private void RemoveButton_Click(object sender, EventArgs e)
@@ -100,22 +93,28 @@ namespace ObjectOrientedPractices.View.Tabs
         {
             if (Index != -1)
             {
+                NoPrint = true;
+                SelectedCustomer.Fullname = Customers[Index].Fullname;
+                SelectedCustomer.Address = Customers[Index].Address;
+                PrintToTextBox(SelectedCustomer);
+                AddressControl.Flag = "Change";
                 VisibleItems(false);
-                SelectedItem.Fullname = Customers[Index].Fullname;
-                SelectedItem.Address = Customers[Index].Address;
-                PrintToTextBox(SelectedItem);
-                AddCheck = true;
-                AddressControl.Flag = "Add";
             }
         }
 
         private void OkButton_Click(object sender, EventArgs e)
         {
-            Customers[Index].Fullname = SelectedItem.Fullname;
-            Customers[Index].Address = SelectedItem.Address;
+            Customers[Index].Fullname = SelectedCustomer.Fullname;
+            Customers[Index].Address.Street = SelectedAddress.Street;
+            Customers[Index].Address.Building = SelectedAddress.Building;
+            Customers[Index].Address.City = SelectedAddress.City;
+            Customers[Index].Address.Country = SelectedAddress.Country;
+            Customers[Index].Address.Index = SelectedAddress.Index;
+            Customers[Index].Address.Apartment = SelectedAddress.Apartment;
             VisibleItems(true);
             ListBoxLineChange(Customers);
             AddCheck = false;
+            NoPrint = false;
             AddressControl.Flag = "Ok";
         }
 
@@ -125,27 +124,30 @@ namespace ObjectOrientedPractices.View.Tabs
             if (AddCheck)
             {
                 AddCheck = false;
+                NoPrint = false;
                 Customers.RemoveAt(Index);
                 CustomersListBox.Items.RemoveAt(Index);
                 VisibleItems(true);
                 CustomersListBox.SelectedIndex = -1;
-                AddressControl.Flag = "Ok";
+                AddressControl.Flag = "Remove";
             }
             else
             {
-                PrintToTextBox(Customers[Index]);
+                NoPrint = false;
                 VisibleItems(true);
+                CustomersListBox.SelectedIndex = Index;
+                AddressControl.Flag = "Cancel";
             }
         }
 
         private void FullNameTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (AddCheck)
+            if (NoPrint)
             {
                 try
                 {
                     string newFullname = FullNameTextBox.Text.ToString();
-                    SelectedItem.Fullname = newFullname;
+                    SelectedCustomer.Fullname = newFullname;
                     FullNameTextBox.BackColor = Color.White;
                     FullNameValidationLabel.Visible = false;
                     OkButton.Visible = true;
@@ -203,13 +205,15 @@ namespace ObjectOrientedPractices.View.Tabs
             {
                 IdTextBox.Text = customer.Id.ToString();
                 FullNameTextBox.Text = customer.Fullname.ToString();
-                AddressControl.SelectedAddress = Customers[Index].Address;
+                CloneAddress();
+                AddressControl.SelectedAddress = SelectedAddress;
             }
             else
             {
                 IdTextBox.Text = Customers[Index].Id.ToString();
                 FullNameTextBox.Text = customer.Fullname.ToString();
-                AddressControl.SelectedAddress = Customers[Index].Address;
+                CloneAddress();
+                AddressControl.SelectedAddress = SelectedAddress;
             }
         }
 
@@ -220,6 +224,7 @@ namespace ObjectOrientedPractices.View.Tabs
         {
             IdTextBox.Clear();
             FullNameTextBox.Clear();
+            FullNameTextBox.BackColor = Color.WhiteSmoke;
         }
 
         /// <summary>
@@ -233,6 +238,16 @@ namespace ObjectOrientedPractices.View.Tabs
             {
                 CustomersListBox.Items.Add(StringToListBox(customers[i]));
             }
+        }
+
+        private void CloneAddress()
+        {
+            SelectedAddress.Street = Customers[Index].Address.Street;
+            SelectedAddress.Building = Customers[Index].Address.Building;
+            SelectedAddress.City = Customers[Index].Address.City;
+            SelectedAddress.Country = Customers[Index].Address.Country;
+            SelectedAddress.Index = Customers[Index].Address.Index;
+            SelectedAddress.Apartment = Customers[Index].Address.Apartment;
         }
     }
 }

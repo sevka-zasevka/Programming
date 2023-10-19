@@ -28,6 +28,10 @@ namespace ObjectOrientedPractices.Model
         /// Корзина покупателя, объект класса <see cref="Cart"/>.
         /// </summary>
         private Cart _cart;
+        /// <summary>
+        /// Список заказов покупателя, объекты класса <see cref="Order"/>
+        /// </summary>
+        private List<Order> _orders;
 
         /// <summary>
         /// Возвращает id покупателя, уникальный
@@ -87,6 +91,19 @@ namespace ObjectOrientedPractices.Model
             }
         }
 
+        public List<Order> Orders
+        {
+            get
+            {
+                return _orders;
+            }
+
+            set
+            {
+                _orders = value;
+            }
+        }
+
         /// <summary>
         /// Создает экземпляр класса <see cref="Customer"/>.
         /// </summary>
@@ -96,6 +113,7 @@ namespace ObjectOrientedPractices.Model
             Fullname = fullname;
             Address = new Address();
             Cart = new Cart();
+            Orders = new List<Order>();
         }
     }
 }

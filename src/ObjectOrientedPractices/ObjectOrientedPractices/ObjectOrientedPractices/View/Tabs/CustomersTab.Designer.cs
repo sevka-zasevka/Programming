@@ -168,6 +168,8 @@
             // 
             // AddressControl
             // 
+            AddressControl.ChangedAddress = null;
+            AddressControl.Flag = "null";
             AddressControl.Location = new Point(7, 137);
             AddressControl.Margin = new Padding(3, 5, 3, 5);
             AddressControl.MinimumSize = new Size(563, 251);
@@ -210,10 +212,12 @@
             FullNameValidationLabel.Size = new Size(416, 20);
             FullNameValidationLabel.TabIndex = 7;
             FullNameValidationLabel.Text = "Full name must be greater than 0 and less than 200 characters";
+            FullNameValidationLabel.Visible = false;
             // 
             // FullNameTextBox
             // 
             FullNameTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            FullNameTextBox.Enabled = false;
             FullNameTextBox.Location = new Point(89, 65);
             FullNameTextBox.Margin = new Padding(3, 4, 3, 4);
             FullNameTextBox.Name = "FullNameTextBox";

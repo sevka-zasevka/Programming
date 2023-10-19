@@ -37,6 +37,7 @@ namespace ObjectOrientedPractices.View.Tabs
         /// Булевая переменная - флаг.
         /// </summary>
         private bool AddCheck;
+        private bool PrintCheck;
 
         public List<Item> Items
         {
@@ -77,7 +78,7 @@ namespace ObjectOrientedPractices.View.Tabs
 
         private void CostTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (AddCheck)
+            if (PrintCheck)
             {
                 try
                 {
@@ -98,11 +99,12 @@ namespace ObjectOrientedPractices.View.Tabs
                     OkButton.Visible = false;
                 }
             }
+
         }
 
         private void NameTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (AddCheck)
+            if (PrintCheck)
             {
                 try
                 {
@@ -127,7 +129,7 @@ namespace ObjectOrientedPractices.View.Tabs
 
         private void DescrirtionTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (AddCheck)
+            if (PrintCheck)
             {
                 try
                 {
@@ -166,7 +168,9 @@ namespace ObjectOrientedPractices.View.Tabs
             Index = ItemsListBox.SelectedIndex;
             if (Index != -1)
             {
+                PrintCheck = false;
                 PrintToTextBox(Items[Index]);
+                PrintCheck = true;
             }
             else
             {
@@ -221,7 +225,6 @@ namespace ObjectOrientedPractices.View.Tabs
                 SelectedItem.Info = Items[Index].Info;
                 SelectedItem.Cost = Items[Index].Cost;
                 PrintToTextBox(SelectedItem);
-                AddCheck = true;
             }
         }
 
