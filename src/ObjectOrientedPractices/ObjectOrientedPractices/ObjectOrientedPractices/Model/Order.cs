@@ -29,6 +29,10 @@ namespace ObjectOrientedPractices.Model
         /// Цена заказа.
         /// </summary>
         private double _amount;
+        /// <summary>
+        /// Статус заказа.
+        /// </summary>
+        private OrderStatus _status;
 
         /// <summary>
         /// Возвращает уникальный индетефикатор заказа.
@@ -104,13 +108,26 @@ namespace ObjectOrientedPractices.Model
             }
         }
 
+        public OrderStatus Status
+        {
+            get
+            {
+                return _status;
+            }
+            set
+            {
+                _status = value;
+            }
+        }
+
         /// <summary>
         /// Создает объект класса <see cref="Order"/>.
         /// </summary>
-        public Order()
+        public Order(Customer customer)
         {
-            OrderAddress = new Address();
+            OrderAddress = customer.Address;
             Items = new List<Item>();
+            Status = OrderStatus.New;
         }
 
     }

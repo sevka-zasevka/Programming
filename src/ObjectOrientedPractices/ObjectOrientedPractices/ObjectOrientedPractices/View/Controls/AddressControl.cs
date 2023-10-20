@@ -256,8 +256,14 @@ namespace ObjectOrientedPractices.View.Controls
         private void TextBoxClear()
         {
             PostIndexTextBox.Clear();
+            PostIndexTextBox.BackColor = Color.WhiteSmoke;
+            ValidationPostIndexLabel.Visible = false;
             CountryTextBox.Clear();
+            CountryTextBox.BackColor = Color.WhiteSmoke;
+            ValidationCountryLabel.Visible = false;
             CityTextBox.Clear();
+            CityTextBox.BackColor = Color.WhiteSmoke;
+            ValidationCityLabel.Visible = false;
             StreetTextBox.Clear();
             StreetTextBox.BackColor = Color.WhiteSmoke;
             ValidationStreetLabel.Visible = false;

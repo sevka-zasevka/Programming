@@ -39,7 +39,7 @@ namespace ObjectOrientedPractices.Model
                 {
                     cost += CurentItem[i].Cost;
                 }
-                return cost;
+                return Math.Round(cost, 2); ;
             }
         }
 

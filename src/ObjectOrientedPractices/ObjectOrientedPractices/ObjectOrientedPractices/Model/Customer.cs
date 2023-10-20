@@ -91,6 +91,9 @@ namespace ObjectOrientedPractices.Model
             }
         }
 
+        /// <summary>
+        /// Возвращает и задаёт списоз заказов, объекты класса <see cref="Order"/>
+        /// </summary>
         public List<Order> Orders
         {
             get
