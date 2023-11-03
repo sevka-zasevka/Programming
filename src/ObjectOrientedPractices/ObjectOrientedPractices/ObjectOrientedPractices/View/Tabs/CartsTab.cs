@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -41,6 +42,7 @@ namespace ObjectOrientedPractices.View.Tabs
             }
         }
 
+
         public CartsTab()
         {
             InitializeComponent();
@@ -51,6 +53,7 @@ namespace ObjectOrientedPractices.View.Tabs
         {
             if (CustomersComboBox.SelectedIndex != -1)
             {
+                CartListBox.Items.Clear();
                 CurentCustomer = Customers[CustomersComboBox.SelectedIndex];
                 List<Item> currentCustomersItem = CurentCustomer.Cart.CurentItem;
                 for (int i = 0; i < currentCustomersItem.Count; i++)
@@ -82,8 +85,12 @@ namespace ObjectOrientedPractices.View.Tabs
                 if (CartListBox.Items != null)
                 {
                     Order newOrder = new Order(CurentCustomer);
+                    for (int i=0;i<CurentCustomer.Cart.CurentItem.Count;i++ )
+                    {
+                        newOrder.Items.Add(CurentCustomer.Cart.CurentItem[i]);
+                    }
                     CurentCustomer.Orders.Add(newOrder);
-                    CurentCustomer.Cart.CurentItem.Clear();
+                    CurentCustomer.Cart.CurentItem = new List<Item>();
                     CartListBox.Items.Clear();
                     AmountLabel.Text = "0,0";
                 }

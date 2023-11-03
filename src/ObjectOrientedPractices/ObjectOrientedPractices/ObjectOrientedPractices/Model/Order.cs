@@ -33,6 +33,10 @@ namespace ObjectOrientedPractices.Model
         /// Статус заказа.
         /// </summary>
         private OrderStatus _status;
+        /// <summary>
+        /// Фио заказавшего.
+        /// </summary>
+        private string _fullnameCustomer;
 
         /// <summary>
         /// Возвращает уникальный индетефикатор заказа.
@@ -104,7 +108,7 @@ namespace ObjectOrientedPractices.Model
                 {
                     cost += _items[i].Cost;
                 }
-                return cost;
+                return Math.Round(cost, 2);
             }
         }
 
@@ -120,6 +124,18 @@ namespace ObjectOrientedPractices.Model
             }
         }
 
+        public string FullnameCustomer
+        {
+            get
+            {
+                return _fullnameCustomer;
+            }
+            set
+            {
+                _fullnameCustomer = value;
+            }
+        }
+
         /// <summary>
         /// Создает объект класса <see cref="Order"/>.
         /// </summary>
@@ -128,6 +144,7 @@ namespace ObjectOrientedPractices.Model
             OrderAddress = customer.Address;
             Items = new List<Item>();
             Status = OrderStatus.New;
+            FullnameCustomer = customer.Fullname;
         }
 
     }

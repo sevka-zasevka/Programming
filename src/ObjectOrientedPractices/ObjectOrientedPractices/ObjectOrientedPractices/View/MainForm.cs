@@ -13,6 +13,7 @@ namespace ObjectOrientedPractices.View
             CustomersTab.Customers = _store.Customers;
             CartsTab.Items = _store.Items;
             CartsTab.Customers = _store.Customers;
+            OrdersTab.CustomersOrder = _store.Customers;
         }
 
         public void SelectedTabChanged(object sender, EventArgs e)
@@ -21,6 +22,10 @@ namespace ObjectOrientedPractices.View
             {
                 CartsTab.UpdateDataItems(ItemsTab.Items);
                 CartsTab.UpdateDataCustomers(CustomersTab.Customers);
+            }
+            if (MainTabControl.SelectedIndex == 3)
+            {
+                OrdersTab.UpdateOrdersTabData(CustomersTab.Customers);
             }
         }
     }
