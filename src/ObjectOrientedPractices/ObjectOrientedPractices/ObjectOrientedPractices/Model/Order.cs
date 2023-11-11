@@ -153,5 +153,12 @@ namespace ObjectOrientedPractices.Model
             FullnameCustomer = customer.Fullname;
         }
 
+        /// <summary>
+        /// Конструктор класса <see cref="Order"/> без параметров.
+        /// </summary>
+        public Order()
+        {
+
+        }
     }
 }
