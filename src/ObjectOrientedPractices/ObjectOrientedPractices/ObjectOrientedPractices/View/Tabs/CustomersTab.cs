@@ -240,6 +240,9 @@ namespace ObjectOrientedPractices.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Метод для создания клона объекта адресса класса <see cref="Address"/>
+        /// </summary>
         private void CloneAddress()
         {
             SelectedAddress.Street = Customers[Index].Address.Street;

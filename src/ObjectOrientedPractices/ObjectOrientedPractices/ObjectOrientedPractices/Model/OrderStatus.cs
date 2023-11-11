@@ -1,5 +1,8 @@
 ﻿namespace ObjectOrientedPractices.Model
 {
+    /// <summary>
+    /// Перечисление. хранящее статус заказа.
+    /// </summary>
     internal enum OrderStatus
     {
         /// <summary>

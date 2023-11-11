@@ -112,6 +112,9 @@ namespace ObjectOrientedPractices.Model
             }
         }
 
+        /// <summary>
+        /// Возвращает и задает статус заказа.
+        /// </summary>
         public OrderStatus Status
         {
             get
@@ -124,6 +127,9 @@ namespace ObjectOrientedPractices.Model
             }
         }
 
+        /// <summary>
+        /// Возвращвет и задает полное имя заказавщего заказ покупателя.
+        /// </summary>
         public string FullnameCustomer
         {
             get

@@ -14,10 +14,22 @@ namespace ObjectOrientedPractices.View.Tabs
 {
     internal partial class CartsTab : UserControl
     {
+        /// <summary>
+        /// Список товаров класса <see cref="Item"/>.
+        /// </summary>
         private List<Item> _items;
+        /// <summary>
+        /// Список покупателей класса <see cref="Customer"/>.
+        /// </summary>
         private List<Customer> _customers;
+        /// <summary>
+        /// Объект класса <see cref="Customer"/>.
+        /// </summary>
         private Customer CurentCustomer = new Customer(" ");
 
+        /// <summary>
+        /// Возвращает и задает список товаров.
+        /// </summary>
         public List<Item> Items
         {
             get
@@ -30,6 +42,9 @@ namespace ObjectOrientedPractices.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Возвращает и задает список покупателей.
+        /// </summary>
         public List<Customer> Customers
         {
             get
@@ -114,6 +129,10 @@ namespace ObjectOrientedPractices.View.Tabs
             AmountLabel.Text = "0,0";
         }
 
+        /// <summary>
+        /// Метод обновляющий список товаров.
+        /// </summary>
+        /// <param name="items">Список покупателей класса <see cref="Item"/>.</param>
         public void UpdateDataItems(List<Item> items)
         {
             if (items != null)
@@ -130,6 +149,10 @@ namespace ObjectOrientedPractices.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Метод обновляющий список покупателей.
+        /// </summary>
+        /// <param name="customers">Список покупателей класса <see cref="Customer"/>.</param>
         public void UpdateDataCustomers(List<Customer> customers)
         {
             if (customers != null)
@@ -146,11 +169,21 @@ namespace ObjectOrientedPractices.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Метод, возвращающий строку для вывода в ItemsListBox.
+        /// </summary>
+        /// <param name="item">Товар.</param>
+        /// <returns></returns>
         private string ItemName(Item item)
         {
             return item.Name.ToString() + ": " + item.Cost.ToString();
         }
 
+        /// <summary>
+        /// Метод, возвращающий строку для вывода в CustomersComboBox.
+        /// </summary>
+        /// <param name="item">Покупатель.</param>
+        /// <returns></returns>
         private string CustomerName(Customer customer)
         {
             return customer.Id.ToString() + ": " + customer.Fullname.ToString();

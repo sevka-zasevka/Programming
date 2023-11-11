@@ -39,6 +39,9 @@ namespace ObjectOrientedPractices.View.Controls
             }
         }
 
+        /// <summary>
+        /// Возвращает и задает новый адрес.
+        /// </summary>
         public Address ChangedAddress
         {
             get
