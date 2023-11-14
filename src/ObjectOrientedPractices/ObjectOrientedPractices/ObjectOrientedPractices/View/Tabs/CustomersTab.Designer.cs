@@ -36,6 +36,7 @@
             ChangeButton = new Button();
             CustomersListBox = new ListBox();
             SelectCustomerGroupBox = new GroupBox();
+            IsPriorityCheckBox = new CheckBox();
             AddressControl = new Controls.AddressControl();
             CancelButton = new Button();
             OkButton = new Button();
@@ -148,6 +149,7 @@
             // 
             // SelectCustomerGroupBox
             // 
+            SelectCustomerGroupBox.Controls.Add(IsPriorityCheckBox);
             SelectCustomerGroupBox.Controls.Add(AddressControl);
             SelectCustomerGroupBox.Controls.Add(CancelButton);
             SelectCustomerGroupBox.Controls.Add(OkButton);
@@ -166,11 +168,23 @@
             SelectCustomerGroupBox.TabStop = false;
             SelectCustomerGroupBox.Text = "Select Customer";
             // 
+            // IsPriorityCheckBox
+            // 
+            IsPriorityCheckBox.AutoSize = true;
+            IsPriorityCheckBox.Enabled = false;
+            IsPriorityCheckBox.Location = new Point(89, 123);
+            IsPriorityCheckBox.Name = "IsPriorityCheckBox";
+            IsPriorityCheckBox.Size = new Size(92, 24);
+            IsPriorityCheckBox.TabIndex = 12;
+            IsPriorityCheckBox.Text = "Is Priority";
+            IsPriorityCheckBox.UseVisualStyleBackColor = true;
+            IsPriorityCheckBox.CheckedChanged += IsPriorityCheckBox_CheckedChanged;
+            // 
             // AddressControl
             // 
             AddressControl.ChangedAddress = null;
             AddressControl.Flag = "null";
-            AddressControl.Location = new Point(7, 137);
+            AddressControl.Location = new Point(6, 169);
             AddressControl.Margin = new Padding(3, 5, 3, 5);
             AddressControl.MinimumSize = new Size(563, 251);
             AddressControl.Name = "AddressControl";
@@ -181,7 +195,7 @@
             // CancelButton
             // 
             CancelButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            CancelButton.Location = new Point(135, 396);
+            CancelButton.Location = new Point(135, 429);
             CancelButton.Margin = new Padding(3, 4, 3, 4);
             CancelButton.Name = "CancelButton";
             CancelButton.Size = new Size(117, 76);
@@ -194,7 +208,7 @@
             // OkButton
             // 
             OkButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            OkButton.Location = new Point(9, 396);
+            OkButton.Location = new Point(10, 429);
             OkButton.Margin = new Padding(3, 4, 3, 4);
             OkButton.Name = "OkButton";
             OkButton.Size = new Size(119, 76);
@@ -288,5 +302,6 @@
         private Button CancelButton;
         private Button OkButton;
         private Controls.AddressControl AddressControl;
+        private CheckBox IsPriorityCheckBox;
     }
 }

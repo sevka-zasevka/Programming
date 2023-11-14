@@ -111,6 +111,7 @@ namespace ObjectOrientedPractices.View.Tabs
             Customers[Index].Address.Country = SelectedAddress.Country;
             Customers[Index].Address.Index = SelectedAddress.Index;
             Customers[Index].Address.Apartment = SelectedAddress.Apartment;
+            Customers[Index].IsPriority = IsPriorityCheckBox.Checked;
             VisibleItems(true);
             ListBoxLineChange(Customers);
             AddCheck = false;
@@ -181,6 +182,7 @@ namespace ObjectOrientedPractices.View.Tabs
             OkButton.Visible = !visible;
             CancelButton.Visible = !visible;
             CustomersListBox.Enabled = visible;
+            IsPriorityCheckBox.Enabled = !visible;
             FullNameTextBox.Enabled = !visible;
         }
 
@@ -207,13 +209,16 @@ namespace ObjectOrientedPractices.View.Tabs
                 FullNameTextBox.Text = customer.Fullname.ToString();
                 CloneAddress();
                 AddressControl.SelectedAddress = SelectedAddress;
+                IsPriorityCheckBox.Checked = customer.IsPriority;
             }
             else
             {
                 IdTextBox.Text = Customers[Index].Id.ToString();
+                IsPriorityCheckBox.Checked = customer.IsPriority;
                 FullNameTextBox.Text = customer.Fullname.ToString();
                 CloneAddress();
                 AddressControl.SelectedAddress = SelectedAddress;
+                IsPriorityCheckBox.Checked = customer.IsPriority;
             }
         }
 
@@ -224,6 +229,7 @@ namespace ObjectOrientedPractices.View.Tabs
         {
             IdTextBox.Clear();
             FullNameTextBox.Clear();
+            IsPriorityCheckBox.Checked = false;
             FullNameTextBox.BackColor = Color.WhiteSmoke;
         }
 
@@ -251,6 +257,11 @@ namespace ObjectOrientedPractices.View.Tabs
             SelectedAddress.Country = Customers[Index].Address.Country;
             SelectedAddress.Index = Customers[Index].Address.Index;
             SelectedAddress.Apartment = Customers[Index].Address.Apartment;
+        }
+
+        private void IsPriorityCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            SelectedCustomer.IsPriority = IsPriorityCheckBox.Checked;
         }
     }
 }

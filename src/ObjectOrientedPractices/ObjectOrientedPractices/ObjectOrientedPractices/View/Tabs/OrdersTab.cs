@@ -64,6 +64,10 @@ namespace ObjectOrientedPractices.View.Tabs
             {
                 StatusComboBox.Items.Add(status);
             }
+            foreach (string time in PriorityOrder.DeliveryTimeChoise)
+            {
+                DeliveryTimeComboBox.Items.Add(time);
+            }
         }
 
         public void UpdateOrdersTabData(List<Customer> customers)
@@ -119,8 +123,16 @@ namespace ObjectOrientedPractices.View.Tabs
                 LineToOrderTextBox(Orders[Convert.ToInt32(OrderDataGridView.CurrentRow.Index)].Items[i]);
             }
             AmountLabel.Text = Orders[Convert.ToInt32(OrderDataGridView.CurrentRow.Index)].Amount.ToString();
+            if (Orders[Convert.ToInt32(OrderDataGridView.CurrentRow.Index)] is PriorityOrder priority)
+            {
+                PriorityOptionsPanel.Visible = true;
+                DeliveryTimeComboBox.SelectedIndex = priority.CurentDeliveryTime;
+            }
+            else
+            {
+                PriorityOptionsPanel.Visible = false;
+            }
         }
-
         /// <summary>
         /// Метод создающий строку для вывода в OrderTextBox из объекта класса <see cref="Item"/>.
         /// </summary>
@@ -143,6 +155,20 @@ namespace ObjectOrientedPractices.View.Tabs
                 Orders[index].Status = (OrderStatus)selectCategory;
             }
             OrderDataGridView.CurrentRow.Cells[2].Value = Orders[index].Status.ToString();
+        }
+
+        private void DeliveryTimeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int index = Convert.ToInt32(OrderDataGridView.CurrentRow.Index);
+            if (OrderDataGridView.CurrentRow.Cells[1].Value == null)
+            {
+                return;
+            }
+            int selectDeliveryTime = DeliveryTimeComboBox.SelectedIndex;
+            if (Orders[index] is PriorityOrder priority)
+            {
+                priority.CurentDeliveryTime =selectDeliveryTime;
+            }
         }
     }
 }

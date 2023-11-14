@@ -32,6 +32,10 @@ namespace ObjectOrientedPractices.Model
         /// Список заказов покупателя, объекты класса <see cref="Order"/>
         /// </summary>
         private List<Order> _orders;
+        /// <summary>
+        /// Флаг проверки приоритетности покупателя.
+        /// </summary>
+        private bool _isPriority;
 
         /// <summary>
         /// Возвращает id покупателя, уникальный
@@ -108,6 +112,15 @@ namespace ObjectOrientedPractices.Model
         }
 
         /// <summary>
+        /// Возвращает и задает флаг приоритетности покупателя.
+        /// </summary>
+        public bool IsPriority
+        {
+            get { return _isPriority; }
+            set { _isPriority = value; }
+        }
+
+        /// <summary>
         /// Создает экземпляр класса <see cref="Customer"/>.
         /// </summary>
         /// <param name="fullname">Фио покупателя, до 200 символов.</param>
@@ -117,6 +130,7 @@ namespace ObjectOrientedPractices.Model
             Address = new Address();
             Cart = new Cart();
             Orders = new List<Order>();
+            IsPriority = false;
         }
     }
 }

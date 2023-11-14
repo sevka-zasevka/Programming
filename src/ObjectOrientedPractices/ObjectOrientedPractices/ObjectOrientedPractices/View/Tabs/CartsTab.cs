@@ -97,17 +97,33 @@ namespace ObjectOrientedPractices.View.Tabs
         {
             if (CustomersComboBox.SelectedIndex != -1)
             {
-                if (CartListBox.Items != null)
+                if (CartListBox.Items.Count != 0)
                 {
-                    Order newOrder = new Order(CurentCustomer);
-                    for (int i=0;i<CurentCustomer.Cart.CurentItem.Count;i++ )
+                    if (CurentCustomer.IsPriority)
                     {
-                        newOrder.Items.Add(CurentCustomer.Cart.CurentItem[i]);
+                        Order newOrder = new PriorityOrder(CurentCustomer, DateTime.Today, 6);
+                        for (int i = 0; i < CurentCustomer.Cart.CurentItem.Count; i++)
+                        {
+                            newOrder.Items.Add(CurentCustomer.Cart.CurentItem[i]);
+                        }
+                        CurentCustomer.Orders.Add(newOrder);
+                        CurentCustomer.Cart.CurentItem = new List<Item>();
+                        CartListBox.Items.Clear();
+                        AmountLabel.Text = "0,0";
                     }
-                    CurentCustomer.Orders.Add(newOrder);
-                    CurentCustomer.Cart.CurentItem = new List<Item>();
-                    CartListBox.Items.Clear();
-                    AmountLabel.Text = "0,0";
+                    else
+                    {
+                        Order newOrder = new Order(CurentCustomer);
+                        for (int i = 0; i < CurentCustomer.Cart.CurentItem.Count; i++)
+                        {
+                            newOrder.Items.Add(CurentCustomer.Cart.CurentItem[i]);
+                        }
+                        CurentCustomer.Orders.Add(newOrder);
+                        CurentCustomer.Cart.CurentItem = new List<Item>();
+                        CartListBox.Items.Clear();
+                        AmountLabel.Text = "0,0";
+                    }
+                    
                 }
             }
         }
