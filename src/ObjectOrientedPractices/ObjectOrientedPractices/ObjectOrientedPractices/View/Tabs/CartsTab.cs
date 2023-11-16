@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ObjectOrientedPractices.Model;
+using ObjectOrientedPractices.Model.Orders;
 
 namespace ObjectOrientedPractices.View.Tabs
 {

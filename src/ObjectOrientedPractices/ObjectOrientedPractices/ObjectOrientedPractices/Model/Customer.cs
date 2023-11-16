@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ObjectOrientedPractices.Model.Discounts;
+using ObjectOrientedPractices.Model.Orders;
 using ObjectOrientedPractices.Services;
 
 namespace ObjectOrientedPractices.Model
@@ -36,6 +33,10 @@ namespace ObjectOrientedPractices.Model
         /// Флаг проверки приоритетности покупателя.
         /// </summary>
         private bool _isPriority;
+        /// <summary>
+        /// Список всех скидок покупателя. Интерфейс <see cref="IDiscount"/>.
+        /// </summary>
+        private List<IDiscount> _discounts;
 
         /// <summary>
         /// Возвращает id покупателя, уникальный
@@ -120,6 +121,12 @@ namespace ObjectOrientedPractices.Model
             set { _isPriority = value; }
         }
 
+        public List<IDiscount> Discounts
+        {
+            get { return _discounts; }
+            set { _discounts = value; }
+        }
+
         /// <summary>
         /// Создает экземпляр класса <see cref="Customer"/>.
         /// </summary>
@@ -130,6 +137,9 @@ namespace ObjectOrientedPractices.Model
             Address = new Address();
             Cart = new Cart();
             Orders = new List<Order>();
+            Discounts = new List<IDiscount>();
+            PointsDiscount pointsDiscount = new PointsDiscount();
+            Discounts.Add(pointsDiscount);
             IsPriority = false;
         }
     }

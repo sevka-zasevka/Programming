@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ObjectOrientedPractices.View.Controls;
 using ObjectOrientedPractices.Model;
+using ObjectOrientedPractices.Model.Orders;
+using ObjectOrientedPractices.Model.Enums;
 
 namespace ObjectOrientedPractices.View.Tabs
 {

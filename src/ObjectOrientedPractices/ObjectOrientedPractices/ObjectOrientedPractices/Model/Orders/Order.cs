@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ObjectOrientedPractices.Model.Enums;
 using ObjectOrientedPractices.Services;
 
-namespace ObjectOrientedPractices.Model
+namespace ObjectOrientedPractices.Model.Orders
 {
     internal class Order
     {
@@ -37,27 +38,35 @@ namespace ObjectOrientedPractices.Model
         /// Фио заказавшего.
         /// </summary>
         private string _fullnameCustomer;
+        /// <summary>
+        /// Скидка на заказ.
+        /// </summary>
+        private double _discountAmount;
+        /// <summary>
+        /// Конечная стоимость заказа.
+        /// </summary>
+        private double _total;
 
         /// <summary>
         /// Возвращает уникальный индетефикатор заказа.
         /// </summary>
-        public int Id 
-        { 
-            get 
-            { 
-                return _id; 
-            } 
+        public int Id
+        {
+            get
+            {
+                return _id;
+            }
         }
 
         /// <summary>
         /// Возвращает дату создания заказа.
         /// </summary>
-        public DateTime DateCreation 
+        public DateTime DateCreation
         {
-            get 
-            { 
-                return _dateCreation; 
-            } 
+            get
+            {
+                return _dateCreation;
+            }
         }
 
         /// <summary>
@@ -140,6 +149,23 @@ namespace ObjectOrientedPractices.Model
             {
                 _fullnameCustomer = value;
             }
+        }
+
+        /// <summary>
+        /// Возвращает и задает скидку на заказ.
+        /// </summary>
+        public double DiscountAmount
+        {
+            get { return _discountAmount; }
+            set { _discountAmount = value; }
+        }
+
+        /// <summary>
+        /// Возвращает конечную стоимость заказа.
+        /// </summary>
+        public double Total
+        {
+            get { return Amount - DiscountAmount; }
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-﻿namespace ObjectOrientedPractices.Model
+﻿namespace ObjectOrientedPractices.Model.Enums
 {
     /// <summary>
     /// Перечисление. хранящее статус заказа.
@@ -16,7 +16,7 @@
         /// <summary>
         /// Сщбирается на складе.
         /// </summary>
-        Assembly, 
+        Assembly,
         /// <summary>
         /// Отправлен.
         /// </summary>

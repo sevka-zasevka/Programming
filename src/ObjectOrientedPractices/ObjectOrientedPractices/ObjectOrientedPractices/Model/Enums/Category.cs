@@ -1,4 +1,4 @@
-﻿namespace ObjectOrientedPractices.Model
+﻿namespace ObjectOrientedPractices.Model.Enums
 {
     /// <summary>
     /// Перечисление хранящее категории товара.

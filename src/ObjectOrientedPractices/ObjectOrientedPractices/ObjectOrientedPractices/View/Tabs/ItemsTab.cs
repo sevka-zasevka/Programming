@@ -11,6 +11,7 @@ using ObjectOrientedPractices.Services;
 using ObjectOrientedPractices.Model;
 using System.Net.Sockets;
 using Microsoft.VisualBasic.Devices;
+using ObjectOrientedPractices.Model.Enums;
 
 namespace ObjectOrientedPractices.View.Tabs
 {
