@@ -21,6 +21,9 @@ namespace ObjectOrientedPractices.Model.Discounts
         /// Стимость уже купленных товаров категории(если больше 1000, то увеличивается процент на 1).
         /// </summary>
         private double _sum;
+        /// <summary>
+        /// Категория и количество процентов.
+        /// </summary>
         private string _info;
 
         /// <summary>
@@ -78,7 +81,7 @@ namespace ObjectOrientedPractices.Model.Discounts
                     amount += item.Cost;
                 }
             }
-            return amount / 100 * Percent;
+            return (amount / 100) * Percent;
         }
 
         /// <summary>
@@ -88,7 +91,19 @@ namespace ObjectOrientedPractices.Model.Discounts
         /// <returns>Вещественное значение скидки по списку товаров класса <see cref="Item"/>.</returns>
         public double Apply(List<Item> items)
         {
-            return Calculate(items);
+            if (Percent == 0)
+            {
+                return 0.0;
+            }
+            double amount = 0;
+            foreach (var item in items)
+            {
+                if (item.Category == Category)
+                {
+                    amount += item.Cost;
+                }
+            }
+            return (amount / 100) * Percent;
         }
 
         /// <summary>

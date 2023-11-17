@@ -36,6 +36,9 @@
             ChangeButton = new Button();
             CustomersListBox = new ListBox();
             SelectCustomerGroupBox = new GroupBox();
+            AddDiscountButton = new Button();
+            RemoveDiscountButton = new Button();
+            DiscountListBox = new ListBox();
             IsPriorityCheckBox = new CheckBox();
             AddressControl = new Controls.AddressControl();
             CancelButton = new Button();
@@ -87,7 +90,7 @@
             tableLayoutPanel2.ColumnCount = 3;
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.5652161F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.4347839F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 128F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
             tableLayoutPanel2.Controls.Add(AddButton, 0, 0);
             tableLayoutPanel2.Controls.Add(RemoveButton, 1, 0);
             tableLayoutPanel2.Controls.Add(ChangeButton, 2, 0);
@@ -105,7 +108,7 @@
             AddButton.Location = new Point(3, 4);
             AddButton.Margin = new Padding(3, 4, 3, 4);
             AddButton.Name = "AddButton";
-            AddButton.Size = new Size(126, 72);
+            AddButton.Size = new Size(125, 72);
             AddButton.TabIndex = 0;
             AddButton.Text = "Add";
             AddButton.UseVisualStyleBackColor = true;
@@ -114,10 +117,10 @@
             // RemoveButton
             // 
             RemoveButton.Dock = DockStyle.Fill;
-            RemoveButton.Location = new Point(135, 4);
+            RemoveButton.Location = new Point(134, 4);
             RemoveButton.Margin = new Padding(3, 4, 3, 4);
             RemoveButton.Name = "RemoveButton";
-            RemoveButton.Size = new Size(128, 72);
+            RemoveButton.Size = new Size(127, 72);
             RemoveButton.TabIndex = 1;
             RemoveButton.Text = "Remove";
             RemoveButton.UseVisualStyleBackColor = true;
@@ -126,10 +129,10 @@
             // ChangeButton
             // 
             ChangeButton.Dock = DockStyle.Fill;
-            ChangeButton.Location = new Point(269, 4);
+            ChangeButton.Location = new Point(267, 4);
             ChangeButton.Margin = new Padding(3, 4, 3, 4);
             ChangeButton.Name = "ChangeButton";
-            ChangeButton.Size = new Size(123, 72);
+            ChangeButton.Size = new Size(125, 72);
             ChangeButton.TabIndex = 2;
             ChangeButton.Text = "Change";
             ChangeButton.UseVisualStyleBackColor = true;
@@ -149,6 +152,9 @@
             // 
             // SelectCustomerGroupBox
             // 
+            SelectCustomerGroupBox.Controls.Add(AddDiscountButton);
+            SelectCustomerGroupBox.Controls.Add(RemoveDiscountButton);
+            SelectCustomerGroupBox.Controls.Add(DiscountListBox);
             SelectCustomerGroupBox.Controls.Add(IsPriorityCheckBox);
             SelectCustomerGroupBox.Controls.Add(AddressControl);
             SelectCustomerGroupBox.Controls.Add(CancelButton);
@@ -168,6 +174,42 @@
             SelectCustomerGroupBox.TabStop = false;
             SelectCustomerGroupBox.Text = "Select Customer";
             // 
+            // AddDiscountButton
+            // 
+            AddDiscountButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            AddDiscountButton.Location = new Point(6, 587);
+            AddDiscountButton.Margin = new Padding(3, 4, 3, 4);
+            AddDiscountButton.Name = "AddDiscountButton";
+            AddDiscountButton.Size = new Size(119, 76);
+            AddDiscountButton.TabIndex = 15;
+            AddDiscountButton.Text = "Add Discount";
+            AddDiscountButton.UseVisualStyleBackColor = true;
+            AddDiscountButton.Click += AddDiscountButton_Click;
+            // 
+            // RemoveDiscountButton
+            // 
+            RemoveDiscountButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            RemoveDiscountButton.Location = new Point(141, 587);
+            RemoveDiscountButton.Margin = new Padding(3, 4, 3, 4);
+            RemoveDiscountButton.Name = "RemoveDiscountButton";
+            RemoveDiscountButton.Size = new Size(119, 76);
+            RemoveDiscountButton.TabIndex = 14;
+            RemoveDiscountButton.Text = "Remove Discount";
+            RemoveDiscountButton.UseVisualStyleBackColor = true;
+            RemoveDiscountButton.Click += RemoveDiscountButton_Click;
+            // 
+            // DiscountListBox
+            // 
+            DiscountListBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            DiscountListBox.FormattingEnabled = true;
+            DiscountListBox.ItemHeight = 20;
+            DiscountListBox.Location = new Point(6, 409);
+            DiscountListBox.Margin = new Padding(3, 4, 3, 4);
+            DiscountListBox.Name = "DiscountListBox";
+            DiscountListBox.Size = new Size(310, 164);
+            DiscountListBox.TabIndex = 13;
+            DiscountListBox.SelectedIndexChanged += DiscountListBox_SelectedIndexChanged;
+            // 
             // IsPriorityCheckBox
             // 
             IsPriorityCheckBox.AutoSize = true;
@@ -184,7 +226,7 @@
             // 
             AddressControl.ChangedAddress = null;
             AddressControl.Flag = "null";
-            AddressControl.Location = new Point(6, 169);
+            AddressControl.Location = new Point(0, 156);
             AddressControl.Margin = new Padding(3, 5, 3, 5);
             AddressControl.MinimumSize = new Size(563, 251);
             AddressControl.Name = "AddressControl";
@@ -195,7 +237,7 @@
             // CancelButton
             // 
             CancelButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            CancelButton.Location = new Point(135, 429);
+            CancelButton.Location = new Point(454, 409);
             CancelButton.Margin = new Padding(3, 4, 3, 4);
             CancelButton.Name = "CancelButton";
             CancelButton.Size = new Size(117, 76);
@@ -208,7 +250,7 @@
             // OkButton
             // 
             OkButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            OkButton.Location = new Point(10, 429);
+            OkButton.Location = new Point(325, 409);
             OkButton.Margin = new Padding(3, 4, 3, 4);
             OkButton.Name = "OkButton";
             OkButton.Size = new Size(119, 76);
@@ -303,5 +345,8 @@
         private Button OkButton;
         private Controls.AddressControl AddressControl;
         private CheckBox IsPriorityCheckBox;
+        private Button AddDiscountButton;
+        private Button RemoveDiscountButton;
+        private ListBox DiscountListBox;
     }
 }

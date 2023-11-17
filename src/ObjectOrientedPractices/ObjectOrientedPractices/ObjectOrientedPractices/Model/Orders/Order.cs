@@ -165,7 +165,11 @@ namespace ObjectOrientedPractices.Model.Orders
         /// </summary>
         public double Total
         {
-            get { return Amount - DiscountAmount; }
+            get 
+            {
+                double val = Amount - DiscountAmount;
+                return val; 
+            }
         }
 
         /// <summary>

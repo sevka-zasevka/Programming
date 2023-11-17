@@ -12,6 +12,9 @@ namespace ObjectOrientedPractices.Model.Discounts
         /// Количество накопленных баллов.
         /// </summary>
         private int _points;
+        /// <summary>
+        /// информация о количестве накопленных баллов.
+        /// </summary>
         private string _info;
 
         /// <summary>
@@ -85,7 +88,6 @@ namespace ObjectOrientedPractices.Model.Discounts
                 Points = Points - (int)max;
                 return discount;
             }
-
             Points = 0;
             return discount;
         }
@@ -101,7 +103,7 @@ namespace ObjectOrientedPractices.Model.Discounts
             {
                 amount = amount + item.Cost;
             }
-            int plus = (int)(amount / 100 * 10);
+            int plus = (int)((amount / 100) * 10);
             Points = Points + plus;
         }
     }

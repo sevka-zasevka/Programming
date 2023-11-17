@@ -1,4 +1,6 @@
-﻿using ObjectOrientedPractices.Model;
+﻿using ObjectOrientedPractices.Forms;
+using ObjectOrientedPractices.Model;
+using ObjectOrientedPractices.Model.Discounts;
 using ObjectOrientedPractices.View.Controls;
 
 namespace ObjectOrientedPractices.View.Tabs
@@ -75,6 +77,8 @@ namespace ObjectOrientedPractices.View.Tabs
             Index = CustomersListBox.SelectedIndex;
             AddressControl.Flag = "Add";
             VisibleItems(false);
+            DiscountListBox.Items.Clear();
+            DiscountListBox.Items.Add(customer.Discounts[0].Info.ToString());
         }
 
         private void RemoveButton_Click(object sender, EventArgs e)
@@ -86,6 +90,7 @@ namespace ObjectOrientedPractices.View.Tabs
                 CustomersListBox.Items.RemoveAt(Index);
                 CustomersListBox.SelectedIndex = -1;
                 AddressControl.Flag = "Remove";
+                DiscountListBox.Items.Clear();
             }
         }
 
@@ -131,6 +136,7 @@ namespace ObjectOrientedPractices.View.Tabs
                 VisibleItems(true);
                 CustomersListBox.SelectedIndex = -1;
                 AddressControl.Flag = "Remove";
+                DiscountListBox.Items.Clear();
             }
             else
             {
@@ -138,6 +144,11 @@ namespace ObjectOrientedPractices.View.Tabs
                 VisibleItems(true);
                 CustomersListBox.SelectedIndex = Index;
                 AddressControl.Flag = "Cancel";
+                DiscountListBox.Items.Clear();
+                foreach (var discount in Customers[CustomersListBox.SelectedIndex].Discounts)
+                {
+                    DiscountListBox.Items.Add(discount.Info);
+                }
             }
         }
 
@@ -262,6 +273,44 @@ namespace ObjectOrientedPractices.View.Tabs
         private void IsPriorityCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             SelectedCustomer.IsPriority = IsPriorityCheckBox.Checked;
+        }
+
+        private void DiscountListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AddDiscountButton_Click(object sender, EventArgs e)
+        {
+            if (CustomersListBox.SelectedIndex != -1)
+            {
+                Customer currentCustomer = Customers[CustomersListBox.SelectedIndex];
+                AddDiscountForm addDiscountForm = new AddDiscountForm();
+                addDiscountForm.CurrentCustomer = currentCustomer;
+                var dialogResult = addDiscountForm.ShowDialog();
+                if (dialogResult == DialogResult.OK)
+                {
+                    DiscountListBox.Items.Clear();
+                    foreach (var discount in currentCustomer.Discounts)
+                    {
+                        DiscountListBox.Items.Add(discount.Info);
+                    }
+                }
+
+            }
+        }
+    
+
+        private void RemoveDiscountButton_Click(object sender, EventArgs e)
+        {
+            if (DiscountListBox.SelectedIndex!=-1&& DiscountListBox.SelectedIndex != 0)
+            {
+                if(CustomersListBox.SelectedIndex!=-1)
+                {
+                    Customers[CustomersListBox.SelectedIndex].Discounts.RemoveAt(DiscountListBox.SelectedIndex);
+                    DiscountListBox.Items.RemoveAt(DiscountListBox.SelectedIndex);
+                }
+            }
         }
     }
 }

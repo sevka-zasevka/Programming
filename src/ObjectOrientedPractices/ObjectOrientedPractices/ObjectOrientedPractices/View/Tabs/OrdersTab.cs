@@ -87,7 +87,7 @@ namespace ObjectOrientedPractices.View.Tabs
                 OrderDataGridView.Rows.Clear();
                 for (int i = 0; i < Orders.Count; i++)
                 {
-                    OrderDataGridView.Rows.Add(Orders[i].Id.ToString(), Orders[i].DateCreation.ToString(), Orders[i].Status.ToString(), Orders[i].FullnameCustomer.ToString(), AddressOrderToString(Orders[i]), Orders[i].Amount.ToString());
+                    OrderDataGridView.Rows.Add(Orders[i].Id.ToString(), Orders[i].DateCreation.ToString(), Orders[i].Status.ToString(), Orders[i].FullnameCustomer.ToString(), AddressOrderToString(Orders[i]), Orders[i].Amount.ToString(), Orders[i].Total.ToString());
                 }
             }
         }
@@ -125,6 +125,7 @@ namespace ObjectOrientedPractices.View.Tabs
                 LineToOrderTextBox(Orders[Convert.ToInt32(OrderDataGridView.CurrentRow.Index)].Items[i]);
             }
             AmountLabel.Text = Orders[Convert.ToInt32(OrderDataGridView.CurrentRow.Index)].Amount.ToString();
+            TotalLabel.Text = Orders[Convert.ToInt32(OrderDataGridView.CurrentRow.Index)].Total.ToString();
             if (Orders[Convert.ToInt32(OrderDataGridView.CurrentRow.Index)] is PriorityOrder priority)
             {
                 PriorityOptionsPanel.Visible = true;
@@ -169,7 +170,7 @@ namespace ObjectOrientedPractices.View.Tabs
             int selectDeliveryTime = DeliveryTimeComboBox.SelectedIndex;
             if (Orders[index] is PriorityOrder priority)
             {
-                priority.CurentDeliveryTime =selectDeliveryTime;
+                priority.CurentDeliveryTime = selectDeliveryTime;
             }
         }
     }

@@ -52,6 +52,9 @@
             DeliveryTimeComboBox = new ComboBox();
             DeliveryTimeLable = new Label();
             PriorityOptionsPanel = new Panel();
+            Total = new DataGridViewTextBoxColumn();
+            TotalTextLabel = new Label();
+            TotalLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)OrderDataGridView).BeginInit();
             PriorityOptionsPanel.SuspendLayout();
             SuspendLayout();
@@ -157,26 +160,26 @@
             OrderItemsListBox.ItemHeight = 20;
             OrderItemsListBox.Location = new Point(592, 405);
             OrderItemsListBox.Name = "OrderItemsListBox";
-            OrderItemsListBox.Size = new Size(525, 264);
+            OrderItemsListBox.Size = new Size(525, 204);
             OrderItemsListBox.TabIndex = 10;
             // 
             // AmountTextLlabel
             // 
             AmountTextLlabel.AutoSize = true;
-            AmountTextLlabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            AmountTextLlabel.Location = new Point(1049, 672);
+            AmountTextLlabel.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            AmountTextLlabel.Location = new Point(1051, 612);
             AmountTextLlabel.Name = "AmountTextLlabel";
-            AmountTextLlabel.Size = new Size(71, 20);
+            AmountTextLlabel.Size = new Size(65, 20);
             AmountTextLlabel.TabIndex = 11;
             AmountTextLlabel.Text = "Amount:";
             // 
             // AmountLabel
             // 
             AmountLabel.AutoSize = true;
-            AmountLabel.Font = new Font("Segoe UI", 17F, FontStyle.Bold, GraphicsUnit.Point);
-            AmountLabel.Location = new Point(1061, 692);
+            AmountLabel.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            AmountLabel.Location = new Point(1070, 632);
             AmountLabel.Name = "AmountLabel";
-            AmountLabel.Size = new Size(59, 40);
+            AmountLabel.Size = new Size(46, 35);
             AmountLabel.TabIndex = 12;
             AmountLabel.Text = "0,0";
             // 
@@ -185,13 +188,13 @@
             OrderDataGridView.AllowUserToAddRows = false;
             OrderDataGridView.AllowUserToDeleteRows = false;
             OrderDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            OrderDataGridView.Columns.AddRange(new DataGridViewColumn[] { IdColomn, CreatedColumn, OrderStatusColumn, UstomerFullNameColumn, OrderAddressColumn, AmountColumn });
+            OrderDataGridView.Columns.AddRange(new DataGridViewColumn[] { IdColomn, CreatedColumn, OrderStatusColumn, UstomerFullNameColumn, OrderAddressColumn, AmountColumn, Total });
             OrderDataGridView.Location = new Point(3, 32);
             OrderDataGridView.Name = "OrderDataGridView";
             OrderDataGridView.ReadOnly = true;
             OrderDataGridView.RowHeadersWidth = 51;
             OrderDataGridView.RowTemplate.Height = 29;
-            OrderDataGridView.Size = new Size(574, 700);
+            OrderDataGridView.Size = new Size(574, 722);
             OrderDataGridView.TabIndex = 13;
             OrderDataGridView.SelectionChanged += OrderDataGridView_SelectionChanged;
             // 
@@ -282,10 +285,40 @@
             PriorityOptionsPanel.Size = new Size(273, 125);
             PriorityOptionsPanel.TabIndex = 17;
             // 
+            // Total
+            // 
+            Total.HeaderText = "Total";
+            Total.MinimumWidth = 6;
+            Total.Name = "Total";
+            Total.ReadOnly = true;
+            Total.Width = 125;
+            // 
+            // TotalTextLabel
+            // 
+            TotalTextLabel.AutoSize = true;
+            TotalTextLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            TotalTextLabel.Location = new Point(1040, 672);
+            TotalTextLabel.Name = "TotalTextLabel";
+            TotalTextLabel.Size = new Size(77, 28);
+            TotalTextLabel.TabIndex = 18;
+            TotalTextLabel.Text = "TOTAL:";
+            // 
+            // TotalLabel
+            // 
+            TotalLabel.AutoSize = true;
+            TotalLabel.Font = new Font("Segoe UI", 20F, FontStyle.Bold, GraphicsUnit.Point);
+            TotalLabel.Location = new Point(1048, 700);
+            TotalLabel.Name = "TotalLabel";
+            TotalLabel.Size = new Size(69, 46);
+            TotalLabel.TabIndex = 19;
+            TotalLabel.Text = "0,0";
+            // 
             // OrdersTab
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(TotalLabel);
+            Controls.Add(TotalTextLabel);
             Controls.Add(PriorityOptionsPanel);
             Controls.Add(OrderDataGridView);
             Controls.Add(AmountLabel);
@@ -337,5 +370,8 @@
         private ComboBox DeliveryTimeComboBox;
         private Label DeliveryTimeLable;
         private Panel PriorityOptionsPanel;
+        private DataGridViewTextBoxColumn Total;
+        private Label TotalTextLabel;
+        private Label TotalLabel;
     }
 }
