@@ -237,6 +237,9 @@ namespace ObjectOrientedPractices.View.Tabs
             return customer.Id.ToString() + ": " + customer.Fullname.ToString();
         }
 
+        /// <summary>
+        /// Метод для обновления DiscountAmountLabel и TotalLabel при изменении цены.
+        /// </summary>
         private void UpdateAmount()
         {
             double discount = 0;
@@ -253,6 +256,10 @@ namespace ObjectOrientedPractices.View.Tabs
             TotalLabel.Text = amount.ToString();
         }
 
+        /// <summary>
+        /// Метод для обновления значения скидок.
+        /// </summary>
+        /// <returns>Размер предоставляемой скидки.</returns>
         private double UpdateAmountWithCreate()
         {
             double discount = 0;

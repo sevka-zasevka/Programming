@@ -121,6 +121,9 @@ namespace ObjectOrientedPractices.Model
             set { _isPriority = value; }
         }
 
+        /// <summary>
+        /// Взвращает и задает список скидок <see cref="IDiscount"/>.
+        /// </summary>
         public List<IDiscount> Discounts
         {
             get { return _discounts; }

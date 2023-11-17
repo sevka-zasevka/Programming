@@ -15,15 +15,27 @@ namespace ObjectOrientedPractices.Forms
 {
     internal partial class AddDiscountForm : Form
     {
+        /// <summary>
+        /// Выбранная категория.
+        /// </summary>
         private Category _selectCategory;
+        /// <summary>
+        /// ВЫбранный покупатель.
+        /// </summary>
         private Customer _currentCustomer;
 
+        /// <summary>
+        /// Возвращает и задает выбранную категорию.
+        /// </summary>
         public Category SelectCategory
         {
             get { return _selectCategory; }
             set { _selectCategory = value; }
         }
 
+        /// <summary>
+        /// Возвращает и задает выбранного покупателя.
+        /// </summary>
         public Customer CurrentCustomer
         {
             get { return _currentCustomer; }
