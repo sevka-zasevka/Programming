@@ -190,5 +190,28 @@ namespace ObjectOrientedPractices.Model.Orders
         {
 
         }
+
+        /// <summary>
+        /// Метод для сравнения двух объектов класса <see cref="Order"/> по списку товаров класса <see cref="Item"/>.
+        /// </summary>
+        /// <param name="other">Объект класса <see cref="Order"/>.</param>
+        /// <returns>true - объекты равны, false - объекты не равны.</returns>
+        public override bool Equals(object other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            if (other is not Item)
+            {
+                return false;
+            }
+            if (object.ReferenceEquals(this, other))
+            {
+                return true;
+            }
+            var item2 = (Order)other;
+            return (this.Items == item2.Items);
+        }
     }
 }

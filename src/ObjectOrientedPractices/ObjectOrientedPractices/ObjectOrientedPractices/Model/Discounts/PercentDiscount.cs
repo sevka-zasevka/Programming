@@ -136,5 +136,25 @@ namespace ObjectOrientedPractices.Model.Discounts
                 }
             }
         }
+
+        /// <summary>
+        /// Метод для сравнения элементов класса <see cref="PercentDiscount"/> по проценту скидки.
+        /// </summary>
+        /// <param name="obj">Объект класса <see cref="PercentDiscount"/></param>
+        /// <returns>1 - исходный объект больше, -1 - исходный объект меньше, 0 - объекты равны.</returns>
+        public int CompareTo(object obj)
+        {
+            if (obj == null) return 1;
+            PercentDiscount otherItem = obj as PercentDiscount;
+            if (otherItem.Percent == this.Percent)
+            {
+                return 0;
+            }
+            if (otherItem.Percent > this.Percent)
+            {
+                return -1;
+            }
+            return 1;
+        }
     }
 }

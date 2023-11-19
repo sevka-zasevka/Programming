@@ -106,5 +106,25 @@ namespace ObjectOrientedPractices.Model.Discounts
             int plus = (int)((amount / 100) * 10);
             Points = Points + plus;
         }
+
+        /// <summary>
+        /// Метод для сравнения объектов класса <see cref="PointsDiscount"/> по количеству баллов. 
+        /// </summary>
+        /// <param name="obj">Объект класса <see cref="PointsDiscount"/>.</param>
+        /// <returns>1 - исходный объект больше, -1 - исходный объект меньше, 0 - объекты равны.</returns>
+        public int CompareTo(object obj)
+        {
+            if (obj == null) return 1;
+            PointsDiscount otherItem = obj as PointsDiscount;
+            if (otherItem.Points == this.Points)
+            {
+                return 0;
+            }
+            if (otherItem.Points > this.Points)
+            {
+                return -1;
+            }
+            return 1;
+        }
     }
 }

@@ -1,8 +1,9 @@
 ﻿using ObjectOrientedPractices.Services;
+using System;
 
 namespace ObjectOrientedPractices.Model
 {
-    internal class Cart
+    internal class Cart:ICloneable
     {
         /// <summary>
         /// Список товаров.
@@ -43,7 +44,24 @@ namespace ObjectOrientedPractices.Model
         /// </summary>
         public Cart() 
         {
-            _curentItem = new List<Item>();
+            CurentItem = new List<Item>();
+        }
+
+        /// <summary>
+        /// Создаёт объект класса <see cref="Cart"/> с пустым списком объектов класса <see cref="Item">.
+        /// </summary>
+        public Cart(List<Item> items)
+        {
+            CurentItem = items;
+        }
+
+        /// <summary>
+        /// Метод для копирования объекта класса <see cref="Cart"/>
+        /// </summary>
+        /// <returns>Новый объект классса <see cref="Cart"/> со значениями полей как у исходного объекта.</returns>
+        public object Clone() 
+        { 
+            return new Cart(this.CurentItem); 
         }
     }
 }

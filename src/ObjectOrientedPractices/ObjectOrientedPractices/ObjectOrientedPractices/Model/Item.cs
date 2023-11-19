@@ -1,12 +1,13 @@
 ﻿using ObjectOrientedPractices.Model.Enums;
 using ObjectOrientedPractices.Services;
+using System;
 
 namespace ObjectOrientedPractices.Model
 {
     /// <summary>
     /// Класс, хранящий id, название, описание и цену товара.
     /// </summary>
-    internal class Item
+    internal class Item: ICloneable
     {
         /// <summary>
         /// Id товара, уникальный
@@ -101,6 +102,58 @@ namespace ObjectOrientedPractices.Model
             Info = info;
             Cost = cost;
             Category = category;
+        }
+
+        /// <summary>
+        /// Метод для копирования объекта класса <see cref="Item"/>.
+        /// </summary>
+        /// <returns>Новый объект класса <see cref="Item"/> со значениями полей как у исходного объекта.</returns>
+        public object Clone() 
+        { 
+            return new Item(this.Name, this.Info, this.Cost, this.Category); 
+        }
+
+        /// <summary>
+        /// Метод для сравнения объектов класса <see cref="Item"/> по названию.
+        /// </summary>
+        /// <param name="other">Объект класса <see cref="Item"/>.</param>
+        /// <returns>true - объекты равны, false - объекты не равны.</returns>
+        public override bool Equals(object other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            if (other is not Item)
+            {
+                return false;
+            }
+            if (object.ReferenceEquals(this, other))
+            {
+                return true;
+            }
+            var item2 = (Item)other;
+            return (this.Name == item2.Name);
+        }
+
+        /// <summary>
+        /// Метод для сравнения объектов класса <see cref="Item"/> по цене.
+        /// </summary>
+        /// <param name="obj">Объект класса <see cref="Item"/>.</param>
+        /// <returns>1 - исходный объект больше, -1 - исходный объект меньше, 0 - объекты равны.</returns>
+        public int CompareTo(object obj)
+        {
+            if (obj == null) return 1;
+            Item otherItem = obj as Item;
+            if (otherItem.Cost == this.Cost)
+            {
+                return 0;
+            }
+            if(otherItem.Cost>this.Cost)
+            {
+                return -1;
+            }
+            return 1;
         }
     }
 }

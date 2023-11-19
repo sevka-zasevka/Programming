@@ -7,7 +7,7 @@ using ObjectOrientedPractices.Services;
 
 namespace ObjectOrientedPractices.Model
 {
-    public class Address
+    public class Address:ICloneable
     {
         /// <summary>
         /// Почтовый индекс, целое шестизначное число.
@@ -153,6 +153,48 @@ namespace ObjectOrientedPractices.Model
             Street = "Street";
             Building = "00";
             Apartment = "00";
+        }
+
+        public Address(int index, string country, string city, string street, string building, string apartment)
+        {
+            Index = index;
+            Country = country;
+            City = city;
+            Street = street;
+            Building = building;
+            Apartment = apartment;
+        }
+
+        /// <summary>
+        /// Метод для копирования исходного объекта класса <see cref="Address"/>.
+        /// </summary>
+        /// <returns>Новый объект класса <see cref="Address"/> с такими же значениями полей, как у исходного объекта.</returns>
+        public object Clone() 
+        { 
+            return new Address(this.Index, this.Country, this.City, this.Street, this.Building, this.Apartment); 
+        }
+
+        /// <summary>
+        /// Метод для сравнения двух объектов класса <see cref="Address"/> по индексу.
+        /// </summary>
+        /// <param name="other">Объект класса <see cref="Address"/>.</param>
+        /// <returns>true - объекты равны, false - объекты не равны.</returns>
+        public override bool Equals(object other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            if (other is not Item)
+            {
+                return false;
+            }
+            if (object.ReferenceEquals(this, other))
+            {
+                return true;
+            }
+            var item2 = (Address)other;
+            return (this.Index == item2.Index);
         }
     }
 }
