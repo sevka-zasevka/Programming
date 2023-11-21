@@ -89,6 +89,11 @@ namespace ObjectOrientedPractices.Model
             }
         }
 
+        public Item()
+        {
+
+        }
+
         /// <summary>
         /// Создает экземпляр класса <see cref="Item"/>.
         /// </summary>

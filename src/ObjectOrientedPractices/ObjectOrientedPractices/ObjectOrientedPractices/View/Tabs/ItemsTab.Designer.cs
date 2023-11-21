@@ -30,6 +30,8 @@
         {
             BasicTableLayoutPanel = new TableLayoutPanel();
             ItemGroupBox = new GroupBox();
+            FindTextBox = new TextBox();
+            FindLabel = new Label();
             ButtonTableLayoutPanel = new TableLayoutPanel();
             ChangeButton = new Button();
             RemoveButton = new Button();
@@ -51,6 +53,8 @@
             CostLabel = new Label();
             IDTextBox = new TextBox();
             IDLabel = new Label();
+            OrderByLabel = new Label();
+            SortComboBox = new ComboBox();
             BasicTableLayoutPanel.SuspendLayout();
             ItemGroupBox.SuspendLayout();
             ButtonTableLayoutPanel.SuspendLayout();
@@ -75,6 +79,10 @@
             // 
             // ItemGroupBox
             // 
+            ItemGroupBox.Controls.Add(SortComboBox);
+            ItemGroupBox.Controls.Add(OrderByLabel);
+            ItemGroupBox.Controls.Add(FindTextBox);
+            ItemGroupBox.Controls.Add(FindLabel);
             ItemGroupBox.Controls.Add(ButtonTableLayoutPanel);
             ItemGroupBox.Controls.Add(ItemsListBox);
             ItemGroupBox.Dock = DockStyle.Fill;
@@ -87,17 +95,37 @@
             ItemGroupBox.TabStop = false;
             ItemGroupBox.Text = "Items";
             // 
+            // FindTextBox
+            // 
+            FindTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            FindTextBox.Location = new Point(53, 32);
+            FindTextBox.Margin = new Padding(3, 4, 3, 4);
+            FindTextBox.Name = "FindTextBox";
+            FindTextBox.Size = new Size(294, 27);
+            FindTextBox.TabIndex = 14;
+            FindTextBox.TextChanged += FindTextBox_TextChanged;
+            // 
+            // FindLabel
+            // 
+            FindLabel.AutoSize = true;
+            FindLabel.BackColor = SystemColors.ButtonHighlight;
+            FindLabel.Location = new Point(7, 35);
+            FindLabel.Name = "FindLabel";
+            FindLabel.Size = new Size(40, 20);
+            FindLabel.TabIndex = 14;
+            FindLabel.Text = "Find:";
+            // 
             // ButtonTableLayoutPanel
             // 
             ButtonTableLayoutPanel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             ButtonTableLayoutPanel.ColumnCount = 3;
             ButtonTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.5833321F));
             ButtonTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.4166679F));
-            ButtonTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 121F));
+            ButtonTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 122F));
             ButtonTableLayoutPanel.Controls.Add(ChangeButton, 0, 0);
             ButtonTableLayoutPanel.Controls.Add(RemoveButton, 0, 0);
             ButtonTableLayoutPanel.Controls.Add(AddButton, 0, 0);
-            ButtonTableLayoutPanel.Location = new Point(7, 585);
+            ButtonTableLayoutPanel.Location = new Point(7, 589);
             ButtonTableLayoutPanel.Margin = new Padding(3, 4, 3, 4);
             ButtonTableLayoutPanel.Name = "ButtonTableLayoutPanel";
             ButtonTableLayoutPanel.RowCount = 1;
@@ -108,10 +136,10 @@
             // ChangeButton
             // 
             ChangeButton.Dock = DockStyle.Fill;
-            ChangeButton.Location = new Point(221, 4);
+            ChangeButton.Location = new Point(220, 4);
             ChangeButton.Margin = new Padding(3, 4, 3, 4);
             ChangeButton.Name = "ChangeButton";
-            ChangeButton.Size = new Size(116, 61);
+            ChangeButton.Size = new Size(117, 61);
             ChangeButton.TabIndex = 3;
             ChangeButton.Text = "Change";
             ChangeButton.UseVisualStyleBackColor = true;
@@ -123,7 +151,7 @@
             RemoveButton.Location = new Point(111, 4);
             RemoveButton.Margin = new Padding(3, 4, 3, 4);
             RemoveButton.Name = "RemoveButton";
-            RemoveButton.Size = new Size(104, 61);
+            RemoveButton.Size = new Size(103, 61);
             RemoveButton.TabIndex = 2;
             RemoveButton.Text = "Remove";
             RemoveButton.UseVisualStyleBackColor = true;
@@ -146,10 +174,10 @@
             ItemsListBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             ItemsListBox.FormattingEnabled = true;
             ItemsListBox.ItemHeight = 20;
-            ItemsListBox.Location = new Point(8, 29);
+            ItemsListBox.Location = new Point(8, 69);
             ItemsListBox.Margin = new Padding(3, 4, 3, 4);
             ItemsListBox.Name = "ItemsListBox";
-            ItemsListBox.Size = new Size(339, 544);
+            ItemsListBox.Size = new Size(339, 484);
             ItemsListBox.TabIndex = 0;
             ItemsListBox.SelectedIndexChanged += ItemsListBox_SelectedIndexChanged;
             // 
@@ -338,6 +366,27 @@
             IDLabel.TabIndex = 0;
             IDLabel.Text = "ID:";
             // 
+            // OrderByLabel
+            // 
+            OrderByLabel.AutoSize = true;
+            OrderByLabel.BackColor = SystemColors.ButtonHighlight;
+            OrderByLabel.Location = new Point(8, 561);
+            OrderByLabel.Name = "OrderByLabel";
+            OrderByLabel.Size = new Size(70, 20);
+            OrderByLabel.TabIndex = 15;
+            OrderByLabel.Text = "Order by:";
+            // 
+            // SortComboBox
+            // 
+            SortComboBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            SortComboBox.FormattingEnabled = true;
+            SortComboBox.Location = new Point(84, 558);
+            SortComboBox.Margin = new Padding(3, 4, 3, 4);
+            SortComboBox.Name = "SortComboBox";
+            SortComboBox.Size = new Size(263, 28);
+            SortComboBox.TabIndex = 14;
+            SortComboBox.SelectedIndexChanged += SortComboBox_SelectedIndexChanged;
+            // 
             // ItemsTab
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -349,6 +398,7 @@
             Size = new Size(814, 679);
             BasicTableLayoutPanel.ResumeLayout(false);
             ItemGroupBox.ResumeLayout(false);
+            ItemGroupBox.PerformLayout();
             ButtonTableLayoutPanel.ResumeLayout(false);
             SelectedIntemGroupBox.ResumeLayout(false);
             SelectedIntemGroupBox.PerformLayout();
@@ -380,5 +430,9 @@
         private Button ChangeButton;
         private Label CategoryLabel;
         private ComboBox CategoryComboBox;
+        private TextBox FindTextBox;
+        private Label FindLabel;
+        private ComboBox SortComboBox;
+        private Label OrderByLabel;
     }
 }

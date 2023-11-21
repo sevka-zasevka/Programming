@@ -21,6 +21,7 @@ namespace ObjectOrientedPractices.View.Tabs
         /// Список объектов класса <see cref="Item"/>.
         /// </summary>
         private List<Item> _items = new List<Item>();
+        private List<Item> sortItems = new List<Item>();
         /// <summary>
         /// Объект класса <see cref="Item"/> со значениями полей: 
         /// название - "Name", информация - "info" и цена - 0.1.
@@ -39,6 +40,8 @@ namespace ObjectOrientedPractices.View.Tabs
         /// </summary>
         private bool AddCheck;
         private bool PrintCheck;
+        private bool srt = false;
+
 
         public List<Item> Items
         {
@@ -59,22 +62,25 @@ namespace ObjectOrientedPractices.View.Tabs
             {
                 CategoryComboBox.Items.Add(category.ToString());
             }
+            string[] sortTypes = new string[3]{"Cost (Ascending)", "Cost (Descending)", "Name"};
+            SortComboBox.Items.AddRange(sortTypes);
+            SortComboBox.SelectedIndex = 2;
         }
 
         private void AddButton_Click(object sender, EventArgs e)
         {
+            AddCheck = true;
             VisibleItems(false);
             Item item = new Item("Name " + Count.ToString(), "Info", 0.1, 0);
             Count++;
             Items.Add(item);
             ItemsListBox.Items.Add(StringToListBox(item));
             ItemsListBox.SelectedIndex = (ItemsListBox.Items.Count) - 1;
-            Index = ItemsListBox.SelectedIndex;
+            FindSelectionItemInSortList();
             SelectedItem.Name = Items[Index].Name;
             SelectedItem.Info = Items[Index].Info;
             SelectedItem.Cost = Items[Index].Cost;
             SelectedItem.Category = Items[Index].Category;
-            AddCheck = true;
         }
 
         private void CostTextBox_TextChanged(object sender, EventArgs e)
@@ -169,6 +175,7 @@ namespace ObjectOrientedPractices.View.Tabs
             Index = ItemsListBox.SelectedIndex;
             if (Index != -1)
             {
+                FindSelectionItemInSortList();
                 PrintCheck = false;
                 PrintToTextBox(Items[Index]);
                 PrintCheck = true;
@@ -184,6 +191,7 @@ namespace ObjectOrientedPractices.View.Tabs
             Index = ItemsListBox.SelectedIndex;
             if (Index != -1)
             {
+                FindSelectionItemInSortList();
                 Items.RemoveAt(Index);
                 ItemsListBox.Items.RemoveAt(Index);
                 ItemsListBox.SelectedIndex = -1;
@@ -244,7 +252,9 @@ namespace ObjectOrientedPractices.View.Tabs
             ChangeButton.Visible = visible;
             OkButton.Visible = !visible;
             CancelButton.Visible = !visible;
-            ItemsListBox.Enabled = visible;
+            ItemsListBox.Enabled = visible; 
+            SortComboBox.Enabled = visible;
+            FindTextBox.Enabled = visible;
             CostTextBox.Enabled = !visible;
             NameTextBox.Enabled = !visible;
             DescrirtionTextBox.Enabled = !visible;
@@ -292,9 +302,13 @@ namespace ObjectOrientedPractices.View.Tabs
         private void CleanTextBox()
         {
             IDTextBox.Clear();
+            IDTextBox.BackColor = Color.White;
             CostTextBox.Clear();
+            CostTextBox.BackColor = Color.White;
             NameTextBox.Clear();
+            NameTextBox.BackColor = Color.White;
             DescrirtionTextBox.Clear();
+            DescrirtionTextBox.BackColor = Color.White;
             CategoryComboBox.SelectedIndex = 0;
         }
 
@@ -311,5 +325,128 @@ namespace ObjectOrientedPractices.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Проверяет содердит ли имя товара подстроку. 
+        /// </summary>
+        /// <param name="item">Товар. </param>
+        /// <param name="str">Подстрока. </param>
+        /// <returns>Булевое значение. </returns>
+        public bool AssertString(Item item, object str)
+        {
+            if (item.Name.Contains((string)str))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Фильтрует товары относительно того, есть ли введенная строка в названии товара. 
+        /// </summary>
+        private void FindTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (FindTextBox.Text != null && Items != null)
+            {
+                Item selectedItem = SelectedItem;
+                foreach (Item item in Items)
+                {
+                    if (item.Name == (string)ItemsListBox.SelectedItem)
+                    {
+                        selectedItem = item;
+                    }
+                }
+                sortItems.Clear();
+                sortItems = DataTools.Filtration(Items, AssertString, FindTextBox.Text);
+                ItemsListBox.Items.Clear();
+                foreach (Item item in sortItems)
+                {
+                    ItemsListBox.Items.Add(StringToListBox(item));
+                }
+                if (sortItems.Contains(selectedItem))
+                {
+                    ItemsListBox.SelectedIndex = sortItems.IndexOf(selectedItem);
+                    CleanTextBox();
+                    AddCheck = true;
+                    PrintToTextBox(selectedItem);
+                    AddCheck = false;
+                }
+                else
+                {
+                    ItemsListBox.SelectedIndex = -1;
+                    CleanTextBox();
+                }
+
+            }
+        }
+
+        public void FindSelectionItemInSortList()
+        {
+            if (Items.Count > 0)
+            {
+                if (sortItems.Count > 0)
+                {
+                    if (!AddCheck)
+                    {
+                        for (int i = 0; i < Items.Count; i++)
+                        {
+                            if (sortItems[Index] == Items[i])
+                            {
+                                Index = i;
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+
+        /// <summary>
+        /// Сортирует листбокс с товарами в зависимости от выбранного значения в 
+        /// комбобоксе. 
+        /// </summary>
+        public void SortItemsInListBox()
+        {
+            if (Items == null) return;
+            Item selectedItem = SelectedItem;
+            foreach (Item item in Items)
+            {
+                if (item.Name == (string)ItemsListBox.SelectedItem)
+                {
+                    selectedItem = item;
+                }
+            }
+            List<Item> sortedItems = new List<Item>();
+            if (SortComboBox.SelectedIndex == 0)
+            {
+                sortedItems = DataTools.Sort(Items, DataTools.SortCostAscending);
+            }
+            if (SortComboBox.SelectedIndex == 1)
+            {
+                sortedItems = DataTools.Sort(Items, DataTools.SortCostDescending);
+            }
+            if (SortComboBox.SelectedIndex == 2)
+            {
+                sortedItems = DataTools.Sort(Items, DataTools.SortName);
+            }
+            ItemsListBox.Items.Clear();
+            foreach (Model.Item item in sortedItems)
+            {
+                ItemsListBox.Items.Add(item.Name);
+            }
+            ItemsListBox.SelectedIndex = sortedItems.IndexOf(selectedItem);
+        }
+
+        /// <summary>
+        /// Сортирует листбокс после изменения вида сортировки. 
+        /// </summary>
+        private void SortComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (SortComboBox.SelectedIndex != -1 && Items != null)
+            {
+                SortItemsInListBox();
+            }
+        }
     }
 }
