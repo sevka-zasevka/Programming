@@ -379,6 +379,9 @@ namespace ObjectOrientedPractices.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Метод для нахождения индекса нужного товара в основном списке из отсортированного.
+        /// </summary>
         public void FindSelectionItemInSortList()
         {
             if (Items.Count > 0)
