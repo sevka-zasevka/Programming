@@ -10,6 +10,18 @@ namespace ObjectOrientedPractices.Model
     internal class Item: ICloneable
     {
         /// <summary>
+        /// Событие изменения названия товара.
+        /// </summary>
+        public event EventHandler NameChanged;
+        /// <summary>
+        /// Событие изменения цены товара.
+        /// </summary>
+        public event EventHandler CostChanged;
+        /// <summary>
+        /// Событие изменения информации от товаре.
+        /// </summary>
+        public event EventHandler InfoChanged;
+        /// <summary>
         /// Id товара, уникальный
         /// </summary>
         readonly int _id = IdGenerator.GetNextId();
@@ -47,7 +59,11 @@ namespace ObjectOrientedPractices.Model
             set 
             {
                 ValueValidator.AssertStringOnLength(value, 200, "Item.Name");
-                _name = value;
+                if (_name != value)
+                {
+                    _name = value;
+                    NameChanged?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
 
@@ -60,7 +76,12 @@ namespace ObjectOrientedPractices.Model
             set 
             { 
                 ValueValidator.AssertStringOnLength(value, 1000, "Item.Info");
-                _info = value; 
+
+                if (_info != value)
+                {
+                    _info = value;
+                    InfoChanged?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
 
@@ -73,7 +94,12 @@ namespace ObjectOrientedPractices.Model
             set 
             {
                 ValueValidator.CheckDoubleValue(0, 100000, value, "Item.Cost");
-                _cost = value; 
+
+                if (_cost != value)
+                {
+                    _cost = value;
+                    CostChanged?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
 

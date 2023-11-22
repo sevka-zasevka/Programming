@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ObjectOrientedPractices.Services;
+﻿using ObjectOrientedPractices.Services;
 using ObjectOrientedPractices.Model;
-using System.Net.Sockets;
-using Microsoft.VisualBasic.Devices;
 using ObjectOrientedPractices.Model.Enums;
 
 namespace ObjectOrientedPractices.View.Tabs
@@ -18,9 +7,16 @@ namespace ObjectOrientedPractices.View.Tabs
     internal partial class ItemsTab : UserControl
     {
         /// <summary>
+        /// Событие изменения Списка товаров.
+        /// </summary>
+        public event EventHandler ItemsChanged;
+        /// <summary>
         /// Список объектов класса <see cref="Item"/>.
         /// </summary>
         private List<Item> _items = new List<Item>();
+        /// <summary>
+        /// Список объектов класса <see cref="Item"/>.
+        /// </summary>
         private List<Item> sortItems = new List<Item>();
         /// <summary>
         /// Объект класса <see cref="Item"/> со значениями полей: 
@@ -36,13 +32,17 @@ namespace ObjectOrientedPractices.View.Tabs
         /// </summary>
         private int Count = 1;
         /// <summary>
-        /// Булевая переменная - флаг.
+        /// Булевая переменная - флаг для добавления товаров..
         /// </summary>
         private bool AddCheck;
+        /// <summary>
+        /// булевая переменная - флаг для текстбоксов.
+        /// </summary>
         private bool PrintCheck;
-        private bool srt = false;
 
-
+        /// <summary>
+        /// Возвращает и задает список товаров класса <see cref="Item"/>.
+        /// </summary>
         public List<Item> Items
         {
             get
@@ -193,6 +193,7 @@ namespace ObjectOrientedPractices.View.Tabs
             {
                 FindSelectionItemInSortList();
                 Items.RemoveAt(Index);
+                ItemsChanged?.Invoke(this, EventArgs.Empty);
                 ItemsListBox.Items.RemoveAt(Index);
                 ItemsListBox.SelectedIndex = -1;
             }
@@ -220,6 +221,7 @@ namespace ObjectOrientedPractices.View.Tabs
             Items[Index].Name = SelectedItem.Name;
             Items[Index].Info = SelectedItem.Info;
             Items[Index].Cost = SelectedItem.Cost;
+            ItemsChanged?.Invoke(this, EventArgs.Empty);
             VisibleItems(true);
             ListBoxLineChange(Items);
             AddCheck = false;
