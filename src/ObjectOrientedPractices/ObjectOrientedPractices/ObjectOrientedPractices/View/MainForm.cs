@@ -11,7 +11,7 @@ namespace ObjectOrientedPractices.View
             Store _store = new Store();
             ItemsTab.Items = _store.Items;
             CustomersTab.Customers = _store.Customers;
-            CartsTab.Items = _store.Items;
+            CartsTab.Items = _store.Items;.
             CartsTab.Customers = _store.Customers;
             OrdersTab.CustomersOrder = _store.Customers;
             ItemsTab.ItemsChanged += ItemsTab_ItemsChanged;
