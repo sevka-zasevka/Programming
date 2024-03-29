@@ -18,12 +18,12 @@ namespace View.ViewModel
         /// <summary>
         /// Экземпляр класса <see cref="RelayCommand"/>.
         /// </summary>
-        private RelayCommand saveCommand;
+        private RelayCommand _saveCommand;
 
         /// <summary>
         /// Экземпляр класса <see cref="RelayCommand"/>.
         /// </summary>
-        private RelayCommand loadCommand;
+        private RelayCommand _loadCommand;
 
         /// <summary>
         /// Возвращает экземпляр класса <see cref="RelayCommand"/> для сериализации контакта.
@@ -32,8 +32,8 @@ namespace View.ViewModel
         {
             get
             {
-                return saveCommand ??
-                  (saveCommand = new RelayCommand(obj => ContactSerializer.SaveToFile(_contact)));
+                return _saveCommand ??
+                  (_saveCommand = new RelayCommand(obj => ContactSerializer.SaveToFile(_contact)));
             }
         }
 
@@ -44,8 +44,8 @@ namespace View.ViewModel
         {
             get
             {
-                return loadCommand ??
-                    (loadCommand = new RelayCommand(obj =>
+                return _loadCommand ??
+                    (_loadCommand = new RelayCommand(obj =>
                     {
                         var contact = ContactSerializer.LoadFromFile();
                         Name = contact.Name;
