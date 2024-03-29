@@ -18,9 +18,6 @@ namespace View.Model.Services
         /// </summary>
         public static string FileName { get; set; }
 
-        private static string _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-            "Сontacts", "contacts.json");
-
         /// <summary>
         /// Осуществляет запись данных в файл.
         /// </summary>
@@ -41,12 +38,17 @@ namespace View.Model.Services
         /// <summary>
         /// Осуществляет выгрузку данных из файла.
         /// </summary>
-        /// <returns>Возвращает коллецию контактов.</returns>
+        /// <returns>Возвращает контакт.</returns>
         public static Contact LoadFromFile()
         {
             var contact = new Contact();
             try
             {
+                if (FileName == null)
+                {
+                    string directoryName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Contacts");
+                    FileName = Path.Combine(directoryName, "contacts.json");
+                }
                 using (JsonTextReader reader = new JsonTextReader(new StreamReader(FileName)))
                 {
                     reader.Read();

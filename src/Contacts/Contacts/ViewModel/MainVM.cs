@@ -10,12 +10,24 @@ namespace View.ViewModel
 {
     public class MainVM : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Экземпляр класса <see cref="Contact"/>.
+        /// </summary>
         private Contact _contact;
 
+        /// <summary>
+        /// Экземпляр класса <see cref="RelayCommand"/>.
+        /// </summary>
         private RelayCommand saveCommand;
 
+        /// <summary>
+        /// Экземпляр класса <see cref="RelayCommand"/>.
+        /// </summary>
         private RelayCommand loadCommand;
 
+        /// <summary>
+        /// Возвращает экземпляр класса <see cref="RelayCommand"/> для сериализации контакта.
+        /// </summary>
         public RelayCommand SaveCommand
         {
             get
@@ -25,6 +37,9 @@ namespace View.ViewModel
             }
         }
 
+        /// <summary>
+        /// Возвращает экземпляр класса <see cref="RelayCommand"/> для десериализации контакта.
+        /// </summary>
         public RelayCommand LoadCommand
         {
             get
@@ -40,11 +55,18 @@ namespace View.ViewModel
             }
         }
 
+        /// <summary>
+        /// Создает экземпляр <see cref="MainVM"/>.
+        /// </summary>
         public MainVM()
         {
             _contact = new Contact();
+            _contact = ContactSerializer.LoadFromFile();
         }
 
+        /// <summary>
+        /// Возвращает и задает имя контакта.
+        /// </summary>
         public string Name
         {
             get
@@ -63,6 +85,9 @@ namespace View.ViewModel
             }
         }
 
+        /// <summary>
+        /// Возвращает и задает номер телефона контакта.
+        /// </summary>
         public string PhoneNumber
         {
             get
@@ -80,6 +105,9 @@ namespace View.ViewModel
             }
         }
 
+        /// <summary>
+        /// Возвращает и задает электронную почту контакта.
+        /// </summary>
         public string Email
         {
             get
@@ -97,17 +125,15 @@ namespace View.ViewModel
             }
         }
 
-        private void LoadContact(Contact contact)
-        {
-            if (contact != null)
-            {
-                Name = contact.Name;
-                Email = contact.Email;
-                PhoneNumber = contact.PhoneNumber;
-            }
-        }
-
+        /// <summary>
+        /// Зажигается при обновлении свойств.
+        /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        /// <summary>
+        /// Обновляет привязанные данные.
+        /// </summary>
+        /// <param name="prop"></param>
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
