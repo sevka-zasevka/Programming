@@ -14,7 +14,7 @@ namespace View.Model.Services
     /// <summary>
     /// Класс для сериализации и десериализации объектов класса <see cref="Contact"/>.
     /// </summary>
-    internal class ContactSerializer
+    public class ContactSerializer
     {
         /// <summary>
         /// Название файла.
