@@ -133,7 +133,7 @@ namespace View.ViewModel
         /// <summary>
         /// Обновляет привязанные данные.
         /// </summary>
-        /// <param name="prop"></param>
+        /// <param name="prop">Имя свойства</param>
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));

@@ -11,6 +11,9 @@ using Path = System.IO.Path;
 
 namespace View.Model.Services
 {
+    /// <summary>
+    /// Класс для сериализации и десериализации объектов класса <see cref="Contact"/>.
+    /// </summary>
     internal class ContactSerializer
     {
         /// <summary>
@@ -41,9 +44,9 @@ namespace View.Model.Services
         /// <returns>Возвращает контакт.</returns>
         public static Contact LoadFromFile()
         {
-            var contact = new Contact();
             try
             {
+                var contact = new Contact();
                 if (FileName == null)
                 {
                     string directoryName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Contacts");
@@ -61,7 +64,7 @@ namespace View.Model.Services
             }
             catch
             {
-                return contact;
+                return new Contact();
             }
         }
     }
