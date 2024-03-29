@@ -21,28 +21,40 @@
         <GroupBox Grid.Column="0" Header="Edit Contact" Margin="15 15 1.5 0">
             <StackPanel>
                 <Label Content="Name:" Margin="3 3 3 0"/>
-                <TextBox x:Name="NameTextBox" Margin="3 3 3 3"/>
+                <TextBox x:Name="NameTextBox" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Margin="3 3 3 3"/>
                 <Label Content="Phone Number:" Margin="3 0 3 0"/>
-                <TextBox x:Name="PhoneNumTextBox" Margin="3 3 3 3"/>
+                <TextBox x:Name="PhoneNumTextBox" Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" Margin="3 3 3 3"/>
                 <Label Content="E-mail:" Margin="3 0 3 0"/>
-                <TextBox x:Name="EmailTextBox" Margin="3 3 3 3"/>
+                <TextBox x:Name="EmailTextBox" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" Margin="3 3 3 3"/>
             </StackPanel>
         </GroupBox>
         <GroupBox Grid.Column="2" Header="Read Contact" Margin="1.5 15 15 0">
             <StackPanel Margin="3 0 3 0">
                 <Label Content="Name:"/>
-                <Label Content="Some name" x:Name="NameLabel" FontWeight="Bold"/>
+                <Label Content="{Binding Name}" x:Name="NameLabel" FontWeight="Bold"/>
                 <Label Content="Phone Number:"/>
-                <Label Content="phone number" x:Name="PhoneNumLabel" FontWeight="Bold"/>
+                <Label Content="{Binding PhoneNumber}" x:Name="PhoneNumLabel" FontWeight="Bold"/>
                 <Label Content="E-mail:"/>
-                <Label Content="some email" x:Name="EmailLabel" FontWeight="Bold"/>
+                <Label Content="{Binding Email}" x:Name="EmailLabel" FontWeight="Bold"/>
             </StackPanel>
         </GroupBox>
-        <Button Grid.Column="2" Grid.Row="1" x:Name="LoadButton" Content="Load" Margin="0 15 15 15" 
-                Width="72" Height="25" HorizontalAlignment="Right" VerticalAlignment="Top" 
-                Click="LoadButton_Click"/>
-        <Button Grid.Column="2" Grid.Row="1" x:Name="SaveButton" Content="Save" Margin="15 15 90 15" 
-                Width="72" Height="25" HorizontalAlignment="Right" VerticalAlignment="Top" 
-                Click="SaveButton_Click"/>
+        <Button Grid.Column="2" 
+                Command="{Binding LoadCommand}" 
+                Grid.Row="1" 
+                x:Name="LoadButton" 
+                Content="Load" 
+                Margin="0 15 15 15" 
+                Width="72" Height="25" 
+                HorizontalAlignment="Right" VerticalAlignment="Top"/>
+        <Button Grid.Column="2" 
+                Command="{Binding SaveCommand}" 
+                Grid.Row="1" 
+                x:Name="SaveButton" 
+                Content="Save" 
+                Margin="15 15 90 15" 
+                Width="72" Height="25" 
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Top" />
+        <Border BorderBrush="Black" BorderThickness="1"/>
     </Grid>
 </Window>

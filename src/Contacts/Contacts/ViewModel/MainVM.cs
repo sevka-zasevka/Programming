@@ -1,12 +1,49 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Input;
 using View.Model;
+using View.Model.Services;
 
 namespace View.ViewModel
 {
-    internal class MainVM : INotifyPropertyChanged
+    public class MainVM : INotifyPropertyChanged
     {
         private Contact _contact;
+
+        private RelayCommand saveCommand;
+
+        private RelayCommand loadCommand;
+
+        public RelayCommand SaveCommand
+        {
+            get
+            {
+                return saveCommand ??
+                  (saveCommand = new RelayCommand(obj => ContactSerializer.SaveToFile(_contact)));
+            }
+        }
+
+        public RelayCommand LoadCommand
+        {
+            get
+            {
+                return loadCommand ??
+                    (loadCommand = new RelayCommand(obj =>
+                    {
+                        var contact = ContactSerializer.LoadFromFile();
+                        Name = contact.Name;
+                        PhoneNumber = contact.PhoneNumber;
+                        Email = contact.Email;
+                    }));
+            }
+        }
+
+        public MainVM()
+        {
+            _contact = new Contact();
+        }
 
         public string Name
         {
@@ -60,7 +97,17 @@ namespace View.ViewModel
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        private void LoadContact(Contact contact)
+        {
+            if (contact != null)
+            {
+                Name = contact.Name;
+                Email = contact.Email;
+                PhoneNumber = contact.PhoneNumber;
+            }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));

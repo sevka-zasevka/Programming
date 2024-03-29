@@ -9,7 +9,7 @@ namespace View.Model
     /// <summary>
     /// Класс для хранения контактов.
     /// </summary>
-    internal class Contact
+    public class Contact
     {
         /// <summary>
         /// Имя контакта.
@@ -47,6 +47,11 @@ namespace View.Model
             Name = name;
             PhoneNumber = phoneNumber;
             Email = email;
+        }
+
+        public Contact()
+        {
+
         }
     }
 }
