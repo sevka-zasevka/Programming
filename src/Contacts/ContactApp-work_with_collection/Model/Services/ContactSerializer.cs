@@ -29,7 +29,8 @@ namespace View.Model.Services
         /// <param name="contacts">Kонтакт.</param>
         public static void SaveToFile(ObservableCollection<Contact> contacts)
         {
-            string directoryName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Contacts");
+            string directoryName =
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Contacts");
             DirectoryInfo directoryInfo = new DirectoryInfo(directoryName);
             if (!directoryInfo.Exists)
             {
@@ -37,9 +38,10 @@ namespace View.Model.Services
             }
             FileName = Path.Combine(directoryName, "contacts.json");
             File.WriteAllText(FileName, string.Empty);
-            for(int i=0;i<contacts.Count; i++)
+            for (int i = 0; i < contacts.Count; i++)
             {
                 File.AppendAllText(FileName, JsonConvert.SerializeObject(contacts[i]));
+
             }
         }
 
@@ -49,30 +51,32 @@ namespace View.Model.Services
         /// <returns>Возвращает контакт.</returns>
         public static ObservableCollection<Contact> LoadFromFile()
         {
-            try
+            string directoryName =
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Contacts");
+            DirectoryInfo directoryInfo = new DirectoryInfo(directoryName);
+            if (!directoryInfo.Exists)
             {
-                var contacts = new ObservableCollection<Contact>();
-                var contact = new Contact();
-                if (FileName == null)
+                Directory.CreateDirectory(directoryName);
+            }
+            FileName = Path.Combine(directoryName, "contacts.json");
+            FileInfo fileInfo = new FileInfo(FileName);
+            if (fileInfo.Exists)
+            {
+                ObservableCollection<Contact> contacts = new ObservableCollection<Contact>();
+                JsonTextReader reader = new JsonTextReader(new StreamReader(FileName));
+                reader.SupportMultipleContent = true;
+                while (reader.Read())
                 {
-                    string directoryName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Contacts");
-                    FileName = Path.Combine(directoryName, "contacts.json");
+                    JsonSerializer serializer = new JsonSerializer();
+                    Contact loadedContact = serializer.Deserialize<Contact>(reader);
+                    contacts.Add(loadedContact);
                 }
-                using (JsonTextReader reader = new JsonTextReader(new StreamReader(FileName)))
-                {
-                    while (reader.Read())
-                    {
-                        JsonSerializer serializer = new JsonSerializer();
-                        contact = serializer.Deserialize<Contact>(reader);
-                        contacts.Add(contact);
-                    }
-                    reader.Close();
-                }
-
+                reader.Close();
                 return contacts;
             }
-            catch
+            else
             {
+                File.WriteAllText(FileName, string.Empty);
                 return new ObservableCollection<Contact>();
             }
         }

@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using View.Model;
 using View.Model.Services;
+using System.Reflection.Metadata;
 
 namespace View.ViewModel
 {
@@ -17,58 +18,53 @@ namespace View.ViewModel
         private Contact _сurentContact;
 
         /// <summary>
+        /// Экземпляр класса <see cref="Contact"/>.
+        /// </summary>
+        private Contact _editedContact;
+
+        /// <summary>
         /// Список контактов, экземпляров класса <see cref="Contact"/>.
         /// </summary>
         private ObservableCollection<Contact> _contacts;
 
         /// <summary>
-        /// Экземпляр класса <see cref="RelayCommand"/>.
+        /// Команда добавления объекта.
         /// </summary>
-        private RelayCommand _saveCommand;
-
-        /// <summary>
-        /// Экземпляр класса <see cref="RelayCommand"/>.
-        /// </summary>
-        private RelayCommand _loadCommand;
-
         private RelayCommand _addCommand;
 
+        /// <summary>
+        /// Команда удаления объекта.
+        /// </summary>
         private RelayCommand _removeCommand;
 
+        /// <summary>
+        /// Команда редактирования объекта.
+        /// </summary>
         private RelayCommand _editCommand;
 
+        /// <summary>
+        /// Команда сохранения созданного или отредактирононового объекта.
+        /// </summary>
         private RelayCommand _applyCommand;
 
         /// <summary>
-        /// Возвращает экземпляр класса <see cref="RelayCommand"/> для сериализации контакта.
+        /// Флаг для доступа к текстбоксам.
         /// </summary>
-        public RelayCommand SaveCommand
-        {
-            get
-            {
-                return _saveCommand ??
-                  (_saveCommand = new RelayCommand(obj => ContactSerializer.SaveToFile(_contacts)));
-            }
-        }
+        private bool _isReadOnly;
 
         /// <summary>
-        /// Возвращает экземпляр класса <see cref="RelayCommand"/> для десериализации контакта.
+        /// Флаг для пометки редактирования объекта.
         /// </summary>
-        public RelayCommand LoadCommand
-        {
-            get
-            {
-                return _loadCommand ??
-                    (_loadCommand = new RelayCommand(obj =>
-                    {
-                        _contacts = ContactSerializer.LoadFromFile();
-                        Name = null;
-                        PhoneNumber = null;
-                        Email = null;
-                    }));
-            }
-        }
+        private bool _isEditing;
 
+        /// <summary>
+        /// Флаг для видимости кнопки Apply.
+        /// </summary>
+        private bool _visibility;
+
+        /// <summary>
+        /// Сшздает новый объект.
+        /// </summary>
         public RelayCommand AddCommand
         {
             get
@@ -76,13 +72,18 @@ namespace View.ViewModel
                 return _addCommand ??
                     (_addCommand = new RelayCommand(obj =>
                     {
-                        var contact = new Contact();
-                        _contacts.Add(contact);
-                        _сurentContact = contact;
-                    }));
+                        CurentContact = new Contact();
+                        IsReadOnly = false;
+                        Visibility = true;
+                    },
+                    (obj)=>(IsReadOnly!=false)));
             }
         }
 
+        /// <summary>
+        /// Удаляет выбранный объект.
+        /// Сохраняет в файл.
+        /// </summary>
         public RelayCommand RemoveCommand
         {
             get
@@ -90,30 +91,33 @@ namespace View.ViewModel
                 return _removeCommand ??
                     (_removeCommand = new RelayCommand(obj =>
                     {
-                        for (int i = 0; i < _contacts.Count; i++)
+                        int n = Contacts.IndexOf(_сurentContact);
+                        Contacts.RemoveAt(n);
+                        ContactSerializer.SaveToFile(Contacts);
+                        if (Contacts.Count == 0)
                         {
-                            if (_contacts[i] == _сurentContact)
-                            {
-                                _contacts.RemoveAt(i);
-                                if (_contacts[i + 1] != null)
-                                {
-                                    _сurentContact = _contacts[i + 1];
-                                    return;
-                                }
-                                if (_contacts.Count != 1)
-                                {
-                                    _сurentContact = _contacts[i - 1];
-                                }
-                                else
-                                {
-                                    _сurentContact = null;
-                                }
-                            }
+                            CurentContact = null;
+                            EditedContact = null;
+                            return;
                         }
-                    }));
+                        if (Contacts.Count > n)
+                        {
+                            CurentContact = Contacts[n];
+                        }
+                        else
+                        {
+                            CurentContact = Contacts[n - 1];
+                        }
+                    },
+                    (obj)=>(Contacts.Count > 0 && CurentContact != null &&
+                              Contacts.IndexOf(CurentContact) != -1 &&
+                              IsReadOnly!=false)));
             }
         }
 
+        /// <summary>
+        /// Открывает доступ к редактированию выбранного объекта.
+        /// </summary>
         public RelayCommand EditCommand
         {
             get
@@ -121,13 +125,21 @@ namespace View.ViewModel
                 return _editCommand ??
                     (_editCommand = new RelayCommand(obj =>
                     {
-                        var contact = new Contact();
-                        _contacts.Add(contact);
-                        _сurentContact = contact;
-                    }));
+                        if (CurentContact != null)
+                        {
+                            IsEditing = true;
+                            IsReadOnly = false;
+                            Visibility = true;
+                        }
+                    },
+                    (obj)=>(IsReadOnly!=false)));
             }
         }
 
+        /// <summary>
+        /// Добавляет созданный объект или созраняет изменения.
+        /// Сохраняет в файл.
+        /// </summary>
         public RelayCommand ApplyCommand
         {
             get
@@ -135,10 +147,21 @@ namespace View.ViewModel
                 return _applyCommand ??
                     (_applyCommand = new RelayCommand(obj =>
                     {
-                        var contact = new Contact();
-                        _contacts.Add(contact);
-                        _сurentContact = contact;
-                    }));
+                        IsReadOnly = true;
+                        if(IsEditing!=true)
+                        {
+                            CopyContact(CurentContact, EditedContact);
+                            Contacts.Add(CurentContact);
+                        }
+                        else
+                        {
+                            CopyContact(CurentContact, EditedContact);
+                        }
+                        IsEditing = false;
+                        Visibility = false;
+                        ContactSerializer.SaveToFile(Contacts);
+                    }, 
+                    (obj) => (CurentContact!=null)));
             }
         }
 
@@ -147,70 +170,78 @@ namespace View.ViewModel
         /// </summary>
         public MainVM()
         {
+            EditedContact = new Contact();
+            CurentContact = new Contact();
             _contacts = ContactSerializer.LoadFromFile();
+            if (Contacts.Count != 0)
+            {
+                CurentContact= _contacts[0];
+            }
+            IsEditing = false;
+            IsReadOnly = true;
+            Visibility = false;
         }
 
         /// <summary>
-        /// Возвращает и задает имя контакта.
+        /// Возвращает и задает флаг для доступа к текстбоксам.
         /// </summary>
-        public string Name
+        public bool IsReadOnly
         {
             get
             {
-                return _сurentContact.Name;
+                return _isReadOnly;
             }
-
             set
             {
-                if (_сurentContact.Name != value)
+                if (_isReadOnly != value)
                 {
-
-                    _сurentContact.Name = value;
+                    _isReadOnly = value;
                     OnPropertyChanged();
                 }
             }
         }
 
         /// <summary>
-        /// Возвращает и задает номер телефона контакта.
+        /// Возвращает и задает флаг для пометки редактирования объекта.
         /// </summary>
-        public string PhoneNumber
+        public bool IsEditing
         {
             get
             {
-                return _сurentContact.PhoneNumber;
+                return _isEditing;
             }
-
             set
             {
-                if (_сurentContact.PhoneNumber != value)
+                if (_isEditing != value)
                 {
-                    _сurentContact.PhoneNumber = value;
+                    _isEditing = value;
                     OnPropertyChanged();
                 }
             }
         }
 
         /// <summary>
-        /// Возвращает и задает электронную почту контакта.
+        /// Возвращает и задает значение свойства видимости кнопки Apply.
         /// </summary>
-        public string Email
+        public bool Visibility
         {
             get
             {
-                return _сurentContact.Email;
+                return _visibility;
             }
-
             set
             {
-                if (_сurentContact.Email != value)
+                if (_visibility != value)
                 {
-                    _сurentContact.Email = value;
+                    _visibility = value;
                     OnPropertyChanged();
                 }
             }
         }
 
+        /// <summary>
+        /// Коллекция объектов типа <see cref="Contact"/>.
+        /// </summary>
         public ObservableCollection<Contact> Contacts
         {
             get
@@ -228,6 +259,28 @@ namespace View.ViewModel
             }
         }
 
+        /// <summary>
+        /// Возвращает и задает копию редактированного контакта.
+        /// </summary>
+        public Contact EditedContact 
+        {
+            get 
+            { 
+                return _editedContact; 
+            }
+            set
+            {
+                if(_editedContact != value)
+                {
+                    _editedContact = value;
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Возвращает и задает выбранный контакт.
+        /// </summary>
         public Contact CurentContact
         {
             get
@@ -239,9 +292,13 @@ namespace View.ViewModel
             {
                 if (_сurentContact != value)
                 {
+                    IsEditing = false;
+                    IsReadOnly = true;
+                    Visibility = false;
                     _сurentContact = value;
-                    OnPropertyChanged();
+                    CopyContact(EditedContact, CurentContact);
                 }
+                OnPropertyChanged();
             }
         }
 
@@ -263,6 +320,21 @@ namespace View.ViewModel
         private void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+
+        /// <summary>
+        /// Метод для копирования объектов типа <see cref="Contact"/>.
+        /// </summary>
+        /// <param name="contact">Контак в который копируются данные.</param>
+        /// <param name="copiedContact">Копируемый контакт.</param>
+        private void CopyContact(Contact contact, Contact copiedContact)
+        {
+            if (copiedContact != null)
+            {
+                contact.Name = copiedContact.Name;
+                contact.Email = copiedContact.Email;
+                contact.PhoneNumber = copiedContact.PhoneNumber;
+            }
         }
     }
 }

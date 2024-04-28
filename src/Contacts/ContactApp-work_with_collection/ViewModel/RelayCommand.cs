@@ -15,7 +15,12 @@ namespace View.ViewModel
         /// <summary>
         /// Поле для хранения команды.
         /// </summary>
-        private Action<object> execute;
+        private Action<object> _execute;
+
+        /// <summary>
+        /// Поле для хранения значения фунции.
+        /// </summary>
+        private Func<object, bool> _canExecute;
 
         public event EventHandler CanExecuteChanged
         {
@@ -24,12 +29,14 @@ namespace View.ViewModel
         }
 
         /// <summary>
-        /// Метод для сохдания экземпляра <see cref="RelayCommand"/>.
+        /// Создает объект класса <see cref="RelayCommand">.
         /// </summary>
-        /// <param name="execute">Команда.</param>
-        public RelayCommand(Action<object> execute)
+        /// <param name="execute">Действие, выполняемое командой.</param>
+        /// <param name="canExecute">Условие выполнения команды.</param>
+        public RelayCommand(Action<object> execute, Func<object, bool> canExecute)
         {
-            this.execute = execute;
+            this._execute = execute;
+            this._canExecute = canExecute;
         }
 
         /// <summary>
@@ -48,7 +55,7 @@ namespace View.ViewModel
         /// <param name="parameter">Параметр.</param>
         public void Execute(object parameter)
         {
-            this.execute(parameter);
+            this._execute(parameter);
         }
     }
 }
