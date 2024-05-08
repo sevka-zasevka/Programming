@@ -10,6 +10,9 @@ using System.Reflection.Metadata;
 
 namespace View.ViewModel
 {
+    /// <summary>
+    /// Класс viewModel, соединяющий уровни View и Model.
+    /// </summary>
     public class MainVM : INotifyPropertyChanged
     {
         /// <summary>
@@ -60,7 +63,7 @@ namespace View.ViewModel
         /// <summary>
         /// Флаг для видимости кнопки Apply.
         /// </summary>
-        private bool _visibility;
+        private bool _isVisible;
 
         /// <summary>
         /// Сшздает новый объект.
@@ -74,7 +77,7 @@ namespace View.ViewModel
                     {
                         CurentContact = new Contact();
                         IsReadOnly = false;
-                        Visibility = true;
+                        IsVisible = true;
                     },
                     (obj)=>(IsReadOnly!=false)));
             }
@@ -129,7 +132,7 @@ namespace View.ViewModel
                         {
                             IsEditing = true;
                             IsReadOnly = false;
-                            Visibility = true;
+                            IsVisible = true;
                         }
                     },
                     (obj)=>(IsReadOnly!=false)));
@@ -150,15 +153,18 @@ namespace View.ViewModel
                         IsReadOnly = true;
                         if(IsEditing!=true)
                         {
-                            CopyContact(CurentContact, EditedContact);
+                            CurentContact = CopyContact(EditedContact);
                             Contacts.Add(CurentContact);
                         }
                         else
                         {
-                            CopyContact(CurentContact, EditedContact);
+                            int index = Contacts.IndexOf(CurentContact);
+                            CurentContact = CopyContact(EditedContact);
+                            Contacts[index] = CopyContact(CurentContact);
+                            CurentContact = Contacts[index];
                         }
                         IsEditing = false;
-                        Visibility = false;
+                        IsVisible = false;
                         ContactSerializer.SaveToFile(Contacts);
                     }, 
                     (obj) => (CurentContact!=null)));
@@ -179,7 +185,7 @@ namespace View.ViewModel
             }
             IsEditing = false;
             IsReadOnly = true;
-            Visibility = false;
+            IsVisible = false;
         }
 
         /// <summary>
@@ -223,17 +229,17 @@ namespace View.ViewModel
         /// <summary>
         /// Возвращает и задает значение свойства видимости кнопки Apply.
         /// </summary>
-        public bool Visibility
+        public bool IsVisible
         {
             get
             {
-                return _visibility;
+                return _isVisible;
             }
             set
             {
-                if (_visibility != value)
+                if (_isVisible != value)
                 {
-                    _visibility = value;
+                    _isVisible = value;
                     OnPropertyChanged();
                 }
             }
@@ -294,9 +300,9 @@ namespace View.ViewModel
                 {
                     IsEditing = false;
                     IsReadOnly = true;
-                    Visibility = false;
+                    IsVisible = false;
                     _сurentContact = value;
-                    CopyContact(EditedContact, CurentContact);
+                    EditedContact = CopyContact(CurentContact);
                 }
                 OnPropertyChanged();
             }
@@ -327,14 +333,16 @@ namespace View.ViewModel
         /// </summary>
         /// <param name="contact">Контак в который копируются данные.</param>
         /// <param name="copiedContact">Копируемый контакт.</param>
-        private void CopyContact(Contact contact, Contact copiedContact)
+        private Contact CopyContact(Contact copiedContact)
         {
+            var contact = new Contact();
             if (copiedContact != null)
             {
                 contact.Name = copiedContact.Name;
                 contact.Email = copiedContact.Email;
                 contact.PhoneNumber = copiedContact.PhoneNumber;
             }
+            return contact;
         }
     }
 }

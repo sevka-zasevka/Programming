@@ -1,61 +1,59 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
-namespace View.ViewModel
+/// <summary>
+/// 
+/// </summary>
+public class RelayCommand : ICommand
 {
     /// <summary>
-    /// Класс для создания команд.
+    /// Делегат команды.
     /// </summary>
-    public class RelayCommand : ICommand
+    private Action<object> execute;
+
+    /// <summary>
+    /// Делегат проверки возможности выполнения команды.
+    /// </summary>
+    private Func<object, bool> canExecute;
+
+    /// <summary>
+    /// Событие интерфейса ICommand 
+    /// (подписывается на событие при создании 
+    /// и отписывается от него при удалении)
+    /// </summary>
+    public event EventHandler CanExecuteChanged
     {
-        /// <summary>
-        /// Поле для хранения команды.
-        /// </summary>
-        private Action<object> _execute;
+        add { CommandManager.RequerySuggested += value; }
+        remove { CommandManager.RequerySuggested -= value; }
+    }
 
-        /// <summary>
-        /// Поле для хранения значения фунции.
-        /// </summary>
-        private Func<object, bool> _canExecute;
+    /// <summary>
+    /// Конструктор класса <see cref="RelayCommand"/>.
+    /// </summary>
+    /// <param name="execute">Делегат команды.</param>
+    /// <param name="canExecute">Делегат функции проверки 
+    /// возможности выполнения</param>
+    public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
+    {
+        this.execute = execute;
+        this.canExecute = canExecute;
+    }
 
-        public event EventHandler CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
+    /// <summary>
+    /// Метод, проверяющий возможность выполнения команды.
+    /// </summary>
+    /// <param name="parameter">Объект, которые несет в себе смысл можно или нет.</param>
+    /// <returns>Булевое значение можно выполнить команду или нет.</returns>
+    public bool CanExecute(object parameter)
+    {
+        return this.canExecute == null || this.canExecute(parameter);
+    }
 
-        /// <summary>
-        /// Создает объект класса <see cref="RelayCommand">.
-        /// </summary>
-        /// <param name="execute">Действие, выполняемое командой.</param>
-        /// <param name="canExecute">Условие выполнения команды.</param>
-        public RelayCommand(Action<object> execute, Func<object, bool> canExecute)
-        {
-            this._execute = execute;
-            this._canExecute = canExecute;
-        }
-
-        /// <summary>
-        /// Метод для определения может ли команда выполниться.
-        /// </summary>
-        /// <param name="parameter">Параметр.</param>
-        /// <returns>Всегда true</returns>
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        /// <summary>
-        /// Метод выполняет логику команды.
-        /// </summary>
-        /// <param name="parameter">Параметр.</param>
-        public void Execute(object parameter)
-        {
-            this._execute(parameter);
-        }
+    /// <summary>
+    /// Метод, выполняет команду.
+    /// </summary>
+    /// <param name="parameter">Объект(команда).</param>
+    public void Execute(object parameter)
+    {
+        this.execute(parameter);
     }
 }

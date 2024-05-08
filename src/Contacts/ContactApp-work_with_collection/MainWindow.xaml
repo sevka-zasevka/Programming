@@ -99,7 +99,7 @@
                         Text = "{Binding EditedContact.Email, UpdateSourceTrigger=PropertyChanged}"
                          IsReadOnly="{Binding IsReadOnly}"/>
                 <Button Content="Apply" Height="25" Width="75" Margin="3 50" HorizontalAlignment="Left" 
-                        Visibility="{Binding Visibility, Converter={StaticResource boolToVis}}"
+                        Visibility="{Binding IsVisible, Converter={StaticResource boolToVis}}"
                         Command="{Binding ApplyCommand}"/>
             </StackPanel>
         </Grid>
