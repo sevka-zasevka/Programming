@@ -80,7 +80,7 @@ namespace View.ViewModel
                 {
 
                     _contact.Name = value;
-                    OnPropertyChanged(nameof(Name));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -100,7 +100,7 @@ namespace View.ViewModel
                 if (_contact.PhoneNumber != value)
                 {
                     _contact.PhoneNumber = value;
-                    OnPropertyChanged(nameof(PhoneNumber));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -120,7 +120,7 @@ namespace View.ViewModel
                 if (_contact.Email != value)
                 {
                     _contact.Email = value;
-                    OnPropertyChanged(nameof(Email));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -132,9 +132,15 @@ namespace View.ViewModel
 
         /// <summary>
         /// Обновляет привязанные данные.
+        /// О атрибуте CallerMemberName:
+        /// Этот интерфейс позволяет свойству объекта уведомлять связанный 
+        /// элемент управления об изменении свойства, чтобы элемент управления 
+        /// мог отображать обновленные сведения. Удобно, что если переименовать свойства,
+        /// то не нужно вставлять изменения в вызов метода, потому что CallerMemberName 
+        /// сделает это сам.
         /// </summary>
-        /// <param name="prop">Имя свойства</param>
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        /// <param name="prop">Имя свойства.</param>
+        private void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
