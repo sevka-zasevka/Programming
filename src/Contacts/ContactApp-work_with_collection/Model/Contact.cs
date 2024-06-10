@@ -34,8 +34,11 @@ namespace View.Model
             get => _name;
             set
             {
-                _name = value;
-                OnPropertyChanged();
+                if (value != null && value.Length <= 100)
+                {
+                    _name = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -47,8 +50,11 @@ namespace View.Model
             get => _phoneNumber;
             set
             {
-                _phoneNumber = value;
-                OnPropertyChanged();
+                if (value!=null && value.Length <= 100)
+                {
+                    _phoneNumber = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -60,8 +66,11 @@ namespace View.Model
             get => _email;
             set
             {
-                _email = value;
-                OnPropertyChanged();
+                if (value != null && value.Length <= 100)
+                {
+                    _email = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
