@@ -245,6 +245,7 @@ namespace View.ViewModel
             }
         }
 
+
         /// <summary>
         /// Коллекция объектов типа <see cref="Contact"/>.
         /// </summary>

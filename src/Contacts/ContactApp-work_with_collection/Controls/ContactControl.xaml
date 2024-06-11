@@ -6,6 +6,32 @@
              xmlns:local="clr-namespace:ContactApp_work_with_collection.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="StackLabel">
+            <Setter Property="ItemsControl.Padding" Value="0,0,0,0"/>
+            <Setter Property="ItemsControl.Margin" Value="3, 3, 8, 3"/>
+        </Style>
+
+        <Style TargetType="{x:Type TextBox}" x:Key="validationFailed">
+            <Setter Property="ItemsControl.Margin" Value="3, 3, 8, 3"/>
+
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border BorderThickness="1">
+                            <AdornedElementPlaceholder/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="Background" Value="#FFDDDD"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <Grid Grid.Column="2" Grid.RowSpan="3" Margin="8 8 8 8">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -14,16 +40,19 @@
         <StackPanel Grid.Column="1">
             <Label Content="Name:"/>
             <TextBox x:Name="NameTextBox" HorizontalAlignment="Stretch" Margin="3 3 3 3"  
-                Text = "{Binding EditedContact.Name, UpdateSourceTrigger=PropertyChanged}"
+                Text = "{Binding EditedContact.Name, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                Style="{StaticResource validationFailed}"
                 IsReadOnly="{Binding IsReadOnly}"/>
             <Label Content="Phone Number:"/>
             <TextBox x:Name="PhoneNumberTextBox" HorizontalAlignment="Stretch" Margin="3 3 3 3"  
-                 Text = "{Binding EditedContact.PhoneNumber, UpdateSourceTrigger=PropertyChanged}"
+                 Text = "{Binding EditedContact.PhoneNumber, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                  Style="{StaticResource validationFailed}"
                   PreviewTextInput="PhoneNumberTextBox_PreviewTextInput"
                   IsReadOnly="{Binding IsReadOnly}"/>
             <Label Content="E-mail:"/>
             <TextBox x:Name="EmailTextBox" HorizontalAlignment="Stretch" Margin="3 3 3 3"  
-                Text = "{Binding EditedContact.Email, UpdateSourceTrigger=PropertyChanged}"
+                Text = "{Binding EditedContact.Email, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                 Style="{StaticResource validationFailed}"
                  IsReadOnly="{Binding IsReadOnly}"/>
         </StackPanel>
     </Grid>

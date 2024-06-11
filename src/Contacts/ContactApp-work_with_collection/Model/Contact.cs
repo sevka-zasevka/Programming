@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ContactApp_work_with_collection.Model.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace View.Model
     /// <summary>
     /// Класс для хранения контактов.
     /// </summary>
-    public class Contact : INotifyPropertyChanged
+    public class Contact : INotifyPropertyChanged, IDataErrorInfo
     {
         /// <summary>
         /// Имя контакта.
@@ -34,11 +35,9 @@ namespace View.Model
             get => _name;
             set
             {
-                if (value != null && value.Length <= 100)
-                {
-                    _name = value;
-                    OnPropertyChanged();
-                }
+                _name = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsContactCorrect));
             }
         }
 
@@ -50,11 +49,9 @@ namespace View.Model
             get => _phoneNumber;
             set
             {
-                if (value!=null && value.Length <= 100)
-                {
-                    _phoneNumber = value;
-                    OnPropertyChanged();
-                }
+                _phoneNumber = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsContactCorrect));
             }
         }
 
@@ -66,11 +63,67 @@ namespace View.Model
             get => _email;
             set
             {
-                if (value != null && value.Length <= 100)
+                _email = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsContactCorrect));
+            }
+        }
+
+        /// <summary>
+        /// Возвращает ошибку.
+        /// </summary>
+        public string Error => "";
+
+        /// <summary>
+        /// Возвращает строку, содержащую ошибку.
+        /// </summary>
+        /// <returns>Строка, содержащая информацию об ошибке.</returns>
+        public string this[string propertyName]
+        {
+            get
+            {
+                string error = string.Empty;
+                switch (propertyName)
                 {
-                    _email = value;
-                    OnPropertyChanged();
+                    case nameof(Name):
+                        if (String.IsNullOrEmpty(Name) || Name.Length > 100)
+                        {
+                            error = "Имя должно быть от 1 до 100 символов.";
+                        }
+                        break;
+
+                    case nameof(PhoneNumber):
+
+                        if (String.IsNullOrEmpty(PhoneNumber) || PhoneNumber.Length > 100)
+                        {
+                            error = "Номер телефона должен быть не длиннее 100 символов и может содержать только цифры или символы +-() .";
+                        }
+                        break;
+
+                    case nameof(Email):
+                        if (String.IsNullOrEmpty(Email) || Email.Length > 100 || !Email.Contains("@"))
+                        {
+                            error = "Email должен быть не длиннее 100 символов и должен содержать символ @ .";
+                        }
+                        break;
                 }
+                return error;
+            }
+        }
+
+        public bool IsContactCorrect
+        {
+            get
+            {
+                foreach (var property in typeof(Contact).GetProperties())
+                {
+                    if (this[property.Name] != string.Empty)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
             }
         }
 

@@ -84,7 +84,8 @@
                 <uc:ContactControl/>
                 <Button Content="Apply" Height="25" Width="75" Margin="3 50" HorizontalAlignment="Left" 
                         Visibility="{Binding IsVisible, Converter={StaticResource boolToVis}}"
-                        Command="{Binding ApplyCommand}"/>
+                        Command="{Binding ApplyCommand}"
+                        IsEnabled="{Binding EditedContact.IsContactCorrect}"/>
             </StackPanel>
         </Grid>
     </Grid>
