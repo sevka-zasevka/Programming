@@ -42,18 +42,21 @@
             <TextBox x:Name="NameTextBox" HorizontalAlignment="Stretch" Margin="3 3 3 3"  
                 Text = "{Binding EditedContact.Name, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                 Style="{StaticResource validationFailed}"
-                IsReadOnly="{Binding IsReadOnly}"/>
+                IsReadOnly="{Binding IsReadOnly}"
+                ToolTip="The name must be between 1 and 100 characters."/>
             <Label Content="Phone Number:"/>
             <TextBox x:Name="PhoneNumberTextBox" HorizontalAlignment="Stretch" Margin="3 3 3 3"  
                  Text = "{Binding EditedContact.PhoneNumber, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                   Style="{StaticResource validationFailed}"
                   PreviewTextInput="PhoneNumberTextBox_PreviewTextInput"
-                  IsReadOnly="{Binding IsReadOnly}"/>
+                  IsReadOnly="{Binding IsReadOnly}"
+                  ToolTip="The phone number must be less than 100 characters and can only contain numbers or +-() symbols."/>
             <Label Content="E-mail:"/>
             <TextBox x:Name="EmailTextBox" HorizontalAlignment="Stretch" Margin="3 3 3 3"  
                 Text = "{Binding EditedContact.Email, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource validationFailed}"
-                 IsReadOnly="{Binding IsReadOnly}"/>
+                 IsReadOnly="{Binding IsReadOnly}"
+                 ToolTip="Email must be less than 100 characters and must contain the @ symbol."/>
         </StackPanel>
     </Grid>
 </UserControl>

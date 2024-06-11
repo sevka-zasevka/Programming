@@ -88,7 +88,7 @@ namespace View.Model
                     case nameof(Name):
                         if (String.IsNullOrEmpty(Name) || Name.Length > 100)
                         {
-                            error = "Имя должно быть от 1 до 100 символов.";
+                            error = "The name must be between 1 and 100 characters.";
                         }
                         break;
 
@@ -96,14 +96,15 @@ namespace View.Model
 
                         if (String.IsNullOrEmpty(PhoneNumber) || PhoneNumber.Length > 100)
                         {
-                            error = "Номер телефона должен быть не длиннее 100 символов и может содержать только цифры или символы +-() .";
+                            error = "The phone number must be less than 100 characters " +
+                                "and can only contain numbers or +-() symbols.";
                         }
                         break;
 
                     case nameof(Email):
                         if (String.IsNullOrEmpty(Email) || Email.Length > 100 || !Email.Contains("@"))
                         {
-                            error = "Email должен быть не длиннее 100 символов и должен содержать символ @ .";
+                            error = "Email must be less than 100 characters and must contain the @ symbol.";
                         }
                         break;
                 }
