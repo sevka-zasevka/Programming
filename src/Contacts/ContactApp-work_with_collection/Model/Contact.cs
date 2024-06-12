@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ContactApp_work_with_collection.Model.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace View.Model
     /// <summary>
     /// Класс для хранения контактов.
     /// </summary>
-    public class Contact : INotifyPropertyChanged
+    public class Contact : INotifyPropertyChanged, IDataErrorInfo
     {
         /// <summary>
         /// Имя контакта.
@@ -36,6 +37,7 @@ namespace View.Model
             {
                 _name = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(IsContactCorrect));
             }
         }
 
@@ -49,6 +51,7 @@ namespace View.Model
             {
                 _phoneNumber = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(IsContactCorrect));
             }
         }
 
@@ -62,6 +65,69 @@ namespace View.Model
             {
                 _email = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(IsContactCorrect));
+            }
+        }
+
+        /// <summary>
+        /// Возвращает ошибку.
+        /// </summary>
+        public string Error => "";
+
+        /// <summary>
+        /// Возвращает строку, содержащую ошибку.
+        /// </summary>
+        /// <returns>Строка, содержащая информацию об ошибке.</returns>
+        public string this[string propertyName]
+        {
+            get
+            {
+                string error = string.Empty;
+                switch (propertyName)
+                {
+                    case nameof(Name):
+                        if (String.IsNullOrEmpty(Name) || Name.Length > 100)
+                        {
+                            error = "The name must be between 1 and 100 characters.";
+                        }
+                        break;
+
+                    case nameof(PhoneNumber):
+
+                        if (String.IsNullOrEmpty(PhoneNumber) || PhoneNumber.Length > 100)
+                        {
+                            error = "The phone number must be less than 100 characters " +
+                                "and can only contain numbers or +-() symbols.";
+                        }
+                        break;
+
+                    case nameof(Email):
+                        if (String.IsNullOrEmpty(Email) || Email.Length > 100 || !Email.Contains("@"))
+                        {
+                            error = "Email must be less than 100 characters and must contain the @ symbol.";
+                        }
+                        break;
+                }
+                return error;
+            }
+        }
+
+        /// <summary>
+        /// Возвращает значение корректности значения контакта.
+        /// </summary>
+        public bool IsContactCorrect
+        {
+            get
+            {
+                foreach (var property in typeof(Contact).GetProperties())
+                {
+                    if (this[property.Name] != string.Empty)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
             }
         }
 

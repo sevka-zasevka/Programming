@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ContactApp_work_with_collection"
+        xmlns:uc="clr-namespace:ContactApp_work_with_collection.Controls"
         mc:Ignorable="d"
         Title="Contacts" Height="500" Width="800"
         MinWidth="600"  MinHeight="400"
@@ -13,7 +14,7 @@
         <DataTemplate x:Key="contactTemplate">
             <DockPanel>
                 <Image Width="35" Height="35" VerticalAlignment="Top" 
-                       Source="Resources/Ca100x100.png"/>
+                       Source="Resources/Cart100x100.png"/>
                 <StackPanel>
                     <TextBlock Text="{Binding Name}" FontWeight="DemiBold"/>
                     <TextBlock Text="{Binding PhoneNumber}" FontSize="10"/>
@@ -49,14 +50,8 @@
 
         <ListBox x:Name="ContactList" SelectionMode="Single" Margin="8 3 8 3" VerticalAlignment="Stretch" 
                   Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0"
-                 ItemsSource="{Binding Contacts}" SelectedItem="{Binding CurentContact}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Path=Name}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+                 ItemsSource="{Binding Contacts}" SelectedItem="{Binding CurentContact}"
+                 ItemTemplate="{StaticResource contactTemplate}">
         </ListBox>
 
         <Grid Grid.Row="2" Margin="8 0 3 8">
@@ -86,21 +81,11 @@
             <Image Source="Resources/Cart100x100.png" Grid.Column="0" Width="100" Height="100" 
                    HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3 3 3 3"/>
             <StackPanel Grid.Column="1">
-                <Label Content="Name:"/>
-                <TextBox x:Name="NameTextBox" HorizontalAlignment="Stretch" Margin="3 3 3 3"  
-                        Text = "{Binding EditedContact.Name, UpdateSourceTrigger=PropertyChanged}"
-                        IsReadOnly="{Binding IsReadOnly}"/>
-                <Label Content="Phone Number:"/>
-                <TextBox x:Name="PhoneNumberTextBox" HorizontalAlignment="Stretch" Margin="3 3 3 3"  
-                         Text = "{Binding EditedContact.PhoneNumber, UpdateSourceTrigger=PropertyChanged}"
-                          IsReadOnly="{Binding IsReadOnly}"/>
-                <Label Content="E-mail:"/>
-                <TextBox x:Name="EmailTextBox" HorizontalAlignment="Stretch" Margin="3 3 3 3"  
-                        Text = "{Binding EditedContact.Email, UpdateSourceTrigger=PropertyChanged}"
-                         IsReadOnly="{Binding IsReadOnly}"/>
+                <uc:ContactControl/>
                 <Button Content="Apply" Height="25" Width="75" Margin="3 50" HorizontalAlignment="Left" 
                         Visibility="{Binding IsVisible, Converter={StaticResource boolToVis}}"
-                        Command="{Binding ApplyCommand}"/>
+                        Command="{Binding ApplyCommand}"
+                        IsEnabled="{Binding EditedContact.IsContactCorrect}"/>
             </StackPanel>
         </Grid>
     </Grid>
