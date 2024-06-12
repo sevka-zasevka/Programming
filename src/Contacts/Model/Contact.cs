@@ -1,18 +1,12 @@
-﻿using ContactApp_work_with_collection.Model.Services;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace View.Model
+namespace Model
 {
     /// <summary>
     /// Класс для хранения контактов.
     /// </summary>
-    public class Contact : INotifyPropertyChanged, IDataErrorInfo
+    public class Contact : ObservableObject, IDataErrorInfo
     {
         /// <summary>
         /// Имя контакта.
@@ -131,26 +125,7 @@ namespace View.Model
             }
         }
 
-        /// <summary>
-        /// Зажигается при обновлении свойств.
-        /// </summary>
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        /// <summary>
-        /// Обновляет привязанные данные.
-        /// О атрибуте CallerMemberName:
-        /// Этот интерфейс позволяет свойству объекта уведомлять связанный 
-        /// элемент управления об изменении свойства, чтобы элемент управления 
-        /// мог отображать обновленные сведения. Удобно, что если переименовать свойства,
-        /// то не нужно вставлять изменения в вызов метода, потому что CallerMemberName 
-        /// сделает это сам.
-        /// </summary>
-        /// <param name="prop">Имя свойства.</param>
-        private void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
-
+        
         /// <summary>
         /// Создает экземпляр класса <see cref="Contact"/>.
         /// </summary>

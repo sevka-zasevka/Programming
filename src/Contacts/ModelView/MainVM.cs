@@ -1,19 +1,14 @@
-﻿using System.ComponentModel;
-using System.Diagnostics.Contracts;
-using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Input;
-using View.Model;
-using View.Model.Services;
-using System.Reflection.Metadata;
+﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
+using Model;
+using Model.Services;
 
-namespace View.ViewModel
+namespace ViewModel
 {
     /// <summary>
     /// Класс viewModel, соединяющий уровни View и Model.
     /// </summary>
-    public class MainVM : INotifyPropertyChanged
+    public class MainVM : ObservableObject
     {
         /// <summary>
         /// Экземпляр класса <see cref="Contact"/>.
@@ -78,7 +73,7 @@ namespace View.ViewModel
                         CurentContact = new Contact();
                         IsReadOnly = false;
                         IsVisible = true;
-                    },
+                    } ,
                     (obj)=>(IsReadOnly!=false)));
             }
         }
@@ -307,26 +302,6 @@ namespace View.ViewModel
                 }
                 OnPropertyChanged();
             }
-        }
-
-        /// <summary>
-        /// Зажигается при обновлении свойств.
-        /// </summary>
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        /// <summary>
-        /// Обновляет привязанные данные.
-        /// О атрибуте CallerMemberName:
-        /// Этот интерфейс позволяет свойству объекта уведомлять связанный 
-        /// элемент управления об изменении свойства, чтобы элемент управления 
-        /// мог отображать обновленные сведения. Удобно, что если переименовать свойства,
-        /// то не нужно вставлять изменения в вызов метода, потому что CallerMemberName 
-        /// сделает это сам.
-        /// </summary>
-        /// <param name="prop">Имя свойства.</param>
-        private void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
         /// <summary>

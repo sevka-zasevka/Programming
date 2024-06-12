@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 using Path = System.IO.Path;
 
-namespace View.Model.Services
+namespace Model.Services
 {
     /// <summary>
     /// Класс для сериализации и десериализации объектов класса <see cref="Contact"/>.
