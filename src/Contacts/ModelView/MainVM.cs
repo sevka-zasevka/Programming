@@ -1,19 +1,16 @@
-﻿using System.ComponentModel;
-using System.Diagnostics.Contracts;
-using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
-using System.Windows;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using View.Model;
-using View.Model.Services;
-using System.Reflection.Metadata;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Model;
+using Model.Services;
 
-namespace View.ViewModel
+namespace ViewModel
 {
     /// <summary>
     /// Класс viewModel, соединяющий уровни View и Model.
     /// </summary>
-    public class MainVM : INotifyPropertyChanged
+    public class MainVM : ObservableObject
     {
         /// <summary>
         /// Экземпляр класса <see cref="Contact"/>.
@@ -33,22 +30,22 @@ namespace View.ViewModel
         /// <summary>
         /// Команда добавления объекта.
         /// </summary>
-        private RelayCommand _addCommand;
+        public ICommand AddCommand { get; }
 
         /// <summary>
         /// Команда удаления объекта.
         /// </summary>
-        private RelayCommand _removeCommand;
+        public ICommand RemoveCommand { get; }
 
         /// <summary>
         /// Команда редактирования объекта.
         /// </summary>
-        private RelayCommand _editCommand;
+        public ICommand EditCommand { get; }
 
         /// <summary>
         /// Команда сохранения созданного или отредактирононового объекта.
         /// </summary>
-        private RelayCommand _applyCommand;
+        public ICommand ApplyCommand { get; }
 
         /// <summary>
         /// Флаг для доступа к текстбоксам.
@@ -64,22 +61,14 @@ namespace View.ViewModel
         /// Флаг для видимости кнопки Apply.
         /// </summary>
         private bool _isVisible;
-
-        /// <summary>
-        /// Сшздает новый объект.
-        /// </summary>
-        public RelayCommand AddCommand
+        
+        private void AddContact()
         {
-            get
+            if (IsReadOnly != false)
             {
-                return _addCommand ??
-                    (_addCommand = new RelayCommand(obj =>
-                    {
-                        CurentContact = new Contact();
-                        IsReadOnly = false;
-                        IsVisible = true;
-                    },
-                    (obj)=>(IsReadOnly!=false)));
+                CurentContact = new Contact();
+                IsReadOnly = false;
+                IsVisible = true;
             }
         }
 
@@ -87,55 +76,43 @@ namespace View.ViewModel
         /// Удаляет выбранный объект.
         /// Сохраняет в файл.
         /// </summary>
-        public RelayCommand RemoveCommand
+        public void RemoveContact()
         {
-            get
+            if (Contacts.Count > 0 && CurentContact != null &&
+                          Contacts.IndexOf(CurentContact) != -1 &&
+                          IsReadOnly != false)
             {
-                return _removeCommand ??
-                    (_removeCommand = new RelayCommand(obj =>
-                    {
-                        int n = Contacts.IndexOf(_сurentContact);
-                        Contacts.RemoveAt(n);
-                        ContactSerializer.SaveToFile(Contacts);
-                        if (Contacts.Count == 0)
-                        {
-                            CurentContact = null;
-                            EditedContact = null;
-                            return;
-                        }
-                        if (Contacts.Count > n)
-                        {
-                            CurentContact = Contacts[n];
-                        }
-                        else
-                        {
-                            CurentContact = Contacts[n - 1];
-                        }
-                    },
-                    (obj)=>(Contacts.Count > 0 && CurentContact != null &&
-                              Contacts.IndexOf(CurentContact) != -1 &&
-                              IsReadOnly!=false)));
+                int n = Contacts.IndexOf(_сurentContact);
+                Contacts.RemoveAt(n);
+                ContactSerializer.SaveToFile(Contacts);
+                if (Contacts.Count == 0)
+                {
+                    CurentContact = null;
+                    EditedContact = null;
+                    return;
+                }
+                if (Contacts.Count > n)
+                {
+                    CurentContact = Contacts[n];
+                }
+                else
+                {
+                    CurentContact = Contacts[n - 1];
+                }
             }
+
         }
 
         /// <summary>
         /// Открывает доступ к редактированию выбранного объекта.
         /// </summary>
-        public RelayCommand EditCommand
+        public void EditContact()
         {
-            get
+            if (CurentContact != null && (IsReadOnly != false))
             {
-                return _editCommand ??
-                    (_editCommand = new RelayCommand(obj =>
-                    {
-                        if (CurentContact != null)
-                        {
-                            IsEditing = true;
-                            IsReadOnly = false;
-                            IsVisible = true;
-                        }
-                    },
-                    (obj)=>(IsReadOnly!=false)));
+                IsEditing = true;
+                IsReadOnly = false;
+                IsVisible = true;
             }
         }
 
@@ -143,31 +120,27 @@ namespace View.ViewModel
         /// Добавляет созданный объект или созраняет изменения.
         /// Сохраняет в файл.
         /// </summary>
-        public RelayCommand ApplyCommand
+        public void ApplyContact()
         {
-            get
+            if ((CurentContact != null))
             {
-                return _applyCommand ??
-                    (_applyCommand = new RelayCommand(obj =>
-                    {
-                        IsReadOnly = true;
-                        if(IsEditing!=true)
-                        {
-                            CurentContact = CopyContact(EditedContact);
-                            Contacts.Add(CurentContact);
-                        }
-                        else
-                        {
-                            int index = Contacts.IndexOf(CurentContact);
-                            CurentContact = CopyContact(EditedContact);
-                            Contacts[index] = CopyContact(CurentContact);
-                            CurentContact = Contacts[index];
-                        }
-                        IsEditing = false;
-                        IsVisible = false;
-                        ContactSerializer.SaveToFile(Contacts);
-                    }, 
-                    (obj) => (CurentContact!=null)));
+                IsReadOnly = true;
+                if (IsEditing != true)
+                {
+                    CurentContact = CopyContact(EditedContact);
+                    Contacts.Add(CurentContact);
+                }
+                else
+                {
+                    int index = Contacts.IndexOf(CurentContact);
+                    CurentContact = CopyContact(EditedContact);
+                    Contacts[index] = CopyContact(CurentContact);
+                    CurentContact = Contacts[index];
+                }
+                IsEditing = false;
+                IsVisible = false;
+                ContactSerializer.SaveToFile(Contacts);
+
             }
         }
 
@@ -186,6 +159,10 @@ namespace View.ViewModel
             IsEditing = false;
             IsReadOnly = true;
             IsVisible = false;
+            AddCommand = new RelayCommand(AddContact);
+            EditCommand = new RelayCommand(EditContact);
+            RemoveCommand = new RelayCommand(RemoveContact);
+            ApplyCommand = new RelayCommand(ApplyContact);
         }
 
         /// <summary>
@@ -307,26 +284,6 @@ namespace View.ViewModel
                 }
                 OnPropertyChanged();
             }
-        }
-
-        /// <summary>
-        /// Зажигается при обновлении свойств.
-        /// </summary>
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        /// <summary>
-        /// Обновляет привязанные данные.
-        /// О атрибуте CallerMemberName:
-        /// Этот интерфейс позволяет свойству объекта уведомлять связанный 
-        /// элемент управления об изменении свойства, чтобы элемент управления 
-        /// мог отображать обновленные сведения. Удобно, что если переименовать свойства,
-        /// то не нужно вставлять изменения в вызов метода, потому что CallerMemberName 
-        /// сделает это сам.
-        /// </summary>
-        /// <param name="prop">Имя свойства.</param>
-        private void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
         /// <summary>
