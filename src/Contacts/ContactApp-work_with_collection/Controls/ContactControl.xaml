@@ -28,6 +28,9 @@
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="True">
                     <Setter Property="Background" Value="#FFDDDD"/>
+                    <Setter Property="ToolTip"
+                        Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                        Path=(Validation.Errors)/ErrorContent}"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -42,21 +45,18 @@
             <TextBox x:Name="NameTextBox" HorizontalAlignment="Stretch" Margin="3 3 3 3"  
                 Text = "{Binding EditedContact.Name, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                 Style="{StaticResource validationFailed}"
-                IsReadOnly="{Binding IsReadOnly}"
-                ToolTip="The name must be between 1 and 100 characters."/>
+                IsReadOnly="{Binding IsReadOnly}"/>
             <Label Content="Phone Number:"/>
             <TextBox x:Name="PhoneNumberTextBox" HorizontalAlignment="Stretch" Margin="3 3 3 3"  
                  Text = "{Binding EditedContact.PhoneNumber, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                   Style="{StaticResource validationFailed}"
                   PreviewTextInput="PhoneNumberTextBox_PreviewTextInput"
-                  IsReadOnly="{Binding IsReadOnly}"
-                  ToolTip="The phone number must be less than 100 characters and can only contain numbers or +-() symbols."/>
+                  IsReadOnly="{Binding IsReadOnly}"/>
             <Label Content="E-mail:"/>
             <TextBox x:Name="EmailTextBox" HorizontalAlignment="Stretch" Margin="3 3 3 3"  
                 Text = "{Binding EditedContact.Email, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource validationFailed}"
-                 IsReadOnly="{Binding IsReadOnly}"
-                 ToolTip="Email must be less than 100 characters and must contain the @ symbol."/>
+                 IsReadOnly="{Binding IsReadOnly}"/>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -112,6 +112,9 @@ namespace View.Model
             }
         }
 
+        /// <summary>
+        /// Возвращает значение корректности значения контакта.
+        /// </summary>
         public bool IsContactCorrect
         {
             get
